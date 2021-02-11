@@ -18,31 +18,35 @@ class Board extends React.Component {
   renderSquare(i) {
     return (
       <Square 
+        key={i}
         value={ this.props.squares[i] }
         onClick={ () => this.props.onClick(i) } 
       />
     );
   }
 
+  generateRow () {
+    let res;
+    for (let j = 0; j < 3; j++) {
+      
+    }
+    return res;
+  }
+
   render() {
+    let arr = [];
+
+    for (let i = 0; i < 3; i++) {
+      let row = [];
+      for (let j = 0; j < 3; j++) {
+        row.push(this.renderSquare(i*3+j));
+      }
+      arr.push(<div className="board-row">{row}</div> )
+    }
 
     return (
       <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+        {arr}
       </div>
     );
   }
@@ -67,6 +71,9 @@ class Game extends React.Component {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);   
     const current = history[history.length - 1];    
     const squares = current.squares.slice();
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
     squares[i] = this.state.xIsNext ? 'X' : 'O';
     this.setState({
       history: history.concat([{        
@@ -74,7 +81,7 @@ class Game extends React.Component {
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
-      isFinal: this.state.isFinal
+      actualSelectedMove: null,
     });
   }
 
@@ -94,7 +101,14 @@ class Game extends React.Component {
       return (        
         <li key={move}>          
           <button 
-            onClick={ () => this.jumpTo(move) }
+            style={ move === this.state.actualSelectedMove ? {'fontWeight': 'bold'}: {'fontWeight': 'normal'}}
+            onClick={ () => {
+                this.jumpTo(move);
+                this.setState({ 
+                  isFinal: false ,
+                  actualSelectedMove: move.valueOf(),
+                });
+              }}
             >
               {desc}
           </button>        
@@ -106,12 +120,11 @@ class Game extends React.Component {
     let status;    
     if (winner) {
       status = 'Winner: ' + winner;
-      this.setState({
-        history: this.history,
-        xIsNext: this.state.xIsNext,
-        stepNumber: this.state.stepNumber,
-        isFinal: true
-      });
+      if (!this.state.isFinal) {
+        this.setState({
+          isFinal: true
+        });
+      }
     } else {      
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');    
     }
