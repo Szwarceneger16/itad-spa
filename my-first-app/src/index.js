@@ -57,11 +57,14 @@ class Game extends React.Component {
     super(props);    
     this.state = {      
       history: [{        
-        squares: Array(9).fill(null),      
+        squares: Array(9).fill(null),  
+        clicked: 0    
       }],      
       stepNumber: 0,
       xIsNext: true,    
       isFinal: false,
+      actualSelectedMove: null,
+      reverseOrder: false,
     };  
   }
 
@@ -71,17 +74,18 @@ class Game extends React.Component {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);   
     const current = history[history.length - 1];    
     const squares = current.squares.slice();
-    if (calculateWinner(squares) || squares[i]) {
-      return;
-    }
+    // if (calculateWinner(squares) || squares[i]) {
+    //   return;
+    // }
     squares[i] = this.state.xIsNext ? 'X' : 'O';
     this.setState({
       history: history.concat([{        
-        squares: squares,      
+        squares: squares, 
+        clicked: i,
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
-      actualSelectedMove: null,
+      actualSelectedMove: history.length,
     });
   }
 
@@ -92,12 +96,20 @@ class Game extends React.Component {
     });  
   }
 
+  reversOrder() {
+    this.setState({
+      reverseOrder: !this.state.reverseOrder,
+    })
+  }
+
   render() {
     const history = this.state.history;    
-    const current = history[this.state.stepNumber];  
+    const current = history[this.state.stepNumber]; 
 
-    const moves = history.map((step, move) => {      
-      const desc = move ? 'Go to move #' + move :'Go to game start';      
+    let moves = history.map((step, move) => {      
+      const desc = move ? 
+        'Go to move #' + move+ ' => (' + Math.floor(step.clicked/3) + ',' + step.clicked%3 + ')' :
+        'Go to game start';      
       return (        
         <li key={move}>          
           <button 
@@ -106,11 +118,11 @@ class Game extends React.Component {
                 this.jumpTo(move);
                 this.setState({ 
                   isFinal: false ,
-                  actualSelectedMove: move.valueOf(),
+                  actualSelectedMove: move,
                 });
               }}
             >
-              {desc}
+              { desc}
           </button>        
         </li>      
         );    
@@ -129,6 +141,12 @@ class Game extends React.Component {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');    
     }
 
+    if (this.state.reverseOrder) {
+      let copyFrist = [moves.shift()];
+      moves.reverse();
+      moves = copyFrist.concat(moves);
+    }
+
     return (
       <div className="game">
         <div className="game-board">
@@ -139,7 +157,14 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{moves}</ol>
+          <div>
+            <button
+              onClick= { () => this.reversOrder() }
+            >
+              Toogle
+            </button>
+          </div>
+          <ol>{ moves }</ol>
         </div>
       </div>
     );
