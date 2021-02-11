@@ -5,7 +5,8 @@ import './index.css';
 function Square (props) {
   return (
     <button 
-      className="square"
+      className={"square" + (props.highlight ? 'winnerState' : '')}
+      // style={ props.highLight ? '' }
       onClick={ props.onClick }
       >
       { props.value}
@@ -23,14 +24,6 @@ class Board extends React.Component {
         onClick={ () => this.props.onClick(i) } 
       />
     );
-  }
-
-  generateRow () {
-    let res;
-    for (let j = 0; j < 3; j++) {
-      
-    }
-    return res;
   }
 
   render() {
@@ -89,6 +82,10 @@ class Game extends React.Component {
     });
   }
 
+  highlightWinner(lines) {
+
+  }
+
   jumpTo(step) {    
     this.setState({      
       stepNumber: step,     
@@ -131,7 +128,8 @@ class Game extends React.Component {
     const winner = calculateWinner(current.squares);    
     let status;    
     if (winner) {
-      status = 'Winner: ' + winner;
+
+      status = 'Winner: ' + current.squares[winner[0]];
       if (!this.state.isFinal) {
         this.setState({
           isFinal: true
@@ -192,7 +190,7 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      return lines[i];
     }
   }
   return null;
