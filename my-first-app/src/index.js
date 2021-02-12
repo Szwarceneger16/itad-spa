@@ -5,7 +5,7 @@ import './index.css';
 function Square (props) {
   return (
     <button 
-      className={"square" + (props.highlight ? 'winnerState' : '')}
+      className={"square " + (props.highlight ? 'winnerState' : '')}
       // style={ props.highLight ? '' }
       onClick={ props.onClick }
       >
@@ -20,6 +20,7 @@ class Board extends React.Component {
     return (
       <Square 
         key={i}
+        highlight={ this.props.highlight ? this.props.highlight.includes(i) : false }
         value={ this.props.squares[i] }
         onClick={ () => this.props.onClick(i) } 
       />
@@ -82,10 +83,6 @@ class Game extends React.Component {
     });
   }
 
-  highlightWinner(lines) {
-
-  }
-
   jumpTo(step) {    
     this.setState({      
       stepNumber: step,     
@@ -127,7 +124,7 @@ class Game extends React.Component {
 
     const winner = calculateWinner(current.squares);    
     let status;    
-    if (winner) {
+    if (winner && typeof winner !== 'string') {
 
       status = 'Winner: ' + current.squares[winner[0]];
       if (!this.state.isFinal) {
@@ -135,6 +132,8 @@ class Game extends React.Component {
           isFinal: true
         });
       }
+    } else if (winner) {
+      status = 'It\'s a draw';
     } else {      
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');    
     }
@@ -149,6 +148,7 @@ class Game extends React.Component {
       <div className="game">
         <div className="game-board">
           <Board 
+            highlight={winner}
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
           />
@@ -187,11 +187,25 @@ function calculateWinner(squares) {
     [0, 4, 8],
     [2, 4, 6],
   ];
+  let drawCount = 0;
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
       return lines[i];
+    } else {
+      let comp1 = squares[a] ? squares[a] : 'X',
+        comp2 = squares[b] ? squares[b] : 'X',
+        comp3 = squares[c] ? squares[c] : 'X';
+        
+      if ( !(comp1 === comp2 && comp1 === comp3 && comp2 === comp3 )) {
+        drawCount++;
+      } else {
+        comp1 = squares[a] ? squares[a] : 'O';
+        comp2 = squares[b] ? squares[b] : 'O';
+        comp3 = squares[c] ? squares[c] : 'O';
+        if ( !(comp1 === comp2 && comp1 === comp3 && comp2 === comp3 )) drawCount++;
+      }
     }
   }
-  return null;
+  return drawCount === 8 ? 'draw': null;
 }
