@@ -60,6 +60,10 @@ class Game extends React.Component {
       actualSelectedMove: null,
       reverseOrder: false,
     };  
+
+    // bindings
+    this.reversOrder = this.reversOrder.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(i) {
@@ -86,7 +90,9 @@ class Game extends React.Component {
   jumpTo(step) {    
     this.setState({      
       stepNumber: step,     
-      xIsNext: (step % 2) === 0,    
+      xIsNext: (step % 2) === 0,
+      isFinal: false ,
+      actualSelectedMove: step,    
     });  
   }
 
@@ -110,10 +116,6 @@ class Game extends React.Component {
             style={ move === this.state.actualSelectedMove ? {'fontWeight': 'bold'}: {'fontWeight': 'normal'}}
             onClick={ () => {
                 this.jumpTo(move);
-                this.setState({ 
-                  isFinal: false ,
-                  actualSelectedMove: move,
-                });
               }}
             >
               { desc}
@@ -157,7 +159,7 @@ class Game extends React.Component {
           <div>{status}</div>
           <div>
             <button
-              onClick= { () => this.reversOrder() }
+              onClick= { this.reversOrder }
             >
               Toogle
             </button>
@@ -176,7 +178,7 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-function calculateWinner(squares) {
+function calculateWinner(squares, xIsNext) {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -193,18 +195,20 @@ function calculateWinner(squares) {
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
       return lines[i];
     } else {
-      let comp1 = squares[a] ? squares[a] : 'X',
-        comp2 = squares[b] ? squares[b] : 'X',
+      let comp1,comp2,comp3;
+      if (xIsNext) {
+        comp1 = squares[a] ? squares[a] : 'X';
+        comp2 = squares[b] ? squares[b] : 'X';
         comp3 = squares[c] ? squares[c] : 'X';
-        
-      if ( !(comp1 === comp2 && comp1 === comp3 && comp2 === comp3 )) {
-        drawCount++;
       } else {
         comp1 = squares[a] ? squares[a] : 'O';
         comp2 = squares[b] ? squares[b] : 'O';
-        comp3 = squares[c] ? squares[c] : 'O';
-        if ( !(comp1 === comp2 && comp1 === comp3 && comp2 === comp3 )) drawCount++;
+        comp3 = squares[c] ? squares[c] : 'O'; 
       }
+        
+      if ( !(comp1 === comp2 && comp1 === comp3 && comp2 === comp3 )) {
+        drawCount++;
+      } 
     }
   }
   return drawCount === 8 ? 'draw': null;
