@@ -8,6 +8,8 @@ class ImageAnime extends React.Component {
     this.state = {
       isPlaying: false
     };
+    this.startAnimation = this.startAnimation.bind(this);
+    this.endAnimation = this.endAnimation.bind(this);
     this.elementRef = createRef();
 
     this.childrenWithProps = React.Children.map(this.props.children, child => {
@@ -57,6 +59,7 @@ class ImageAnime extends React.Component {
 ImageAnime.propTypes = {
   height: PropTypes.string.isRequired,
   width: PropTypes.string.isRequired,
+  animationClass: PropTypes.string.isRequired,
 };
 
 /* 
