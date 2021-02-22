@@ -2,8 +2,6 @@
   text-align: center;
 }
 
-
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -19,3 +17,17 @@
   color: #61dafb;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo-animation {
+    animation: App-logo-spin 2 1.5s ease-in-out alternate;
+  }
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: translate(0px, 0px)
+  }
+  to {
+    transform: translate(0px, 50px) scale(1.1, 0.9);
+  }
+}

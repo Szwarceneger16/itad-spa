@@ -1,14 +1,24 @@
-import logo from './logo.svg';
 import React from "react";
+import logo from './img/logo.svg';
 import './App.css';
 import { render } from 'react-dom';
 import ImageAnimated from './ImageAnimated/ImageAnimated.js';
 
-function App() {
+export default function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <ImageAnimated src={logo} />
+        <ImageAnimated    
+          width='200px'
+          height='200px'
+          animationClass='App-logo-animation'
+        >
+          {/* <img 
+            src={logo}
+            alt="logo"
+          /> */}
+          <h3>GHJ</h3>
+        </ImageAnimated>
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
@@ -22,7 +32,7 @@ function App() {
         </a>
       </header>
     </div>
-  );
-}
+  )
+};
 
-export default App;
+
