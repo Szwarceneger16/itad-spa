@@ -16,7 +16,7 @@ class ImageAnime extends React.Component {
       // checking isValidElement is the safe way and avoids a typescript error too
       if (React.isValidElement(child)) {
         return React.cloneElement(child, { ref: this.elementRef,
-            className: child.className + ' AnimateImage-child',
+            className: child.props.className ? child.props.className + 'AnimateImage-child' : 'AnimateImage-child',
             onAnimationEnd: this.endAnimation,
           });
       }
@@ -39,12 +39,20 @@ class ImageAnime extends React.Component {
   }
 
   render () {
+    let styles = { height: this.props.height,
+      width: this.props.width,
+    };
+    if( this.props.coords ) {
+      styles = { ...styles,
+        position: 'absolute',
+        ...this.props.coords
+        };
+    }
+
     return (
       <div 
         className="AnimateImage" 
-        style={ { height: this.props.height,
-          width: this.props.width,
-        } }
+        style={ styles }
       >
         {this.childrenWithProps}
         <div className="AnimateImage-click-area" 
@@ -57,8 +65,9 @@ class ImageAnime extends React.Component {
 }
 
 ImageAnime.propTypes = {
-  height: PropTypes.string.isRequired,
-  width: PropTypes.string.isRequired,
+  // height: PropTypes.string.isRequired,
+  // width: PropTypes.string.isRequired,
+  coords: PropTypes.objectOf(PropTypes.string).isRequired,
   animationClass: PropTypes.string.isRequired,
 };
 
