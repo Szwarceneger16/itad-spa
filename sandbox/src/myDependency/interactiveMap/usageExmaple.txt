@@ -1,0 +1,65 @@
+export default function App() {
+  const childParametrs = [ { 
+      coord: {left: '55%',top: '10%'},
+      width: '10%',
+      height: '10%',
+      animationClass:'App-logo-animation'
+    }, 
+    {
+      coord: {left: '15%',top: '50%'},
+      width: '10%',
+      height: '10%',
+      animationClass:'App-logo-animation2'
+    }];
+
+  return (
+    <div className="App">
+      <header className="App-header" >
+        <InteractiveMap
+          width='20em'
+          height='30em'
+          defaultChildProps={ { animationClass:'App-logo-animation',
+            width: '20%'} }
+          backgroundSrc={map}
+          childParametrs={childParametrs}
+        >
+          <h5 style={ { color: 'green',   overflow: 'hidden', textOverflow: 'clip'}}>PolskaPolskaPolska</h5>
+          <h5 style={ { color: 'green',   overflow: 'hidden', textOverflow: 'clip'}}>NiemcyNiemcy</h5>
+          
+
+        </InteractiveMap>
+      </header>
+    </div>
+  )
+};
+
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo-animation {
+    animation: App-logo-move 2 1.5s ease-in-out alternate;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo-animation2 {
+    animation: App-logo-move2 2 1.5s ease-in-out alternate;
+  }
+}
+
+@keyframes App-logo-move {
+  from {
+    transform: translate(0px, 0px)
+  }
+  to {
+    transform: translate(0px, 50px) scale(1.1, 0.9);
+  }
+}
+
+@keyframes App-logo-move2 {
+  from {
+    transform: translate(0px, 0px)
+  }
+  to {
+    transform: translate(50px, 00px) scale(1.2, 0.8);
+  }
+}

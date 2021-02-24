@@ -19,15 +19,30 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo-animation {
-    animation: App-logo-spin 2 1.5s ease-in-out alternate;
+    animation: App-logo-move 2 1.5s ease-in-out alternate;
   }
 }
 
-@keyframes App-logo-spin {
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo-animation2 {
+    animation: App-logo-move2 2 1.5s ease-in-out alternate;
+  }
+}
+
+@keyframes App-logo-move {
   from {
     transform: translate(0px, 0px)
   }
   to {
     transform: translate(0px, 50px) scale(1.1, 0.9);
+  }
+}
+
+@keyframes App-logo-move2 {
+  from {
+    transform: translate(0px, 0px)
+  }
+  to {
+    transform: translate(50px, 00px) scale(1.2, 0.8);
   }
 }
