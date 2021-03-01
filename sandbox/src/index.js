@@ -3,9 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ChakraProvider, ColorModeScript } from "@chakra-ui/react"
 
 ReactDOM.render(
-    <App />,
+  <ChakraProvider>
+    <ColorModeScript />
+    <App />
+  </ChakraProvider>,
   document.getElementById('root')
 );
 

@@ -1,48 +1,17 @@
-.App {
-  text-align: center;
+
+/* ============== ALL NAVBARS style */
+.nav-bar {
+
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* ============== contain CSS */
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left .5s;
 }
 
-.App-link {
-  color: #61dafb;
+body {
+  font-family: "Lato", sans-serif;
+  transition: background-color .5s;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo-animation {
-    animation: App-logo-move 2 1.5s ease-in-out alternate;
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo-animation2 {
-    animation: App-logo-move2 2 1.5s ease-in-out alternate;
-  }
-}
-
-@keyframes App-logo-move {
-  from {
-    transform: translate(0px, 0px)
-  }
-  to {
-    transform: translate(0px, 50px) scale(1.1, 0.9);
-  }
-}
-
-@keyframes App-logo-move2 {
-  from {
-    transform: translate(0px, 0px)
-  }
-  to {
-    transform: translate(50px, 00px) scale(1.2, 0.8);
-  }
-}
