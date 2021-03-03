@@ -32,7 +32,7 @@ function MyLink({ label, to, activeOnlyWhenExact }) {
             {label}
         </Link>
     );
-  }
+}
 
 function TopNav({ route }) {
     return (

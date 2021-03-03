@@ -1,6 +1,7 @@
 import Home from './pages/Home.js';
 import About from './pages/About.js';
 import Login from './pages/Login.js';
+import Register from './pages/Register.js';
 
 export default [
   {
@@ -25,5 +26,10 @@ export default [
   {
     name: 'DDD',
     to: '/ddd'
+  },
+  {
+    name: 'Register',
+    to: '/register',
+    component: Register
   },
 ];

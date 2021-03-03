@@ -8,28 +8,27 @@ import {
   useRouteMatch,
   Redirect
 } from "react-router-dom";
-import { useMediaQuery } from 'react-responsive';
-import TopNav from './components/navbar/TopNav.js';
+import { Flex } from '@chakra-ui/react';
+import TopNav from './components/navbar/TopNavBar.js';
 import AppSwitch from './components/appSwitch';
 import './App.css';
 import route from "./route.js";
 
 export default function App() {
   
-  const isMobile = useMediaQuery({ query: '(max-width: 600px)' });
 
   return (
     <div>
       <Router>
-        <div className='nav-bar'>
-          <TopNav route={route} />
-        </div>
-
-        <div fluid id='main'>
+        <TopNav route={route} />
+        <Flex minH='100vh' align="center" justify="center" bg="gray.100">
           <AppSwitch route={route} />        
-        </div>
+        </Flex>
       </Router>
     </div>
-
   )
+
+  // return (
+  //   <TopNav route={route} />
+  // )
 };
