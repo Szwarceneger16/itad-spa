@@ -95,12 +95,8 @@ class MenuLinks extends React.Component {
             if (index < 0) return null;
             return ro.splice( index,1)[0];
         }
-        //const defaultRoute = popElement(route,'Home');
         this.loginRoute =popElement(route,'Login');
-        console.log(route);
-        //debugger;
         this.registerRoute =popElement(route,'Register');
-        console.log(route);
         this.definedRoutes = route.map( el => {
             if ( el.component === undefined) return null;
             return (<MyLink key={'top'+el.name} to={el.to} label={el.name} />)
