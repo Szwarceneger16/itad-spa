@@ -5,17 +5,17 @@ import Register from './pages/Register.js';
 
 export default [
   {
-    name: 'Home',
+    name: 'home',
     to: '/',
     component: Home
   },
   {
-    name: 'Login',
+    name: 'login',
     to: '/login',
     component: Login
   },
   {
-    name: 'About',
+    name: 'about',
     to: '/about',
     component: About
   },
@@ -28,7 +28,7 @@ export default [
     to: '/ddd'
   },
   {
-    name: 'Register',
+    name: 'register',
     to: '/register',
     component: Register
   },

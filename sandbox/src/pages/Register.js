@@ -1,5 +1,6 @@
 import { Flex, Stack, Box, Heading } from '@chakra-ui/react';
-import LoginForm from '../components/loginForm';
+import RegisterForm from '../components/forms/registerForm';
+import React, { Suspense } from "react";
 
 function RegisterPage() {
 
@@ -9,7 +10,15 @@ function RegisterPage() {
           Register
         </Heading>
         <Box rounded="lg" bg="white" boxShadow="lg" p={{ base: 4, md: 8 }}>
-          <LoginForm />
+        <Stack direction={["column", "row"]} spacing="24px">
+            <Box w="240px">
+              <Stack direction={["column", "row"]} spacing="24px">
+                <Box w="240px">
+                  <RegisterForm />
+                </Box>
+              </Stack>
+            </Box>
+          </Stack> 
         </Box>
       </Stack>
   );
