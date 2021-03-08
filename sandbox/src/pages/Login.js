@@ -10,10 +10,8 @@ function LoginPage() {
           Login
         </Heading>
         <Box rounded="lg" bg="white" boxShadow="lg" p={{ base: 4, md: 8 }}>
-          <Stack direction={["column", "row"]} spacing="24px">
-            <Box w="240px">
+          <Stack direction={ "column"} spacing="24px" align="center">
               <LoginForm />
-            </Box>
           </Stack> 
         </Box>
       </Stack>

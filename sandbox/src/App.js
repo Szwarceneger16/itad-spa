@@ -23,7 +23,7 @@ export default function App() {
       <Router>
         <Suspense fallback={<h1>Loading profile...</h1>}>
           <TopNav route={route} />
-          <Flex minH='100vh' align="center" justify="center" bg="gray.100">
+          <Flex py='10vh' px='5vw' wrap='wrap' minH='100vh' align="center" justify="center" bg="gray.100">
             <AppSwitch route={route} />        
           </Flex>
         </Suspense>

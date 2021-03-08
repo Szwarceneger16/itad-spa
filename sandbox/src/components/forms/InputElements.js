@@ -9,12 +9,14 @@ import {
     InputRightElement,
     Input,
     Button,
+    Switch,
+    Checkbox ,
     color
 } from "@chakra-ui/react";
 import { Field } from 'formik';
 import { useState } from 'react';
 
-function FormControlWrapperText( {fieldName, labelStyle,labels}) {
+function InputTextWrapper( {fieldName, labelStyle,labels}) {
 
     return (
         <Field name={fieldName} >
@@ -33,7 +35,7 @@ function FormControlWrapperText( {fieldName, labelStyle,labels}) {
 }
 
 /* labels */
-function FormControlWrapperPassword( {fieldName, labelStyle, labels}) {
+function InputPasswordWrapper( {fieldName, labelStyle, labels}) {
     const [show, setShow] = useState(false);
     const handleMouseDown = (e) => {
         setShow(true);
@@ -76,4 +78,20 @@ function FormControlWrapperPassword( {fieldName, labelStyle, labels}) {
     );
 }
 
-export { FormControlWrapperText, FormControlWrapperPassword};
+function SwitchWrapper({fieldName,children}) {
+    
+    return (
+        <Field name={fieldName} >
+        {( { field,form } ) => (
+        <FormControl d="flex" alignItems="center">
+            <FormLabel htmlFor={fieldName} mb="0">
+                {children}
+            </FormLabel>
+            <Switch  id={fieldName} {...field} />
+        </FormControl>
+        )}
+        </Field>
+    )
+}
+
+export { InputTextWrapper, InputPasswordWrapper, SwitchWrapper};

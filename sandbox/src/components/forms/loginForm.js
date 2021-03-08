@@ -3,21 +3,16 @@ import React, { Suspense } from "react";
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import * as Yup from 'yup';
-import { FormControlWrapperText, FormControlWrapperPassword} from './FormControlWrappers.js';
+import { InputPasswordWrapper, InputTextWrapper, SwitchWrapper} from './InputElements.js';
 import {
-    Stack,
     Box,
-    FormControl,
-    FormLabel,
-    FormErrorMessage,
-    FormHelperText,
-    InputGroup,
-    InputRightElement,
-    Input,
     Button,
-    color
+    Flex,
+    Spacer,
+    Switch ,
 } from "@chakra-ui/react";
 import { useTranslation } from 'react-i18next';
+import { DividerWithText } from './elements.js';
 
 const labelStyle = {
     fontFamily:'sans-serif',
@@ -34,25 +29,26 @@ const labelStyle = {
 //     return result;
 // }
 
+
+
 const submitFrom = async (values, actions) => {
-    //debugger;
-    // setTimeout(() => {
-    //   alert(JSON.stringify(values, null, 2))
-    //   actions.setSubmitting(false)
-    // }, 3000)
-    const resp = await fetch('https://f176f6fd-47ff-411c-bb08-83fad0dfd0e8.mock.pstmn.io/loginGood',{
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-          },
-          body: JSON.stringify(values),
-    }).then(response => response.text())
-    .catch(e => {
-        console.log(e);
-    })
-    console.log('Success:', resp);
-    return true;
+    setTimeout(() => {
+      alert(JSON.stringify(values, null, 2))
+      actions.setSubmitting(false)
+    }, 3000)
+    // const resp = await fetch('https://f176f6fd-47ff-411c-bb08-83fad0dfd0e8.mock.pstmn.io/loginGood',{
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'Access-Control-Allow-Origin': '*',
+    //       },
+    //       body: JSON.stringify(values),
+    // }).then(response => response.text())
+    // .catch(e => {
+    //     console.log(e);
+    // })
+    // console.log('Success:', resp);
+    // return true;
   }
 
 function LoginForm() {
@@ -75,10 +71,12 @@ function LoginForm() {
     });
 
     return (
+        
             <Formik
                 initialValues={{
                     login: 'piotr',
-                    password: 'aa'
+                    password: 'aa',
+                    rememberMe: false
                 }}
                 initialErrors={true}
                 validationSchema={validationSchema}
@@ -86,12 +84,12 @@ function LoginForm() {
             >      
                 {( props ) => (    
                     <Form>              
-                        <FormControlWrapperText 
+                        <InputTextWrapper 
                             labelStyle={labelStyle}
                             fieldName='login' 
                             labels={{inputTitle: t('loginForm:input.login.title')}}
                         />
-                        <FormControlWrapperPassword 
+                        <InputPasswordWrapper 
                             labelStyle={labelStyle}
                             fieldName='password' 
                             labels={{
@@ -100,15 +98,22 @@ function LoginForm() {
                                 buttonShow: t('common:buttons.passwordVisibilityToggle.show'),
                             }}
                         />
-                        <Button 
-                            mt={4} 
-                            isLoading={props.isSubmitting}
-                            type="submit"
-                        >{t('common:buttons.submit.title')}</Button > 
+                        <Flex align='center' mt={4}>
+                        <Box>
+                            <SwitchWrapper fieldName='rememberMe'>Remember Me</SwitchWrapper>
+                        </Box>
+                        <Spacer />
+                        <Box>
+                            <Button 
+                                isLoading={props.isSubmitting}
+                                type="submit"
+                            >{t('common:buttons.submit.title')}</Button > 
+                        </Box>
+                        </Flex>
                     </Form>      
                 )}
                     
-            </Formik> 
+            </Formik>
     );
 }
 

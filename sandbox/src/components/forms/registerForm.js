@@ -3,7 +3,7 @@ import React, { Suspense} from "react";
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import * as Yup from 'yup';
-import { FormControlWrapperText, FormControlWrapperPassword} from './FormControlWrappers.js';
+import { InputPasswordWrapper, InputTextWrapper, SwitchWrapper} from './InputElements.js';
 import {
     Stack,
     Box,
@@ -86,12 +86,12 @@ function RegisterForm() {
         >
             {( props ) => (
             <Form>              
-                <FormControlWrapperText 
+                <InputTextWrapper 
                     labelStyle={labelStyle}
                     fieldName='login' 
                     labels={{inputTitle: t('registerForm:input.login.title')}}
                 />
-                <FormControlWrapperPassword 
+                <InputPasswordWrapper 
                     labelStyle={labelStyle}
                     fieldName='password' 
                     labels={{
@@ -100,6 +100,7 @@ function RegisterForm() {
                         buttonShow: t('common:buttons.passwordVisibilityToggle.show'),
                     }}
                 />
+                
                 <Button 
                     mt={4} 
                     isLoading={props.isSubmitting}
