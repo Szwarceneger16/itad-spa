@@ -1,5 +1,5 @@
 import { Formik,Field, Form } from 'formik';
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import * as Yup from 'yup';
@@ -11,8 +11,12 @@ import {
     Spacer,
     Switch ,
 } from "@chakra-ui/react";
+import {
+    useHistory,
+  } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
-import { DividerWithText } from './elements.js';
+import { DividerWithText, ErrorMessage } from './elements.js';
+import api from '../../api/api';
 
 const labelStyle = {
     fontFamily:'sans-serif',
@@ -20,40 +24,27 @@ const labelStyle = {
     fontSize:[14,16,18]
 }
 
-// async function getMesseges (lang) {
-//     const result = await new Promise(resolve => {
-//         setTimeout(() => {
-//             resolve('abcd');
-//           }, 5000)
-//     })
-//     return result;
-// }
 
-
-
-const submitFrom = async (values, actions) => {
-    setTimeout(() => {
-      alert(JSON.stringify(values, null, 2))
-      actions.setSubmitting(false)
-    }, 3000)
-    // const resp = await fetch('https://f176f6fd-47ff-411c-bb08-83fad0dfd0e8.mock.pstmn.io/loginGood',{
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'Access-Control-Allow-Origin': '*',
-    //       },
-    //       body: JSON.stringify(values),
-    // }).then(response => response.text())
-    // .catch(e => {
-    //     console.log(e);
-    // })
-    // console.log('Success:', resp);
-    // return true;
-  }
 
 function LoginForm() {
     const { t, i18n } = useTranslation(['common','loginForm']);
+    const [ submitError, setSubmitError ] = useState();
+    let history = useHistory();
     i18n.loadNamespaces('loginForm');
+
+    const submitFrom = async (values, actions) => {
+        
+        api.login(values.login,values.password)
+        .then((res) => {
+            sessionStorage.setItem('userToken',res.token)
+            history.push('/about');
+        })
+        .catch(err => {
+            console.log(err);
+            setSubmitError(t("common:forms.errors.submit400"));
+            actions.setSubmitting(false);
+        });  
+    }
 
     const validationSchema = Yup.object({
         login: Yup.string()
@@ -70,8 +61,10 @@ function LoginForm() {
         .required(t('common:forms.errors.required')),
     });
 
+    
     return (
-        
+            <>
+            {submitError && <ErrorMessage>{submitError}</ErrorMessage>}
             <Formik
                 initialValues={{
                     login: 'piotr',
@@ -98,6 +91,7 @@ function LoginForm() {
                                 buttonShow: t('common:buttons.passwordVisibilityToggle.show'),
                             }}
                         />
+                        <DividerWithText></DividerWithText>
                         <Flex align='center' mt={4}>
                         <Box>
                             <SwitchWrapper fieldName='rememberMe'>Remember Me</SwitchWrapper>
@@ -112,8 +106,8 @@ function LoginForm() {
                         </Flex>
                     </Form>      
                 )}
-                    
             </Formik>
+            </>
     );
 }
 

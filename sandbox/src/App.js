@@ -15,6 +15,11 @@ import './App.css';
 import route from "./route.js";
 import i18next from './components/i18nextConfig.js'
 
+if (process.env.NODE_ENV === 'development') {
+  const { worker } = require('./api/mocks/browser')
+  worker.start()
+}
+
 //
 export default function App() {  
     
