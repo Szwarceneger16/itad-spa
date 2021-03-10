@@ -10,10 +10,11 @@ import {
 } from "react-router-dom";
 import { Flex } from '@chakra-ui/react';
 import TopNav from './components/navbar/TopNavBar.js';
-import AppSwitch from './components/appSwitch';
+import AppSwitch from './components/appSwitch/appSwitch';
 import './App.css';
 import route from "./route.js";
-import i18next from './components/i18nextConfig.js'
+import i18next from './components/i18nextConfig.js';
+import { userTokenContext } from './components/contexts.js';
 
 if (process.env.NODE_ENV === 'development') {
   const { worker } = require('./api/mocks/browser')
@@ -21,15 +22,20 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 //
-export default function App() {  
+export default function App() { 
+  
     
   return (
     <div>
       <Router>
         <Suspense fallback={<h1>Loading profile...</h1>}>
-          <TopNav route={route} />
+            <TopNav route={route} />
+
           <Flex py='10vh' px='5vw' wrap='wrap' minH='100vh' align="center" justify="center" bg="gray.100">
-            <AppSwitch route={route} />        
+            {/* <userTokenContext.Provider value={setAuth}> */}
+              <AppSwitch route={route} />     
+            {/* </userTokenContext.Provider> */}
+               
           </Flex>
         </Suspense>
       </Router>

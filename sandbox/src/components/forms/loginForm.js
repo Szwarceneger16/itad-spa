@@ -1,5 +1,5 @@
 import { Formik,Field, Form } from 'formik';
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useEffect, useState,useContext } from "react";
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import * as Yup from 'yup';
@@ -16,6 +16,7 @@ import {
   } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { DividerWithText, ErrorMessage } from './elements.js';
+import sessionManager from './../sessionManager.js';
 import api from '../../api/api';
 
 const labelStyle = {
@@ -24,20 +25,21 @@ const labelStyle = {
     fontSize:[14,16,18]
 }
 
-
-
 function LoginForm() {
     const { t, i18n } = useTranslation(['common','loginForm']);
+    //debugger;
     const [ submitError, setSubmitError ] = useState();
     let history = useHistory();
     i18n.loadNamespaces('loginForm');
 
-    const submitFrom = async (values, actions) => {
-        
+    const submitFrom = async (values, actions) => {    
         api.login(values.login,values.password)
         .then((res) => {
-            sessionStorage.setItem('userToken',res.token)
+            
+            //authorize(true);
+            sessionManager.dispatch({type: 'setAuth', payload: res.token});
             history.push('/about');
+            
         })
         .catch(err => {
             console.log(err);

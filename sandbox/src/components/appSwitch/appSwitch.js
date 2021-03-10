@@ -1,4 +1,4 @@
-import React, { Component, useCallback, useState } from "react";
+import React, { Component, useContext, useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,12 +10,12 @@ import {
 } from "react-router-dom";
 
 function AppRoutes( props ) {
+    const route = props.route;
 
-    const route = Array.from(props.route)
-    
     return (
         <Switch>
-            {route.map(el =>{
+            { 
+            route.map(el =>{
                 if ( !el.component ) return;
                 return (
                     <Route 

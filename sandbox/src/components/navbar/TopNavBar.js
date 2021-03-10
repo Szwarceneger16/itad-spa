@@ -1,20 +1,26 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useContext,useState } from "react";
 import { Link, Box, Flex, Text, Button, Stack,Image  } from "@chakra-ui/react";
 import dotNetLogo from './../../img/grupa-net-gear--color.ico';
 import { MyLink , MenuToggle, Logo} from './elements.js';
 import { useTranslation } from 'react-i18next';
+import { popElement,createRouteComparator } from './../../utils';
+import { userTokenContext } from './../contexts.js';
+import store from './../sessionManager.js'
 
   function MenuLinks(props) {
     const { t, i18n } = useTranslation('common');
+    //console.log(props.auth);
+    //const authenticated = props.auth;
+    const [authenticated, setAuthenticated] = useState(!!store.getState().token);
+    const unsubscribe = store.subscribe(() => {
+      console.log('reload navbar');
+      setAuthenticated(true);
+  })
 
     const route = Array.from(props.route);
-    function popElement (ro,name) {
-        const index= ro.findIndex( el => el.name === name);
-        if (index < 0) return null;
-        return ro.splice( index,1)[0];
-    }
-    const loginRoute =popElement(route,'login');
-    const registerRoute =popElement(route,'register');
+
+    const loginRoute =popElement(route,createRouteComparator('login'));
+    const registerRoute =popElement(route,createRouteComparator('register'));
     const definedRoutes = route.map( el => {
         if ( el.component === undefined) return null;
         return (<MyLink key={'top'+el.name} to={el.to} label={t('routes.'+el.name)} />)
@@ -25,6 +31,9 @@ import { useTranslation } from 'react-i18next';
       display={{ base: props.isOpen ? "block" : "none", md: "block" }}
       flexBasis={{ base: "100%", md: "auto" }}
     >
+      {/* <userTokenContext.Consumer>
+        {value => setAuthenticated(value)}
+      </userTokenContext.Consumer> */}
       <Stack
         spacing={6}
         align="center"
@@ -35,32 +44,32 @@ import { useTranslation } from 'react-i18next';
         mb={[4,4,0,0]}
       >
             {!!definedRoutes && definedRoutes}
-            {loginRoute && <MyLink
-                as='button'
-                key={'top'+loginRoute.name} 
-                to={loginRoute.to} 
-                label={t('routes.'+loginRoute.name)}
-                rounded="lg"
-                px={4}
-                py={2}
-                color={["blue.600", "blue.800", "white", "white"]}
-                bg={["orange.400", "blue.100", "green.500", "green.500"]}
-                _hover={{
-                bg: ["orange.200", "green.100", "green.600", "green.600"]}}
-            />}
-            {registerRoute && <MyLink
-                as='button'
-                key={'top'+registerRoute.name} 
-                to={registerRoute.to} 
-                label={t('routes.'+registerRoute.name)}
-                rounded="lg"
-                px={4}
-                py={2}
-                color={["green.500", "ye", "green.600", "green.600"]}
-                bg={["white", "white", "gray.100", "gray.100"]}
-                _hover={{
-                bg: ["gray.300", "gray.300", "gray.300", "gray.300"]}}
-            />}
+                {!authenticated && loginRoute && <MyLink
+                    as='button'
+                    key={'top'+loginRoute.name} 
+                    to={loginRoute.to} 
+                    label={t('routes.'+loginRoute.name)}
+                    rounded="lg"
+                    px={4}
+                    py={2}
+                    color={["blue.600", "blue.800", "white", "white"]}
+                    bg={["orange.400", "blue.100", "green.500", "green.500"]}
+                    _hover={{
+                    bg: ["orange.200", "green.100", "green.600", "green.600"]}}
+                />}
+                {!authenticated && registerRoute && <MyLink
+                    as='button'
+                    key={'top'+registerRoute.name} 
+                    to={registerRoute.to} 
+                    label={t('routes.'+registerRoute.name)}
+                    rounded="lg"
+                    px={4}
+                    py={2}
+                    color={["green.500", "ye", "green.600", "green.600"]}
+                    bg={["white", "white", "gray.100", "gray.100"]}
+                    _hover={{
+                    bg: ["gray.300", "gray.300", "gray.300", "gray.300"]}}
+                />}
       </Stack>
     </Box>
   );
@@ -90,7 +99,7 @@ const NavBarContainer = ({ children, ...props }) => {
   );
 };
 
-const NavBar = ( { route, logoSrc, ...props}) => {
+const NavBar = ( { route, logoSrc,auth, ...props}) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -104,7 +113,7 @@ const NavBar = ( { route, logoSrc, ...props}) => {
         color={["white", "white", "green.500", "green.500"]}
       />
       <MenuToggle toggle={toggle} isOpen={isOpen} />
-      <MenuLinks isOpen={isOpen} route={route} />
+      <MenuLinks isOpen={isOpen} route={route} auth={auth} />
     </NavBarContainer>
   );
 };
