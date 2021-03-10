@@ -11,7 +11,7 @@ const config = {
     defaultNS: 'common',
     backend: {
       loadPath: 
-      'https://951cd042-b445-4a3c-bb7f-afb6c3f7b834.mock.pstmn.io/getTranslation/{{ns}}/{{lng}}.json',
+      '/getTranslation/{{ns}}/{{lng}}.json',
       crossDomain: true,
       requestOptions: {
       mode: 'cors',

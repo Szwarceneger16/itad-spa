@@ -17,7 +17,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { DividerWithText, ErrorMessage } from './elements.js';
 import sessionManager from './../sessionManager.js';
-import api from '../../api/api';
+import api from '../../api/apiEntity';
 
 const labelStyle = {
     fontFamily:'sans-serif',

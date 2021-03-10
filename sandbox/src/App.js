@@ -1,3 +1,4 @@
+import worker from './workerStart.js';
 import React, { Component, Suspense,  useCallback, useState } from "react";
 import {
   BrowserRouter as Router,
@@ -16,10 +17,7 @@ import route from "./route.js";
 import i18next from './components/i18nextConfig.js';
 import { userTokenContext } from './components/contexts.js';
 
-if (process.env.NODE_ENV === 'development') {
-  const { worker } = require('./api/mocks/browser')
-  worker.start()
-}
+
 
 //
 export default function App() { 

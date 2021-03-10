@@ -1,2 +1,2 @@
-import api from './api.js';
+import api from './apiEntity.js';
 export default { api };
