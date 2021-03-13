@@ -2,7 +2,7 @@ import { Flex, Stack, Box, Heading } from '@chakra-ui/react';
 import RegisterForm from '../components/forms/registerForm';
 import React, { Suspense } from "react";
 
-function RegisterPage() {
+export function Register() {
 
   return (
       <Stack spacing={8} mx="auto" w="full" maxW="md" py={12} px={6}>
@@ -23,5 +23,3 @@ function RegisterPage() {
       </Stack>
   );
 }
-
-export default RegisterPage;

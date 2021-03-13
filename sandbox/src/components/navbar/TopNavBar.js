@@ -1,21 +1,27 @@
-import React, { Suspense, useContext,useState } from "react";
+import React, { Suspense, useContext,useEffect,useState } from "react";
 import { Link, Box, Flex, Text, Button, Stack,Image  } from "@chakra-ui/react";
 import dotNetLogo from './../../img/grupa-net-gear--color.ico';
 import { MyLink , MenuToggle, Logo} from './elements.js';
 import { useTranslation } from 'react-i18next';
 import { popElement,createRouteComparator } from './../../utils';
 import { userTokenContext } from './../contexts.js';
-import store from './../sessionManager.js'
+import * as styles from './styles.js';
+import {UserAvatar} from './user.js'
 
-  function MenuLinks(props) {
+  function MenuLinks( {store, ...props} ) {
     const { t, i18n } = useTranslation('common');
     //console.log(props.auth);
     //const authenticated = props.auth;
     const [authenticated, setAuthenticated] = useState(!!store.getState().token);
-    const unsubscribe = store.subscribe(() => {
-      console.log('reload navbar');
-      setAuthenticated(true);
-  })
+
+    useEffect( () => {
+      const unsubscribe = store.subscribe(() => {
+        console.log('reload navbar');
+        setAuthenticated(true);
+      })
+      return unsubscribe;
+    }, [])
+
 
     const route = Array.from(props.route);
 
@@ -49,27 +55,17 @@ import store from './../sessionManager.js'
                     key={'top'+loginRoute.name} 
                     to={loginRoute.to} 
                     label={t('routes.'+loginRoute.name)}
-                    rounded="lg"
-                    px={4}
-                    py={2}
-                    color={["blue.600", "blue.800", "white", "white"]}
-                    bg={["orange.400", "blue.100", "green.500", "green.500"]}
-                    _hover={{
-                    bg: ["orange.200", "green.100", "green.600", "green.600"]}}
+                    {...styles.loginRouteStyle}
                 />}
                 {!authenticated && registerRoute && <MyLink
                     as='button'
                     key={'top'+registerRoute.name} 
                     to={registerRoute.to} 
                     label={t('routes.'+registerRoute.name)}
-                    rounded="lg"
-                    px={4}
-                    py={2}
-                    color={["green.500", "ye", "green.600", "green.600"]}
-                    bg={["white", "white", "gray.100", "gray.100"]}
-                    _hover={{
-                    bg: ["gray.300", "gray.300", "gray.300", "gray.300"]}}
+                    {...styles.registerRouteStyle}
                 />}
+                {authenticated && <UserAvatar />
+                }
       </Stack>
     </Box>
   );
@@ -99,7 +95,7 @@ const NavBarContainer = ({ children, ...props }) => {
   );
 };
 
-const NavBar = ( { route, logoSrc,auth, ...props}) => {
+const NavBar = ( { route, logoSrc,auth,store , ...props}) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -108,46 +104,15 @@ const NavBar = ( { route, logoSrc,auth, ...props}) => {
     <NavBarContainer {...props}>
       <Logo
         src={dotNetLogo}
+        to='/home'
         w={['30px','36px','48px','64px']/* { base: "42px", md: "50px", lg: "66px" } */}
         h={['30px','36px','48px','64px']/* { base: "42px", md: "50px", lg: "66px" } */}
         color={["white", "white", "green.500", "green.500"]}
       />
       <MenuToggle toggle={toggle} isOpen={isOpen} />
-      <MenuLinks isOpen={isOpen} route={route} auth={auth} />
+      <MenuLinks isOpen={isOpen} store={store} route={route} auth={auth} />
     </NavBarContainer>
   );
 };
 
 export default NavBar;
-
-/*
-    // constructor(props) {
-    //         //route = route.filter(el => !!el.component);
-    //     super(props);
-    //     const route = Array.from(props.route);
-    //     function popElement (ro,name) {
-    //         const index= ro.findIndex( el => el.name === name);
-    //         if (index < 0) return null;
-    //         return ro.splice( index,1)[0];
-    //     }
-    //     this.loginRoute =popElement(route,'Login');
-    //     this.registerRoute =popElement(route,'Register');
-    //     this.definedRoutes = route.map( el => {
-    //         if ( el.component === undefined) return null;
-    //         return (<MyLink key={'top'+el.name} to={el.to} label={el.name} />)
-    //     }) 
-    // }
-    <MenuItem to="/signup" isLast>
-    <Button
-      size="sm"
-      rounded="md"
-      color={["green.500", "green.500", "white", "white"]}
-      bg={["white", "white", "green.500", "green.500"]}
-      _hover={{
-        bg: ["green.100", "green.100", "green.600", "green.600"]
-      }}
-    >
-      Create Account
-    </Button>
-  </MenuItem>
-*/

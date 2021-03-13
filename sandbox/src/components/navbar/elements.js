@@ -10,10 +10,15 @@ import {
   } from "react-router-dom";
 import dotNetLogo from './../../img/grupa-net-gear--color.ico';
 
-function Logo({src,alt,...props}) {
+function Logo({src,to,alt,...props}) {
     return (
       <Box {...props}>
+        <RouterLink 
+            to={to}
+        >
           <Image w='inherit' h='inherit' src={src} alt={alt} ></Image >
+        </RouterLink>
+          
       </Box>
     );
   }

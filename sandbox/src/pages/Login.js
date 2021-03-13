@@ -2,7 +2,7 @@ import { Flex, Stack, Box, Heading } from '@chakra-ui/react';
 import LoginForm from '../components/forms/loginForm';
 import React, { Suspense } from "react";
 
-function LoginPage() {
+export function Login() {
 
   return (
       <Stack spacing={8} mx="auto" w="full" maxW="md" py={12} px={6}>
@@ -18,4 +18,3 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;

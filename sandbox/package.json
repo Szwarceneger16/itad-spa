@@ -19,6 +19,7 @@
     "react-i18next": "^11.8.8",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
+    "react-transition-group": "^4.4.1",
     "redux": "^4.0.5",
     "web-vitals": "^1.1.0",
     "yup": "^0.32.9"

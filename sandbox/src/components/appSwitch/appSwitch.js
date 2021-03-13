@@ -8,12 +8,15 @@ import {
   useRouteMatch,
   Redirect
 } from "react-router-dom";
+import { CSSTransition } from 'react-transition-group';
+import './styles.css'
 
 function AppRoutes( props ) {
     const route = props.route;
 
     return (
-        <Switch>
+        <>
+        {/* <Switch> */}
             { 
             route.map(el =>{
                 if ( !el.component ) return;
@@ -23,7 +26,18 @@ function AppRoutes( props ) {
                     path={el.to}
                     exact={true}
                     render={ props => (
-                        <el.component />
+                        <CSSTransition
+                            in={props.match != null}
+                            timeout={1300}
+                            classNames="page"
+                            unmountOnExit
+                        >
+                            <div className="page">
+                            <el.component {...props} /> 
+                            </div>
+                                   
+                        </CSSTransition>
+                        
                     )} 
                     />
                 );
@@ -31,7 +45,8 @@ function AppRoutes( props ) {
             <Route key='all' path="*">
                 <Redirect to='/' />
             </Route>
-        </Switch>
+        {/* </Switch> */}
+        </>
     );
 }
 
