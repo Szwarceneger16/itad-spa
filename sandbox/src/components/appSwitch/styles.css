@@ -1,7 +1,7 @@
 .page {
-    position: absolute;
+    /* position: absolute;
     left: 15px;
-    right: 15px;
+    right: 15px; */
   }
   
   .page-enter {
@@ -12,7 +12,7 @@
   .page-enter-active {
     opacity: 1;
     transform: scale(1);
-    transition: opacity 300ms, transform 300ms;
+    transition: opacity 1600ms, transform 1600ms;
   }
   
   .page-exit {
@@ -23,5 +23,5 @@
   .page-exit-active {
     opacity: 0;
     transform: scale(0.9);
-    transition: opacity 300ms, transform 300ms;
+    transition: opacity 1600ms, transform 1600ms;
   }

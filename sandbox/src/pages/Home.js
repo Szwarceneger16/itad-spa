@@ -2,13 +2,7 @@ import React from 'react';
 import {
   Stack,
   Box,
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-  InputGroup,
-  InputRightElement,
-  Input,
+  Flex,
   Button,
   Image,
   Badge,
@@ -27,11 +21,13 @@ const property = {
 export function Home() {
     return (
       <>
+      <Flex wrap='wrap' minH='100vh' align="center" justify="center" >
         <Article {...property} width='100%'></Article>
         <Article {...property} ></Article>
         <Article {...property} ></Article>
         <Article {...property} ></Article>        
 
+      </Flex>
       </>
     );
   }

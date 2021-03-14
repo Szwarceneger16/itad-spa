@@ -1,4 +1,4 @@
-import { Transition } from 'react-transition-group';
+import { CSSTransitionGroup, Transition  } from 'react-transition-group';
 import React, { useState,createRef,useReducer, useEffect } from 'react';
 import {
     Image,
@@ -88,10 +88,9 @@ function MenuPanel(params) {
             {...crownStyle}
         />
     )})
-    console.log('aa');
 
     return (
-        <Box onMouseLeave={() => dispatchExtend({type:'collapse'})} 
+        <Box zIndex='1000' onMouseLeave={() => dispatchExtend({type:'collapse'})} 
             position='fixed' top={"50%"} w='100px' h={crownStyle.top*2.5+'px'} transform='translate(0,-50%)' right='0px'>
             {childs}
             {/* <Button position='absolute' transform='translate(0,-50%)' top='0px'  onClick={change} >CLick</Button> */}
@@ -104,7 +103,10 @@ function MenuCrown( {inProp,animationProps,onMouseEnter,title,w,h,...props} ) {
     const reff = createRef();
 
     return (
-        <Transition in={inProp} nodeRef={reff} timeout={animationProps.duration}>
+        <Transition  
+        in={inProp} 
+        nodeRef={reff} 
+        timeout={animationProps.duration}>
             {state => (
             <Box ref={reff} style={{
                 ...animationProps.defaultStyle,
@@ -119,33 +121,9 @@ function MenuCrown( {inProp,animationProps,onMouseEnter,title,w,h,...props} ) {
                 </Tooltip>
             </Box>
             )}
-        </Transition>
+        </Transition >
     )
 }
 
-function Crown({animationProps,title,w,h,...props}) {
-    const [ hover , setHover ] = useState(false);
-    const change = () =>  {
-        setHover(!hover)
-    };
-    const reff = createRef();
-
-    return (
-        <Transition in={hover} nodeRef={reff} timeout={animationProps.duration}>
-            {state => (
-            <Box ref={reff} style={{
-                ...animationProps.defaultStyle,
-                ...animationProps.transitionStyles[state]
-            }}>
-                
-                <Tooltip label="Auto start" placement="left">
-                <Image onMouseLeave={change} onMouseEnter={change} w={w} h={h} {...(title === undefined ? {title: props.alt} : {})} {...props} />
-                </Tooltip>
-            </Box>
-            )}
-        </Transition>
-        
-    )
-}
 
 export default MenuPanel;

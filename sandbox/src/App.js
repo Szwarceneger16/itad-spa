@@ -1,7 +1,7 @@
 import worker from './workerStart.js';
 import React, { Component, Suspense,  useCallback, useContext, useState } from "react";
 import {
-  HashRouter as Router,
+  BrowserRouter  as Router,
   Switch,
   Route,
   Link,
@@ -9,7 +9,7 @@ import {
   useRouteMatch,
   Redirect
 } from "react-router-dom";
-import { Flex } from '@chakra-ui/react';
+import { Container, Box,Flex } from '@chakra-ui/react';
 import TopNav from './components/navbar/TopNavBar.js';
 import AppSwitch from './components/appSwitch/appSwitch';
 import './App.css';
@@ -37,14 +37,13 @@ export default function App() {
             <TopNav route={route} store={store} />
             <Menubar />
 
-          <Flex py='10vh' px='5vw' wrap='wrap' minH='100vh' align="center" justify="center" bg="gray.100">
+          
             {/* <userTokenContext.Provider value={setMrr}> */}
             <Suspense fallback={<h1>Profile loading</h1>}>
               <AppSwitch route={route} />     
             </Suspense>
             {/* </userTokenContext.Provider> */}
                
-          </Flex>
         </Suspense>
       </Router>
     </div>

@@ -3,7 +3,7 @@ import {Home,Login,About,Register} from '../../pages';
 export default [
   {
     name: 'home',
-    to: '/',
+    to: '/home',
     component: Home
   },
   {
