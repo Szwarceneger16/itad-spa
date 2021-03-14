@@ -31,8 +31,6 @@ function AppRoutes( props ) {
         );
     })
 
-    console.log('app '+location.key);
-    //const historyPreviousLength = 
     return (
         <>
             <TransitionGroup component={null}>
@@ -42,7 +40,7 @@ function AppRoutes( props ) {
                     timeout={600}
                     nodeRef={transitionNodeRef}
                 >                     
-                <Box  /* key={location.key} */ py='10vh' ref={transitionNodeRef} px='1vw' w='100%' minH='100vh' bg="gray.100">
+                <Box className='page' py='10vh' ref={transitionNodeRef} px='1vw' /* w='100%' minH='100vh' */ bg="gray.100">
                     <Switch /* key={location.key} */ location={location}>
                         {childRoutes }
                         <Route path='*'>
