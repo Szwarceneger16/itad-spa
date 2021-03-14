@@ -29,7 +29,7 @@ import {UserAvatar} from './user.js'
     const registerRoute =popElement(route,createRouteComparator('register'));
     const definedRoutes = route.map( el => {
         if ( el.component === undefined) return null;
-        return (<MyLink key={'top'+el.name} to={el.to} label={t('routes.'+el.name)} />)
+        return (<MyLink key={'top'+el.name} to={el.path} label={t('routes.'+el.name)} />)
     }) 
     
       return (
@@ -53,14 +53,14 @@ import {UserAvatar} from './user.js'
                 {!authenticated && loginRoute && <MyLink
                     as='button'
                     key={'top'+loginRoute.name} 
-                    to={loginRoute.to} 
+                    to={loginRoute.path} 
                     label={t('routes.'+loginRoute.name)}
                     {...styles.loginRouteStyle}
                 />}
                 {!authenticated && registerRoute && <MyLink
                     as='button'
                     key={'top'+registerRoute.name} 
-                    to={registerRoute.to} 
+                    to={registerRoute.path} 
                     label={t('routes.'+registerRoute.name)}
                     {...styles.registerRouteStyle}
                 />}

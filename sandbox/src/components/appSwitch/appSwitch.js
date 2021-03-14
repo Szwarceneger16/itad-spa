@@ -24,33 +24,31 @@ function AppRoutes( props ) {
         return (
             <Route 
             key={el.name} 
-            path={el.to}
+            path={el.path}
             exact={true}
             component={el.component}
-            >
-                {/* <el.component  /> */}
-            </Route>
+            />
         );
     })
 
+    console.log('app '+location.key);
+    //const historyPreviousLength = 
     return (
         <>
-            <TransitionGroup>
+            <TransitionGroup component={null}>
                 <CSSTransition
                     key={location.key}
                     classNames="page"
-                    transitionEnterTimeout={1600}
-                    transitionLeaveTimeout={1600}
+                    timeout={600}
                     nodeRef={transitionNodeRef}
                 >                     
-                    <Switch key={location.key} location={location}>
-                        <Box py='10vh' ref={transitionNodeRef} px='1vw' w='100%' minH='100vh' bg="gray.100">
-                            {childRoutes }
-                            <Route exact path="/">
-                                <Redirect to="/home"></Redirect>
-                            </Route>
-                        </Box>
-                    </Switch>   
+                <Box  /* key={location.key} */ py='10vh' ref={transitionNodeRef} px='1vw' w='100%' minH='100vh' bg="gray.100">
+                    <Switch /* key={location.key} */ location={location}>
+                        {childRoutes }
+                        <Route path='*'>
+                            <Redirect to="/home" />
+                        </Route>      
+                    </Switch>   </Box>
                 </CSSTransition>
             </TransitionGroup>
         </>

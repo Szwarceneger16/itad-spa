@@ -3,30 +3,30 @@ import {Home,Login,About,Register} from '../../pages';
 export default [
   {
     name: 'home',
-    to: '/home',
+    path: '/home',
     component: Home
   },
   {
     name: 'login',
-    to: '/login',
+    path: '/login',
     component: Login
   },
   {
     name: 'about',
-    to: '/about',
+    path: '/about',
     component: About
   },
   {
     name: 'BBB',
-    to: '/bbb'
+    path: '/bbb'
   },
   {
     name: 'DDD',
-    to: '/ddd'
+    path: '/ddd'
   },
   {
     name: 'register',
-    to: '/register',
+    path: '/register',
     component: Register
   },
 ];
