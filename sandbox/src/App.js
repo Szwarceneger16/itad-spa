@@ -19,12 +19,6 @@ import { userTokenContext } from './components/contexts.js';
 import Menubar from './components/menubar';
 import store from './components/sessionManager.js'
 
-// let mrr = 'initial';
-// function setMrr(params) {
-//   mrr = params;
-// }
-
-//
 export default function App() { 
 
     //const [ mrr, setMrr ] = useState('initial');
