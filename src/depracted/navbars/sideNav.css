@@ -1,0 +1,42 @@
+/* ============== SIDE NAVBAR */
+
+.side-nav-bar a:hover,.close-btn:hover {
+  color: #f1f1f1;
+}
+
+.side-nav-bar a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.side-nav-bar a,.close-btn {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  /* Position and style the close button (top right corner) */
+  .side-nav-bar .close-btn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    cursor: pointer;
+  }
+  
+  .side-nav-bar {
+    position: absolute; /* Stay in place */
+    z-index: 100; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    bottom: 0;
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    background-color: #111; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    text-align:center;
+  }

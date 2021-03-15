@@ -1,0 +1,31 @@
+{
+    "buttons": {
+        "passwordVisibilityToggle": {
+            "hide": "Hide",
+            "show": "Show"
+        },
+        "submit": {
+            "title": "Submit"
+        }
+    },
+    "forms": {
+        "errors": {
+            "password" : {
+                "lowerLetter": "Expression doesn't contain lower letter",
+                "upperLetter": "Expression doesn't contain upper letter",
+                "digit": "Expression doesn't contain any digit",
+                "special": "Expression doesn't contain any special character"
+            },
+            "min": "min {{number}} characters",
+            "max": " max {{number}} characters",
+            "required": "this field are required",
+            "submit400": "wrong creditalias"
+        }
+    },
+    "routes": {
+        "home": "Home",
+        "login": "SIGN IN",
+        "about": " About Us",
+        "register": "SIGN UP"
+    }
+}

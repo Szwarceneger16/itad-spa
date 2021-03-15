@@ -1,0 +1,17 @@
+
+/* ============== ALL NAVBARS style */
+.nav-bar {
+
+}
+
+/* ============== contain CSS */
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left .5s;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  transition: background-color .5s;
+}
+

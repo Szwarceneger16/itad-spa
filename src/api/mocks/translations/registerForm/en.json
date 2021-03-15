@@ -1,0 +1,11 @@
+{
+    "input": {
+        "login": {
+            "title": "Your Login"
+        },
+        "password": {
+            "title": "Your password"
+        }
+    }
+    
+}
