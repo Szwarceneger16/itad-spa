@@ -5,6 +5,7 @@ export const handlers = [
 // ====================== logowanie 
   rest.post('/login', (req, res, ctx) => {
     // Persist user's authentication in the session
+
     const body = JSON.parse(req.body);
     if (!body.login || !body.password) {
       return res(
@@ -21,6 +22,7 @@ export const handlers = [
     const token = Math.random();
     sessionStorage.setItem(userData.login, JSON.stringify(token));   
     
+    //const cokkieBody = `login=${userData.login}; Expires= ${(new Date(Date.now()+(24*3600*1000))).toUTCString()};`;
     return res(
       ctx.status(200),
       ctx.json(userData)

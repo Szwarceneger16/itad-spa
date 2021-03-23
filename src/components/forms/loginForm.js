@@ -33,7 +33,7 @@ function LoginForm() {
     i18n.loadNamespaces('loginForm');
 
     const submitFrom = async (values, actions) => {    
-        api.login(values.login,values.password)
+        api.login(values.login,values.password,values.rememberMe)
         .then((res) => {       
             sessionManager.dispatch({
                 type: 'setAuth', 

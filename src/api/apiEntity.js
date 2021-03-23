@@ -1,14 +1,16 @@
 
 
 const api = {
-    async login(login,password) {
+    async login(login,password,rememberMe = false) {
         const body = {
             login: login,
-            password: password
+            password: password,
+            remember: rememberMe
         }
 
         return await fetch('/login', {
             method: 'POST',
+            credentials: 'include',
             body: JSON.stringify(body),
           })
           .then((res) => { 
