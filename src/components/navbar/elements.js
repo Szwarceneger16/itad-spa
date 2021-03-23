@@ -53,7 +53,7 @@ const MenuToggle = ({ toggle, isOpen }) => {
   );
 };
 
-function MyLink({ label, to, activeOnlyWhenExact,...rest }) {
+function MyLink({ label, secure, to, activeOnlyWhenExact,...rest }) {
     let match = !!useRouteMatch({
       path: to,
       exact: true

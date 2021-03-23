@@ -6,124 +6,149 @@ import {
     Button,
     Tooltip
 } from '@chakra-ui/react';
-import logo_h from './../../img/logo_dotnet_vertically_arm.svg';
-
-const initialState = { isExtended: Array(4).fill(false),};
-
-function reducer(state, action) {
-    let result;
-  switch (action.type) {
-      
-    case 'extend/0':
-        result = Array(4).fill(false);
-        result[0] = true;
-      return { isExtended: result};
-    case 'extend/1':
-        result = Array(4).fill(false);
-        result[1] = true;
-      return { isExtended: result};
-    case 'extend/2':
-        result = Array(4).fill(false);
-        result[2] = true;
-      return { isExtended: result};
-    case 'extend/3':
-        result = Array(4).fill(false);
-        result[3] = true;
-      return { isExtended: result};
-    case 'collapse':
-      return { isExtended: Array(4).fill(false),};
-    default:
-        debugger;
-      throw new Error();
-  }
-}
-
-function createAnimationProperties (x,y,offY,offX=0) {
-    this.duration= 300;
-    this.defaultStyle= {
-        transition: `transform ${this.duration}ms ease-in-out`,
-        opacity: 1,
-    };
-    this.transitionStyles= {
-        entering: { transform: 'translate('+(offX+x)+'px,'+(offY+y)+'px)' },
-        entered:  { transform: 'translate('+(offX+x)+'px,'+(offY+y)+'px)'  },
-        exiting:  { transform: 'translate('+offX+'px,'+(offY)+'px)'  },
-        exited:  { transform: 'translate('+offX+'px,'+(offY)+'px)'  },
-    };
-    this.tooltips = [
-        "",
-        "",
-        "",
-        ""
-    ]
-};
-
-const animationProps = [
-    new createAnimationProperties(-20,-15,-90),
-    new createAnimationProperties(-20,-10,-33,-30),
-    new createAnimationProperties(-20,10,33,-30),
-    new createAnimationProperties(-20,15,90),
-]
+import crowns from './../../img/crowns';
 
 const crownStyle = {
-    right: '0px',
-    position:'absolute',
-    w:'50px',
-    h:'50px'
+    w:'100px',
+    h:'100px'
 }
-crownStyle.top = Number.parseInt(crownStyle.h)*2.2;
 
-function MenuPanel(params) {
-    const [extend, dispatchExtend] = useReducer(reducer, initialState);
-    let childs = extend.isExtended.map( (element,index) => { 
+function* positionGenerator(radius, sectionsNumber) {
+    let offset = 0;
+    const step = (Math.PI / 45);
+    const rotateStep = 360/sectionsNumber;
+    const rotateStepRadian = (Math.PI*rotateStep)/180;
+    const imageNumber = parseInt(sectionsNumber/2)+1;
+    const rotateOffset = -(sectionsNumber/4);
+    const [pushBottomLimit, pushUpLimit] = [70*Math.PI/180 , 110*Math.PI/180];
+
+    const calcRotate = (radian) => {
+        return -(rotateStep*(rotateOffset) + (radian*180/Math.PI));
+    }
+    const pushOffset = radius - calcRotate(pushBottomLimit);
+    
+    const circleEquotation = (radians,r) => {
+        radians %= 2*Math.PI;
+        let x = Math.sin(radians)*r , active = false;
+        if (radians > pushBottomLimit && radians < pushUpLimit) {
+            x -= ( (Math.abs(radians - Math.PI/2) - pushBottomLimit)*5)^2;
+            active = true;
+        }  
+        return {
+            y: Math.cos(radians)*r,
+            x: x,
+            rotate: calcRotate(radians),
+            active: active
+        }
+    }
+    const crownsSections = Array(imageNumber).fill("").map( (e,index) => {
+        return { 
+            step: rotateStepRadian*(index),
+            imageNumber: index === imageNumber - 1 ? 0 : index,
+        };
+    })
+    
+    while(true) {
+        let newCrownsPack = crownsSections.map( (e,index) => {
+            let obj = circleEquotation(e.step+offset,radius);
+            obj.imageNumber = e.imageNumber;
+            return obj;
+        })
+        let direction = yield newCrownsPack;
+        
+        if (newCrownsPack[0].rotate > 112 ) {
+
+            let temp = crownsSections.shift();
+            temp.step += rotateStepRadian*imageNumber;
+            temp.imageNumber = crownsSections[0].imageNumber;
+            crownsSections.push(temp);
+            
+        } else if (newCrownsPack[newCrownsPack.length - 1].rotate < -112) {
+
+            let temp = crownsSections.pop();
+            temp.step -= rotateStepRadian*imageNumber;
+            temp.imageNumber = crownsSections[crownsSections.length-1].imageNumber;
+            crownsSections.unshift(temp);
+        }
+
+        if (direction === true) {
+            offset+= step;
+        } else if (direction === false){
+            offset-= step;
+        } 
+    }
+}
+
+const _CIRCLE_RADIUS = 150;
+let generator = positionGenerator(_CIRCLE_RADIUS,8);
+const generateCrowns = (direction) => {
+    const val = generator.next(direction).value;
+
+    return val.map( (element,index) => { 
             return(
             <MenuCrown 
-            inProp={element}
-            key={index}
-            onMouseEnter={() => dispatchExtend({type:'extend/'+index})}
-            animationProps={animationProps[index]} 
-            alt={index}
-            src={logo_h}
-            transform={`rotate(${40-(20*(index >= extend.isExtended.length/2 ? index+1 : index))}deg)`}
+            top={_CIRCLE_RADIUS-element.y}
+            right={element.x}
+            key={index+""}
+            active={element.active}
+            alt={index+"_"+element.imageNumber}
+            src={crowns[element.imageNumber]}
+            transform={'rotate('+element.rotate+'deg)'}
             {...crownStyle}
         />
-    )})
+    )});  
+}
+
+function disableScroll() { 
+    // Get the current page scroll position 
+    //debugger;
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop; 
+    let scrollLeft = window.pageXOffset || document.documentElement.scrollLeft; 
+
+    // if any scroll is attempted, 
+    // set this to the previous value 
+    window.onscroll = function(e) { 
+        window.scrollTo(scrollLeft, scrollTop); 
+    }; 
+} 
+function enableScroll() { 
+    window.onscroll = function() {}; 
+} 
+
+function MenuPanel(params) {
+    const [crowns, setCrowns] = useState(generateCrowns());
 
     return (
-        <Box zIndex='1000' onMouseLeave={() => dispatchExtend({type:'collapse'})} 
-            position='fixed' top={"50%"} w='100px' h={crownStyle.top*2.5+'px'} transform='translate(0,-50%)' right='0px'>
-            {childs}
-            {/* <Button position='absolute' transform='translate(0,-50%)' top='0px'  onClick={change} >CLick</Button> */}
+        <Box
+            onWheel={ (e) => {
+                setCrowns(generateCrowns(e.deltaY < 0));
+            }}
+            onMouseEnter={ () => disableScroll()}
+            onMouseLeave={ () => enableScroll()}
+            zIndex='1000'
+            position='fixed' 
+            top={"50%"} 
+            w={_CIRCLE_RADIUS*1.1} 
+            h={2*_CIRCLE_RADIUS*1.1} 
+            transform='translate(35%,-50%)' 
+            right='0px'>
+            {crowns}
         </Box>
-       
     )
 }
 
-function MenuCrown( {inProp,animationProps,onMouseEnter,title,w,h,...props} ) {
-    const reff = createRef();
+function MenuCrown( {top,right,active,inProp,title,w,h,alt,...props} ) {
 
     return (
-        <Transition  
-        in={inProp} 
-        nodeRef={reff} 
-        timeout={animationProps.duration}>
-            {state => (
-            <Box ref={reff} style={{
-                ...animationProps.defaultStyle,
-                ...animationProps.transitionStyles[state]
-            }}>
-                <Tooltip label="Auto start" placement="left" openDelay={animationProps.duration}>
-                    <Image 
-                        onMouseEnter={() => onMouseEnter()} 
-                        w={w} h={h} 
-                        {...(title !== undefined ? {title: props.alt} : {})} 
-                        {...props} />
-                </Tooltip>
-            </Box>
-            )}
-        </Transition >
+        <Box key={props.alt} position="absolute" w={w} h={h} top={top} right={right} /* ref={reff} */>
+            <Tooltip isDisabled={!active} label={alt} placement="left">
+                <Image 
+                    w={w} h={h} 
+                    {...(title !== undefined ? {title: props.alt} : {})} 
+                    {...props} />
+            </Tooltip>
+        </Box>
     )
 }
-
 
 export default MenuPanel;

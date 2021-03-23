@@ -10,12 +10,13 @@ import {
     DrawerFooter,
     DrawerHeader,
     DrawerOverlay,
+    AvatarBadge,
     DrawerContent,
     DrawerCloseButton,
   } from "@chakra-ui/react"
 import React from 'react';
 
-export function UserAvatar() {
+export function UserAvatar( {userData}) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef()
 
@@ -23,7 +24,9 @@ export function UserAvatar() {
         
         <>
         <Link ref={btnRef} onClick={onOpen}>
-            <Avatar name="Oshigaki Kisame" src="https://bit.ly/sage-adebayo" />
+            <Avatar name="Oshigaki Kisame" src={"https://bit.ly/"+userData.avatarSrc}>
+              <AvatarBadge border color="yellow" bg="grey" boxSize="1.25em">{userData.eventsCount}</AvatarBadge>
+            </Avatar>
         </Link>
         <Drawer
           isOpen={isOpen}

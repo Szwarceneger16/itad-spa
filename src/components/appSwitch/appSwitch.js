@@ -9,9 +9,7 @@ import {
 //import Switch from 'react-router-transition-switch'
 import { Box } from '@chakra-ui/react'
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-// import { CSSTransition } from 'react-transition-group';
-import TransitionSwitch from 'react-router-transition-switch'
-import Fader from 'react-fader'
+
 import './styles.css'
 
 function AppRoutes( props ) {

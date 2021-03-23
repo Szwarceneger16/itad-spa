@@ -1,4 +1,5 @@
 import worker from './workerStart.js';
+import {sessionManager} from './components/sessionManager.js'
 import React, { Component, Suspense,  useCallback, useContext, useState } from "react";
 import {
   BrowserRouter  as Router,
@@ -17,10 +18,13 @@ import route from "./components/routes/route.js";
 import i18next from './components/i18nextConfig.js';
 import { userTokenContext } from './components/contexts.js';
 import Menubar from './components/menubar';
-import store from './components/sessionManager.js'
+
+const definedRoutes = route.filter( el => {
+  if ( el.component === undefined) return false;
+  return true;
+}) 
 
 export default function App() { 
-
     //const [ mrr, setMrr ] = useState('initial');
 
     //console.log('rerender = ' + mrr);
@@ -28,7 +32,7 @@ export default function App() {
     <div>
       <Router basename="">
         <Suspense fallback={<h1>Page is loading</h1>}>
-            <TopNav route={route} store={store} />
+            <TopNav route={definedRoutes} store={sessionManager} />
             <Menubar />
 
           

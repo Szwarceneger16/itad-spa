@@ -1,32 +1,34 @@
-import {Home,Login,About,Register} from '../../pages';
+import * as Pages from '../../pages';
 
 export default [
   {
     name: 'home',
     path: '/home',
-    component: Home
-  },
-  {
-    name: 'login',
-    path: '/login',
-    component: Login
+    component: Pages.Home
   },
   {
     name: 'about',
     path: '/about',
-    component: About
+    component: Pages.About
   },
   {
-    name: 'BBB',
-    path: '/bbb'
+    name: 'myEvents',
+    path: '/myEvents',
+    secure: ["admin"],
+    component: Pages.MyEvents
   },
   {
     name: 'DDD',
     path: '/ddd'
   },
   {
+    name: 'login',
+    path: '/login',
+    component: Pages.Login
+  },
+  {
     name: 'register',
     path: '/register',
-    component: Register
+    component: Pages.Register
   },
 ];
