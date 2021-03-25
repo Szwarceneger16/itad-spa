@@ -17,7 +17,8 @@ import './App.css';
 import route from "./components/routes/route.js";
 import i18next from './components/i18nextConfig.js';
 import { userTokenContext } from './components/contexts.js';
-import Menubar from './components/menubar';
+import Menubar from './components/spinBar';
+import Footer from './components/footer';
 
 const definedRoutes = route.filter( el => {
   if ( el.component === undefined) return false;
@@ -29,7 +30,7 @@ export default function App() {
 
     //console.log('rerender = ' + mrr);
   return (
-    <div>
+    // <div>
       <Router basename="">
         <Suspense fallback={<h1>Page is loading</h1>}>
             <TopNav route={definedRoutes} store={sessionManager} />
@@ -41,10 +42,11 @@ export default function App() {
               <AppSwitch route={route} />     
             </Suspense>
             {/* </userTokenContext.Provider> */}
-               
+
+            <Footer></Footer>
         </Suspense>
       </Router>
-    </div>
+    // </div>
   )
 
 };

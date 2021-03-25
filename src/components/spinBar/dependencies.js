@@ -1,17 +1,3 @@
-import { CSSTransitionGroup, Transition  } from 'react-transition-group';
-import React, { useState,createRef,useReducer, useEffect } from 'react';
-import {
-    Image,
-    Box,
-    Button,
-    Tooltip
-} from '@chakra-ui/react';
-import crowns from './../../img/crowns';
-
-const crownStyle = {
-    w:'100px',
-    h:'100px'
-}
 
 function* positionGenerator(radius, sectionsNumber) {
     let offset = 0;
@@ -79,34 +65,31 @@ function* positionGenerator(radius, sectionsNumber) {
     }
 }
 
-const _CIRCLE_RADIUS = 150;
-let generator = positionGenerator(_CIRCLE_RADIUS,8);
-const generateCrowns = (direction) => {
-    const val = generator.next(direction).value;
-
-    return val.map( (element,index) => { 
-            return(
-            <MenuCrown 
-            top={_CIRCLE_RADIUS-element.y}
-            right={element.x}
-            key={index+""}
-            active={element.active}
-            alt={index+"_"+element.imageNumber}
-            src={crowns[element.imageNumber]}
-            transform={'rotate('+element.rotate+'deg)'}
-            {...crownStyle}
-        />
-    )});  
-}
+// 1. referencja useRef() do koron
+// 2. promien kola
+// 3. liczba koron do wyswietlenia
+function crownsGenerator(_refs,_CIRCLE_RADIUS,_CROWNS_NUMBER) {
+    let generator = positionGenerator(_CIRCLE_RADIUS,_CROWNS_NUMBER);
+    const refs = _refs;
+    
+    return [ generator.next().value, function(direction,crowns) {
+        const val = generator.next(direction).value;
+    
+        //debugger;
+        refs.forEach( (element,index) => {
+            //index %= val.length-1;
+            element.style.right = val[index].x+"px";
+            element.style.top = _CIRCLE_RADIUS-val[index].y+"px";
+            element.childNodes[0].src = crowns[val[index].imageNumber];
+            element.childNodes[0].style.transform = 'rotate('+val[index].rotate+'deg)';
+        });
+    }];
+};
 
 function disableScroll() { 
-    // Get the current page scroll position 
-    //debugger;
     let scrollTop = window.pageYOffset || document.documentElement.scrollTop; 
     let scrollLeft = window.pageXOffset || document.documentElement.scrollLeft; 
-
-    // if any scroll is attempted, 
-    // set this to the previous value 
+    // if any scroll is attempted, set this to the previous value 
     window.onscroll = function(e) { 
         window.scrollTo(scrollLeft, scrollTop); 
     }; 
@@ -115,40 +98,4 @@ function enableScroll() {
     window.onscroll = function() {}; 
 } 
 
-function MenuPanel(params) {
-    const [crowns, setCrowns] = useState(generateCrowns());
-
-    return (
-        <Box
-            onWheel={ (e) => {
-                setCrowns(generateCrowns(e.deltaY < 0));
-            }}
-            onMouseEnter={ () => disableScroll()}
-            onMouseLeave={ () => enableScroll()}
-            zIndex='1000'
-            position='fixed' 
-            top={"50%"} 
-            w={_CIRCLE_RADIUS*1.1} 
-            h={2*_CIRCLE_RADIUS*1.1} 
-            transform='translate(35%,-50%)' 
-            right='0px'>
-            {crowns}
-        </Box>
-    )
-}
-
-function MenuCrown( {top,right,active,inProp,title,w,h,alt,...props} ) {
-
-    return (
-        <Box key={props.alt} position="absolute" w={w} h={h} top={top} right={right} /* ref={reff} */>
-            <Tooltip isDisabled={!active} label={alt} placement="left">
-                <Image 
-                    w={w} h={h} 
-                    {...(title !== undefined ? {title: props.alt} : {})} 
-                    {...props} />
-            </Tooltip>
-        </Box>
-    )
-}
-
-export default MenuPanel;
+export { crownsGenerator,disableScroll,enableScroll };

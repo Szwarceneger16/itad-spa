@@ -38,13 +38,14 @@ function AppRoutes( props ) {
                     timeout={600}
                     nodeRef={transitionNodeRef}
                 >                     
-                <Box className='page' py='10vh' ref={transitionNodeRef} px='1vw' /* w='100%' minH='100vh' */ bg="gray.100">
-                    <Switch /* key={location.key} */ location={location}>
-                        {childRoutes }
-                        <Route path='*'>
-                            <Redirect to="/home" />
-                        </Route>      
-                    </Switch>   </Box>
+                    <Box className='page' py='10vh' ref={transitionNodeRef} px='1vw' /* w='100%' minH='100vh' */ bg="gray.100">
+                        <Switch /* key={location.key} */ location={location}>
+                            {childRoutes }
+                            <Route path='*'>
+                                <Redirect to="/home" />
+                            </Route>      
+                        </Switch>   
+                    </Box>
                 </CSSTransition>
             </TransitionGroup>
         </>

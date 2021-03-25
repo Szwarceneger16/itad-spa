@@ -51,6 +51,6 @@ window.addEventListener("beforeunload", () => {
   sessionStorage.setItem(itemName,JSON.stringify(store.getState()[itemName]) );
 });
 
-console.log('store',sessionStorage.getItem(itemName),store.getState())
+//console.log('store',sessionStorage.getItem(itemName),store.getState())
 
 export { store as sessionManager};
