@@ -3,3 +3,18 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
+// import { worker } from './api/mocks/browser.js'
+
+// // Establish API mocking before all tests.
+
+// beforeAll(() => worker.listen())
+
+// // Reset any request handlers that we may add during the tests,
+
+// // so they don't affect other tests.
+
+// afterEach(() => worker.resetHandlers())
+
+// // Clean up after the tests are finished.
+
+// afterAll(() => worker.close())

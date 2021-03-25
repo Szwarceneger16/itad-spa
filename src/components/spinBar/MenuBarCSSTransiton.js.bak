@@ -6,7 +6,7 @@ import {
     Button,
     Tooltip
 } from '@chakra-ui/react';
-import logo_h from './../../img/logo_dotnet_vertically_arm.svg';
+import crowns from '../../img/crowns';
 
 const initialState = { isExtended: Array(4).fill(false),};
 
@@ -83,7 +83,7 @@ function MenuPanel(params) {
             onMouseEnter={() => dispatchExtend({type:'extend/'+index})}
             animationProps={animationProps[index]} 
             alt={index}
-            src={logo_h}
+            src={crowns[index]}
             transform={`rotate(${40-(20*(index >= extend.isExtended.length/2 ? index+1 : index))}deg)`}
             {...crownStyle}
         />

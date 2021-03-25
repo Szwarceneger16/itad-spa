@@ -1,0 +1,169 @@
+import { CSSTransitionGroup, Transition  } from 'react-transition-group';
+import React, { useState,createRef,useReducer, useEffect } from 'react';
+import {
+    Image,
+    Box,
+    Button,
+    Tooltip
+} from '@chakra-ui/react';
+import crowns from './../../img/crowns';
+
+const crownStyle = {
+    w:'100px',
+    h:'100px'
+}
+
+function* positionGenerator(radius, sectionsNumber) {
+    let offset = 0;
+    const step = (Math.PI / 10);
+    const rotateStep = 360/sectionsNumber;
+    const rotateStepRadian = (Math.PI*rotateStep)/180;
+    const imageNumber = parseInt(sectionsNumber/2)+1;
+    const rotateOffset = -(sectionsNumber/4);
+    const [pushBottomLimit, pushUpLimit] = [70*Math.PI/180 , 110*Math.PI/180];
+
+    const calcRotate = (radian) => {
+        return -(rotateStep*(rotateOffset) + (radian*180/Math.PI));
+    }
+    const pushOffset = radius - calcRotate(pushBottomLimit);
+    
+    const circleEquotation = (radians,r) => {
+        radians %= 2*Math.PI;
+        let x = Math.sin(radians)*r , active = false;
+        if (radians > pushBottomLimit && radians < pushUpLimit) {
+            x -= ( (Math.abs(radians - Math.PI/2) - pushBottomLimit)*5)^2;
+            active = true;
+        }  
+        return {
+            y: Math.cos(radians)*r,
+            x: x,
+            rotate: calcRotate(radians),
+            active: active
+        }
+    }
+    const crownsSections = Array(imageNumber).fill("").map( (e,index) => {
+        return { 
+            step: rotateStepRadian*(index),
+            imageNumber: index === imageNumber - 1 ? 0 : index,
+        };
+    })
+    
+    while(true) {
+        let newCrownsPack = crownsSections.map( (e,index) => {
+            let obj = circleEquotation(e.step+offset,radius);
+            obj.imageNumber = e.imageNumber;
+            return obj;
+        })
+        let direction = yield newCrownsPack;
+        
+        if (newCrownsPack[0].rotate > 112 ) {
+            // const temp = crownsSections[0];
+            // for (let index = 0; index < crownsSections.length-1; index++) {
+            //     crownsSections[index] = crownsSections[index+1];  
+            // }
+            // crownsSections[crownsSections.length-1] = temp;
+            let temp = crownsSections.shift();
+            temp.step += rotateStepRadian*imageNumber;
+            temp.imageNumber = crownsSections[0].imageNumber;
+            crownsSections.push(temp);      
+        } else if (newCrownsPack[newCrownsPack.length - 1].rotate < -112) {
+            // const temp = crownsSections[crownsSections.length-1];
+            // for (let index = crownsSections.length-1; index > 0; index--) {
+            //     crownsSections[index] = crownsSections[index-1];  
+            // }
+            // crownsSections[0] = temp;
+            let temp = crownsSections.pop();
+            temp.step -= rotateStepRadian*imageNumber;
+            temp.imageNumber = crownsSections[crownsSections.length-1].imageNumber;
+            crownsSections.unshift(temp);
+        }
+
+        if (direction === true) {
+            offset+= step;
+        } else if (direction === false){
+            offset-= step;
+        } 
+    }
+}
+
+const _CIRCLE_RADIUS = 150;
+let generator = positionGenerator(_CIRCLE_RADIUS,8);
+const generateCrowns = (direction) => {
+    const val = generator.next(direction).value;
+
+    return val.map( (element,index) => { 
+            return(
+            <MenuCrown 
+            top={_CIRCLE_RADIUS-element.y}
+            right={element.x}
+            key={index+""}
+            active={element.active}
+            alt={index+"_"+element.imageNumber}
+            src={crowns[element.imageNumber]}
+            transform={'rotate('+element.rotate+'deg)'}
+            {...crownStyle}
+        />
+    )});  
+}
+
+function disableScroll() { 
+    // Get the current page scroll position 
+    //debugger;
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop; 
+    let scrollLeft = window.pageXOffset || document.documentElement.scrollLeft; 
+
+    // if any scroll is attempted, 
+    // set this to the previous value 
+    window.addEventListener('scroll', function(e) { 
+        e.preventDefault();
+        e.stopPropagation(); 
+        return false;
+    },false); 
+    window.addEventListener('wheel', function(e) { 
+        e.preventDefault();
+        e.stopPropagation(); 
+        return false;
+    },false); 
+} 
+function enableScroll() { 
+    window.onscroll = function() {}; 
+} 
+
+let isSetting = false;
+function MenuPanel(params) {
+    const [crowns, setCrowns] = useState(generateCrowns());
+
+    return (
+        <Box
+            onWheel={ (e) => {
+                setCrowns(generateCrowns(e.deltaY < 0));
+            }}
+            onMouseEnter={ () => disableScroll()}
+            onMouseLeave={ () => enableScroll()}
+            zIndex='1000'
+            position='fixed' 
+            top={"50%"} 
+            w={_CIRCLE_RADIUS*1.1} 
+            h={2*_CIRCLE_RADIUS*1.1} 
+            transform='translate(35%,-50%)' 
+            right='0px'>
+            {crowns}
+        </Box>
+    )
+}
+
+function MenuCrown( {top,right,active,inProp,title,w,h,alt,...props} ) {
+
+    return (
+        <Box /* key={props.alt} */ position="absolute" w={w} h={h} top={top} right={right} /* ref={reff} */>
+            <Tooltip isDisabled={!active} label={alt} placement="left">
+                <Image 
+                    w={"auto"} h={"auto"} 
+                    {...(title !== undefined ? {title: props.alt} : {})} 
+                    {...props} />
+            </Tooltip>
+        </Box>
+    )
+}
+
+export default MenuPanel;

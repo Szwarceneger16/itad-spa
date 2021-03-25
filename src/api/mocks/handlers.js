@@ -1,59 +1,70 @@
 import { rest } from 'msw'
+import getUserFromDatabase from './userDatabase';
 
 export const handlers = [
-  // logowanie 
+// ====================== logowanie 
   rest.post('/login', (req, res, ctx) => {
     // Persist user's authentication in the session
-    const body = JSON.parse(req.body);
 
-    if (body.login !== 'piotr') {
+    const body = JSON.parse(req.body);
+    if (!body.login || !body.password) {
       return res(
-        ctx.status(403,'wrong login provided'),
+        ctx.status(400,'empty creditalias provided'),
       );
     }
 
-    const newObj = {
-      login: body.login,
-      token: Math.random().toString(),
-      count: 0
+    const userData = getUserFromDatabase(body.login);
+    if (!userData || userData.password !== body.password) {
+      return res(
+        ctx.status(401,'wrong creditalias provided'),
+      );
     }
-    let gathered = sessionStorage.getItem('authenticatedUser');
-    if ( !gathered ) {
-      sessionStorage.setItem('authenticatedUser', JSON.stringify(newObj));   
-    } else {
-      gathered = JSON.parse(gathered);
-      newObj.count = ++gathered.count;
-      sessionStorage.setItem('authenticatedUser', JSON.stringify(newObj));   
-    }
+    const token = Math.random();
+    sessionStorage.setItem(userData.login, JSON.stringify(token));   
     
+    //const cokkieBody = `login=${userData.login}; Expires= ${(new Date(Date.now()+(24*3600*1000))).toUTCString()};`;
     return res(
       ctx.status(200),
-      ctx.json(newObj)
+      ctx.json(userData)
     );
   }),
 
-  // pobieranie informacji o danym uzytkowniku
-  rest.get('/user', (req, res, ctx) => {
-    const token = req.url.searchParams.get('token');
-    console.log(token);
-    const isAuthenticated = JSON.parse(sessionStorage.getItem('authenticatedUser'));
-    console.log(isAuthenticated);
-
-    if (!token || !isAuthenticated || token !== isAuthenticated.token) {
-
+// =================== pobieranie informacji o danym uzytkowniku
+  rest.post('/getUserInfo', (req, res, ctx) => {
+    const body = JSON.parse(req.body);
+    if (!body.login || !body.token) {
       return res(
-        ctx.status(403,'Not authorized'),
-      )
+        ctx.status(400,'empty creditalias provided'),
+      );
     }
 
+    const hasSession = sessionStorage.getItem(body.login);
+    if (!hasSession || hasSession !== body.token) {
+      return res(
+        ctx.status(401,'wrong creditalias provided'),
+      );
+    }
+    const userData = getUserFromDatabase(body.login);
+    if (!userData) {
+      return res(
+        ctx.status(401,'wrong creditalias provided'),
+      );
+    }
     // If authenticated, return a mocked user details
-    return res(
-      ctx.status(200),
-      ctx.json( JSON.stringify(isAuthenticated)),
-    )
-  }),
+    if (userData) {
+      return res(
+        ctx.status(200),
+        ctx.json( JSON.stringify(userData)),
+      )
+    } else {
+      return res(
+        ctx.status(404,'User cannot be found'),
+      )
+    } 
 
-  // pobieranie translacji
+  }),
+  
+// ============================= pobieranie translacji
   rest.get('/getTranslation/:ns/:lng.json',(req, res, ctx) =>{
     const { ns,lng } = req.params;
 

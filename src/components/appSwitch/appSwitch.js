@@ -9,9 +9,7 @@ import {
 //import Switch from 'react-router-transition-switch'
 import { Box } from '@chakra-ui/react'
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-// import { CSSTransition } from 'react-transition-group';
-import TransitionSwitch from 'react-router-transition-switch'
-import Fader from 'react-fader'
+
 import './styles.css'
 
 function AppRoutes( props ) {
@@ -40,13 +38,14 @@ function AppRoutes( props ) {
                     timeout={600}
                     nodeRef={transitionNodeRef}
                 >                     
-                <Box className='page' py='10vh' ref={transitionNodeRef} px='1vw' /* w='100%' minH='100vh' */ bg="gray.100">
-                    <Switch /* key={location.key} */ location={location}>
-                        {childRoutes }
-                        <Route path='*'>
-                            <Redirect to="/home" />
-                        </Route>      
-                    </Switch>   </Box>
+                    <Box className='page' py='10vh' ref={transitionNodeRef} px='1vw' /* w='100%' minH='100vh' */ bg="gray.100">
+                        <Switch /* key={location.key} */ location={location}>
+                            {childRoutes }
+                            <Route path='*'>
+                                <Redirect to="/home" />
+                            </Route>      
+                        </Switch>   
+                    </Box>
                 </CSSTransition>
             </TransitionGroup>
         </>
