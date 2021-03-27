@@ -4,10 +4,19 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ChakraProvider } from "@chakra-ui/react";
+import { extendTheme } from "@chakra-ui/react";
+
+// const theme = extendTheme({
+//   fonts: {
+//     body: "Tangerine, serif",
+//     heading: "Tangerine, serif",
+//     mono: "Tangerine, serif",
+//   },
+// })
 
 ReactDOM.render(
   <React.StrictMode>
-    <ChakraProvider /* theme={customTheme} */>
+    <ChakraProvider /* theme={theme} */>
       {/* <ColorModeScript /> */}
       <App />
     </ChakraProvider>

@@ -1,0 +1,55 @@
+function MenuWithScroll( { menuTitle,h,w,firstGroupTitle,secondGroupTitle,children,...props} ) {
+    const [ searchValue , setSearchValue] = useState('');
+    const ref = useRef();
+
+    children = prepareChildreen(searchValue,children);
+
+    children = children.map( (e,index) => {
+        return (
+            <MenuItem key={index}>
+                {e}
+            </MenuItem>
+        )
+    })
+
+    function handleSearch(event) {
+        setSearchValue(event.target.value);
+        // event.preventDefault();
+    }
+
+    return (
+        <>
+        <Portal containerRef={ref}>
+            <Box m={2}>
+                <Input type='text' 
+                    value={searchValue} 
+                    onChange={handleSearch} 
+                    id={fieldName} 
+                    placeholder="country" 
+                />
+            </Box>
+
+        </Portal>
+        <Menu p={4} > 
+            <MenuButton as={Button} >
+                {menuTitle}
+                
+            </MenuButton>
+            <MenuList 
+                h={h ? h : '35vh'}
+                w={w ? w : '15vw'}
+                overflowY='scroll'
+                overflowX='hidden'
+            >
+                {/* <MenuGroup title={firstGroupTitle} ref={ref} >
+                </MenuGroup> */}
+                {/* <MenuDivider /> */}
+                <MenuGroup title={secondGroupTitle}>
+                    {children}  
+                </MenuGroup>
+                
+            </MenuList>
+        </Menu>
+        </>
+    )
+}
