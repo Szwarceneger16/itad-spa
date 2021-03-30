@@ -32,7 +32,7 @@ function prepareChildreen(searchValue,children) {
     return children;
 }
 
-function PopoverWithScroll( { menuTitle,h,w,firstGroupTitle,secondGroupTitle,children,...props} ) {
+function PopoverWithScroll( { menuTitle:string,h,w,firstGroupTitle,secondGroupTitle,children,...props} ) {
     const [ searchValue , setSearchValue] = useState('');
     const popoverRef = useRef()
     const ref = useRef();
