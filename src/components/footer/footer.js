@@ -3,7 +3,7 @@ import {
     Flex, 
     Text,
 } from "@chakra-ui/react";
-import { PopoverWithScroll, PopoverCountryButton } from "./elements.js";
+import LanguageSelector from "./languagePopover.js";
 
 const flexChildreenStyle = {
     p: 4,
@@ -32,10 +32,11 @@ const FooterContainer = ({ children, ...props }) => {
 const supportedLanguage = [
 { 
     countryCode:"US",
+    languageCode: "en",
     countryTitle: 'English (USA)'
 },
 { 
-    countryCode:"PL",
+    countryCode:"pl",
     countryTitle: 'Polski'
 },
 { 
@@ -52,15 +53,7 @@ function Footer(params) {
                 <Text >Page Created By Grzegorz Szwarc</Text>
             </Box>
             <Box {...flexChildreenStyle}>
-                <PopoverWithScroll
-                    menuTitle="Select language"
-                    firstGroupTitle="Search"
-                    secondGroupTitle="or select from list"
-                >
-                    {supportedLanguage.map( e => {
-                        return <PopoverCountryButton key={e.countryTitle} {...e} />
-                    })}
-                </PopoverWithScroll>
+                <LanguageSelector supportedLanguage={supportedLanguage} />
             </Box>
             
         </FooterContainer>
