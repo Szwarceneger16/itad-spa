@@ -3,7 +3,7 @@ import {
     Flex, 
     Text,
 } from "@chakra-ui/react";
-import LanguageSelector from "./languagePopover.tsx";
+import LanguageSelector from "./languagePopover.js";
 
 const flexChildreenStyle = {
     p: 4,
