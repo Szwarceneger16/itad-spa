@@ -1,6 +1,7 @@
 import {
     Stack,
     Box,
+    Textarea,
     FormControl,
     FormLabel,
     FormErrorMessage,
@@ -9,24 +10,180 @@ import {
     InputRightElement,
     Input,
     Button,
-    Switch,
+    Switch as ChakraSwitch,
     Checkbox ,
     color
 } from "@chakra-ui/react";
 import { Field } from 'formik';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import * as DateFns from "date-fns";
+import { AttachmentIcon } from "@chakra-ui/icons";
+import { 
+    DatePicker ,
+    KeyboardDatePicker,
+    KeyboardTimePicker,
+    TimePicker ,
+    DateTimePicker
+  } from "@material-ui/pickers";
 
-function InputTextWrapper( {fieldName, labelStyle,labels}) {
+export function InputFile ( {fieldName, labelStyle,labels,innerRef,placeholder,accept}) {
+    let ref;
+    //const reffToInput = innerRef || ref;
+    
+    return (
+        <Field innerRef={ref} name={fieldName} >
+        {( { field,form } ) => {
+            
+            field.onChange= (event) => {
+                form.setFieldValue(fieldName, event.currentTarget.files);
+              };
+            return (
+            <FormControl pd={4} isInvalid={form.errors[fieldName] && form.touched[fieldName]}>
+                <FormLabel htmlFor={fieldName} {...labelStyle}>
+                    {/* {label ? label : fieldName} */ labels.inputTitle}
+                </FormLabel>
+                <Input {...field} type='file' ref={(el) => ref = el}
+                    accept={accept} id={fieldName} placeholder={placeholder} 
+                    d="none"
+                />
+                <Button rightIcon={<AttachmentIcon />} colorScheme="blue" variant="outline"
+                onClick={ (e) => { debugger; ref.click(); e.preventDefault(); }}
+                >
+                    {labels.buttonTitle}
+                </Button>
+                <FormErrorMessage d='block'>{form.errors[fieldName]}</FormErrorMessage>
+            </FormControl>
+        )}}
+        </Field>
+    );
+}
+
+export function InputText ( {fieldName, labelStyle,labels,innerRef,placeholder}) {
+    
+    return (
+        <Field innerRef={innerRef} name={fieldName} >
+        {( { field,form } ) => {
+
+            return (
+            <FormControl pd={4} isInvalid={form.errors[fieldName] && form.touched[fieldName]}>
+                <FormLabel htmlFor={fieldName} {...labelStyle}>
+                    {/* {label ? label : fieldName} */ labels.inputTitle}
+                </FormLabel>
+                <Input {...field} type='text' id={fieldName} placeholder={placeholder} />
+                
+                <FormErrorMessage d='block'>{form.errors[fieldName]}</FormErrorMessage>
+            </FormControl>
+        )}}
+        </Field>
+    );
+}
+
+export function InputDate ( {fieldName, labelStyle,labels,innerRef,startDate,endDate,defaultDate}) {
+    // const [selectedDate, handleDateChange] = useState(new Date());
+    
+    return (
+        <Field innerRef={innerRef} name={fieldName} >
+        {( { field,form,...rest } ) => {
+            return (
+                
+                <FormControl pd={4} isInvalid={form.errors[fieldName] && form.touched[fieldName]}>
+                <FormLabel htmlFor={fieldName} {...labelStyle}>
+                    { labels.inputTitle}
+                </FormLabel>
+                {/* <Input {...field} type='date' 
+                id={fieldName} 
+                value={defaultDate.toISOString().split("T")[0]}
+                min={startDate.toISOString().split("T")[0]} 
+                max={startDate.toISOString().split("T")[0]}
+                /> */}
+                {/* <Box d="block" height="400px" width="100%" > */}
+                <DatePicker
+                    autoOk
+                    // disableToolbar
+                    
+                    variant="static"
+                    name={fieldName}
+                    value={field.value}
+                    onChange={date => form.setFieldValue(field.name, date, false)}
+                    {...rest}
+                />
+                {/* </Box> */}
+                
+                <FormErrorMessage d='block'>{form.errors[fieldName]}</FormErrorMessage>
+                
+            </FormControl>
+        )}}
+        </Field>
+    );
+}
+
+export function InputTime ( {fieldName, labelStyle,labels,innerRef,startDate,endDate,defaultDate}) {
+    //const [selectedDate, handleDateChange] = useState(defaultDate || new Date());
 
     return (
-        <Field name={fieldName} >
+        <Field innerRef={innerRef} name={fieldName} >
+        {( { field,form,...rest } ) => {
+            return (
+            <FormControl pd={4} isInvalid={form.errors[fieldName] && form.touched[fieldName]}>
+                <FormLabel htmlFor={fieldName} {...labelStyle}>
+                    {/* {label ? label : fieldName} */ labels.inputTitle}
+                </FormLabel>
+                {/* <Input {...field} type='date' 
+                id={fieldName} 
+                value={defaultDate.toISOString().split("T")[0]}
+                min={startDate.toISOString().split("T")[0]} 
+                max={startDate.toISOString().split("T")[0]}
+                /> */}
+                <Box fontSize="1rem !important">
+                <TimePicker
+                    autoOk
+                    // disableToolbar
+                    step="5"
+                    variant="inline"
+                    name={fieldName}
+                    value={field.value}
+                    onChange={date => form.setFieldValue(field.name, date, false)}
+                    {...rest}
+                />
+                <FormErrorMessage d='block'>{form.errors[fieldName]}</FormErrorMessage>
+                </Box>
+            </FormControl>
+        )}}
+        </Field>
+    );
+}
+
+export function InputEmail ( {fieldName, labelStyle,labels,innerRef,placeholder}) {
+    
+    return (
+        <Field innerRef={innerRef} name={fieldName} >
         {( { field,form } ) => {
             return (
             <FormControl pd={4} isInvalid={form.errors[fieldName] && form.touched[fieldName]}>
                 <FormLabel htmlFor={fieldName} {...labelStyle}>
                     {/* {label ? label : fieldName} */ labels.inputTitle}
                 </FormLabel>
-                <Input {...field} type='text' id={fieldName} placeholder="name" />
+                <Input {...field} type='email' id={fieldName} placeholder={placeholder} />
+                <FormErrorMessage d='block'>{form.errors[fieldName]}</FormErrorMessage>
+            </FormControl>
+        )}}
+        </Field>
+    );
+}
+
+export function InputTextArea ( {fieldName, labelStyle,labels,innerRef,placeholder}) {
+    
+    return (
+        <Field innerRef={innerRef} name={fieldName} >
+        {( { field,form } ) => {
+            return (
+            <FormControl pd={4} isInvalid={form.errors[fieldName] && form.touched[fieldName]}>
+                <FormLabel htmlFor={fieldName} {...labelStyle}>
+                    {/* {label ? label : fieldName} */ labels.inputTitle}
+                </FormLabel>
+                <Textarea 
+                resize="vertical" {...field} 
+                id={fieldName} placeholder={placeholder} />
                 <FormErrorMessage d='block'>{form.errors[fieldName]}</FormErrorMessage>
             </FormControl>
         )}}
@@ -35,7 +192,7 @@ function InputTextWrapper( {fieldName, labelStyle,labels}) {
 }
 
 /* labels */
-function InputPasswordWrapper( {fieldName, labelStyle, labels}) {
+export function InputPassword ( {fieldName, labelStyle, labels,innerRef,placeholder}) {
     const [show, setShow] = useState(false);
     const handleMouseDown = (e) => {
         setShow(true);
@@ -43,7 +200,7 @@ function InputPasswordWrapper( {fieldName, labelStyle, labels}) {
     const handleMouseUp = (e) => setShow(false);
 
     return (
-        <Field name={fieldName} >
+        <Field innerRef={innerRef} name={fieldName} >
         {( { field,form } ) => {
             //debugger;
             return (
@@ -56,7 +213,7 @@ function InputPasswordWrapper( {fieldName, labelStyle, labels}) {
                             {...field} 
                             type={show ? "text" : "password"} 
                             id={fieldName} 
-                            placeholder="name" 
+                            placeholder={placeholder}
                         />
                         <InputRightElement width="4.5rem">
                             <Button 
@@ -78,7 +235,7 @@ function InputPasswordWrapper( {fieldName, labelStyle, labels}) {
     );
 }
 
-function SwitchWrapper({fieldName,children}) {
+export function InputSwitch ({fieldName,children}) {
     
     return (
         <Field name={fieldName} >
@@ -87,11 +244,9 @@ function SwitchWrapper({fieldName,children}) {
             <FormLabel htmlFor={fieldName} mb="0">
                 {children}
             </FormLabel>
-            <Switch  id={fieldName} {...field} />
+            <ChakraSwitch  id={fieldName} {...field} />
         </FormControl>
         )}
         </Field>
     )
 }
-
-export { InputTextWrapper, InputPasswordWrapper, SwitchWrapper};

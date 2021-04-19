@@ -31,4 +31,9 @@ export default [
     path: '/register',
     component: Pages.Register
   },
+  {
+    name: 'PROBA',
+    path: '/eventDetails',
+    component: Pages.EventDetails
+  },
 ];

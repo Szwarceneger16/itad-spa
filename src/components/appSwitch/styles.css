@@ -1,7 +1,6 @@
 .page {
-  margin-top: 8vh;
+  margin-top: 6vh;
   overflow: hidden;
-  width: 100%;
   min-height: 100vh;
   overflow: none;  /* Firefox */
 }

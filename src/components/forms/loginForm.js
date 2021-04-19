@@ -3,13 +3,13 @@ import React, { Suspense, useEffect, useState,useContext } from "react";
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import * as Yup from 'yup';
-import { InputPasswordWrapper, InputTextWrapper, SwitchWrapper} from './InputElements.js';
+import { InputPassword, InputText, Switch} from './InputElements.js';
 import {
     Box,
     Button,
     Flex,
     Spacer,
-    Switch ,
+    InputSwitch ,
 } from "@chakra-ui/react";
 import {
     useHistory,
@@ -79,12 +79,12 @@ function LoginForm() {
             >      
                 {( props ) => (    
                     <Form>              
-                        <InputTextWrapper 
+                        <InputText 
                             labelStyle={labelStyle}
                             fieldName='login' 
                             labels={{inputTitle: t('loginForm:input.login.title')}}
                         />
-                        <InputPasswordWrapper 
+                        <InputPassword 
                             labelStyle={labelStyle}
                             fieldName='password' 
                             labels={{
@@ -96,7 +96,7 @@ function LoginForm() {
                         <DividerWithText></DividerWithText>
                         <Flex align='center' mt={4}>
                         <Box>
-                            <SwitchWrapper fieldName='rememberMe'>Remember Me</SwitchWrapper>
+                            <InputSwitch fieldName='rememberMe'>Remember Me</InputSwitch>
                         </Box>
                         <Spacer />
                         <Box>

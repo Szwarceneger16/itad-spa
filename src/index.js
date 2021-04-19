@@ -5,6 +5,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ChakraProvider } from "@chakra-ui/react";
 import { extendTheme } from "@chakra-ui/react";
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import { pl, enUS,enGB } from 'date-fns/locale'
 
 // const theme = extendTheme({
 //   fonts: {
@@ -18,7 +21,10 @@ ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider /* theme={theme} */>
       {/* <ColorModeScript /> */}
-      <App />
+      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={pl}>
+        <App />
+      </MuiPickersUtilsProvider>
+      
     </ChakraProvider>
   </React.StrictMode>
   ,
