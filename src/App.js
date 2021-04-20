@@ -10,14 +10,14 @@ import {
   useRouteMatch,
   Redirect
 } from "react-router-dom";
-import { Container, Box,Flex } from '@chakra-ui/react';
+import { useMediaQuery } from '@chakra-ui/react';
 import TopNav from './components/navbar/TopNavBar.js';
 import AppSwitch from './components/appSwitch/appSwitch';
 import './App.css';
 import route from "./components/routes/route.js";
 import i18next from './components/i18nextConfig.js';
 import { userTokenContext } from './components/contexts.js';
-import Menubar from './components/spinBar';
+import MenuDotNetCircle from './components/spinBar';
 import Footer from './components/footer';
 
 const definedRoutes = route.filter( el => {
@@ -27,6 +27,7 @@ const definedRoutes = route.filter( el => {
 
 export default function App() { 
     //const [ mrr, setMrr ] = useState('initial');
+    const [isLargerThan768] = useMediaQuery("(min-width: 768px)")
 
     //console.log('rerender = ' + mrr);
   return (
@@ -34,7 +35,7 @@ export default function App() {
       <Router basename="">
         <Suspense fallback={<h1>Page is loading</h1>}>
             <TopNav route={definedRoutes} store={sessionManager} />
-            <Menubar />
+            {isLargerThan768 && <MenuDotNetCircle right="-25px" />}
 
           
             {/* <userTokenContext.Provider value={setMrr}> */}

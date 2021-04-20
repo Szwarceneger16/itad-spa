@@ -18,15 +18,16 @@ const crownStyle = {
     h:'100px'
 }
 
-function MenuPanel( {circleRadius = 150, crownsNumber= 8 , ...props} ) {
+function MenuPanel( {circleRadius = 150, crownsNumber= 8 ,right, ...props} ) {
     const refs = Array();
-
     const [ initialCrownsState , getNextCorwnsState] = crownsGenerator(refs,circleRadius,crownsNumber);
+    const boxWidth = circleRadius*1.5, boxHeight = circleRadius*1.3;
 
     const childs = initialCrownsState.map( (element,index) => { 
+        //debugger;
         return(
         <MenuCrown 
-        top={circleRadius-element.y}
+        top={ (circleRadius-element.y)}
         right={element.x}
         reff={el => refs.push(el)}
         key={index+""}
@@ -40,19 +41,25 @@ function MenuPanel( {circleRadius = 150, crownsNumber= 8 , ...props} ) {
 
     return (
         <Box
-            onWheel={ (e) => {
-                getNextCorwnsState(e.deltaY < 0, crowns);
-                //console.log(refs[0].current.style);
-            }}
-            onMouseEnter={ () => disableScroll()}
-            onMouseLeave={ () => enableScroll()}
-            zIndex='1000'
-            position='fixed' 
+
+            
+            position='fixed'
+            style={{borderRadius: "20px"}}
             top={"50%"} 
-            w={circleRadius*1.1} 
-            h={2*circleRadius*1.1} 
+            w={boxWidth} 
+            h={boxHeight*2} 
             transform='translate(50%,-50%)' 
-            right='0px'>
+            right={right || "0px"}>
+                <Box position="relative" w={boxWidth}  
+                zIndex='1000'
+                top={boxHeight/3} h={boxHeight*(1 + 1/3)}
+                onWheel={ (e) => {
+                    getNextCorwnsState(e.deltaY < 0, crowns);
+                    //console.log(refs[0].current.style);
+                }}
+                onMouseEnter={ () => disableScroll()}
+                onMouseLeave={ () => enableScroll()}
+                ></Box>
             {childs}
         </Box>
     )

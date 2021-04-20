@@ -3,13 +3,12 @@ import React, { Suspense, useEffect, useState,useContext } from "react";
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import * as Yup from 'yup';
-import { InputPassword, InputText, Switch} from './InputElements.js';
+import { InputPassword, InputText, InputSwitch} from './InputElements.js';
 import {
     Box,
     Button,
     Flex,
     Spacer,
-    InputSwitch ,
 } from "@chakra-ui/react";
 import {
     useHistory,
