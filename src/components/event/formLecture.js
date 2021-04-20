@@ -20,7 +20,7 @@ const labelStyle = {
     fontSize:[14,16,18]
 }
 
-  function AddLecture ({ firstFieldRef, onCancel }) {
+  function AddLecture ({ firstFieldRef, onCancel,initialValues }) {
     const { t, i18n } = useTranslation(['common','addLecture']);
     const [ submitError, setSubmitError ] = useState();
 
@@ -37,25 +37,31 @@ const labelStyle = {
     //     .required(t('common:forms.errors.required')),
         
     // });
+    
+    let _initialValues = {
+        id: (initialValues && initialValues.id) || '',
+        eventName: (initialValues && initialValues.eventName) || '',
+        description:(initialValues &&  initialValues.description) || "",
+        startTime:(initialValues &&  initialValues.startTime) || new Date(),
+        endTime:(initialValues &&  initialValues.endTime) || new Date(Date.now() + 3600000),
+    }
+
+    console.log(initialValues);
 
     return (
       <Stack spacing={4}>
 
         {/* {submitError && <ErrorMessage>{submitError}</ErrorMessage>} */}
             <Formik
-                initialValues={{
-                    eventName: '',
-                    description: "",
-                    startTime: new Date(),
-                    endTime: new Date(Date.now() + 3600000),
-                }}
+                enableReinitialize
+                initialValues={_initialValues}
                 onSubmit={submitFrom}
             >      
                 {( props ) => (    
                       <Form>          
                         <InputText 
                             labelStyle={labelStyle}
-                            //innerRef={firstFieldRef}
+                            innerRef={firstFieldRef}
                             fieldName='eventName' 
                             labels={{inputTitle: t('addLecture:input.name.title')}}
                         />

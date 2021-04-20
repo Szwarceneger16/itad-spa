@@ -20,8 +20,8 @@ const labelStyle = {
     fontSize:[14,16,18]
 }
 
-  function AddLecture ({ firstFieldRef, onCancel }) {
-    const { t, i18n } = useTranslation(['common','addLecture']);
+  function AddLecture ({ firstFieldRef, onCancel,initialValues }) {
+    const { t, i18n } = useTranslation(['common','addLecturer']);
     const [ submitError, setSubmitError ] = useState();
 
     const submitFrom = async (values, actions) => {    
@@ -30,26 +30,30 @@ const labelStyle = {
     
     }
     
-    const validationSchema = Yup.object({
-        login: Yup.string()
-        .min(5,t('common:forms.errors.min',{number: 5}) )
-        .max(15,t('common:forms.errors.max', {number: 15}) )
-        .required(t('common:forms.errors.required')),
+    // const validationSchema = Yup.object({
+    //     login: Yup.string()
+    //     .min(5,t('common:forms.errors.min',{number: 5}) )
+    //     .max(15,t('common:forms.errors.max', {number: 15}) )
+    //     .required(t('common:forms.errors.required')),
         
-    });
+    // });
+
+    let _initialValues = {
+        id: (initialValues && initialValues.id) || '',
+        firstName: (initialValues && initialValues.firstName) || '',
+        secondName:(initialValues &&  initialValues.secondName) || "",
+        description:(initialValues &&  initialValues.description) || "",
+        file:(initialValues &&  initialValues.file) || undefined,
+    }
 
     return (
       <Stack spacing={4}>
 
         {submitError && <ErrorMessage>{submitError}</ErrorMessage>}
             <Formik
-                initialValues={{
-                    firstName: '',
-                    secondName: '',
-                    description: '',
-                    file: undefined,
-                }}
-                initialErrors={true}
+                enableReinitialize
+                initialValues={_initialValues}
+                //initialErrors={true}
                 onSubmit={submitFrom}
             >      
                 {( props ) => (    

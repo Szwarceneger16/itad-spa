@@ -5,21 +5,13 @@ import { Flex,
   Image,
   Text,
   Divider,
-  Popover,PopoverTrigger,PopoverContent,PopoverArrow,
-  PopoverHeader,PopoverCloseButton,PopoverBody,PopoverFooter,
-  Button,useDisclosure,
-  IconButton,useBreakpointValue
 } from '@chakra-ui/react';
-import { 
-  AddIcon 
-} from "@chakra-ui/icons";
+
 import ShowLecturer from '../components/event/showLecturer';
 import ShowLecture from '../components/event/showLecture';
-import AddLecture from '../components/event/addLecture';
-import AddLecturer from '../components/event/addLecturer';
 import React, { Suspense } from "react";
 import { useTranslation } from 'react-i18next';
-import  FocusLock from "react-focus-lock"
+import InputPopover from "../components/forms/InputPopover";
 
 const styles = {
   flexContainer: {
@@ -50,48 +42,7 @@ const styles = {
   
 }
 
-const AddPopover = function ({label,children}) {
-  const { onOpen, onClose, isOpen } = useDisclosure()
-  const firstFieldRef = React.useRef(null);
-  const placement = useBreakpointValue({ base: "bottom", md: "right" })
-  
-  if ( !children) return (<></>);
-  
 
-  return (
-    <Popover
-      isOpen={isOpen}
-      initialFocusRef={firstFieldRef}
-      onOpen={onOpen}
-      onClose={onClose}
-      placement={placement}
-      closeOnBlur={false}
-      marginLeft="10px"
-      zIndex="1000"
-    >
-      <PopoverTrigger>
-        <Button rightIcon={<AddIcon />} size="md" >{label}</Button>
-        {/* <Button>asdas</Button> */}
-      </PopoverTrigger>
-      <PopoverContent p={1} w="min-content">
-        <PopoverArrow />
-        <PopoverHeader>{label}</PopoverHeader>
-        <PopoverCloseButton />
-        <PopoverBody >
-           <FocusLock returnFocus persistentFocus={false}>
-            <PopoverArrow />
-            <PopoverCloseButton />
-            {React.cloneElement(children,{
-              firstFieldRef: firstFieldRef,
-              onCancel:onClose 
-            })}
-          </FocusLock>
-        </PopoverBody>
-      </PopoverContent>
-
-    </Popover>
-  )
-}
 
 export function EventDetails() {
   const { t, i18n } = useTranslation(['common','eventDetails']);
@@ -114,17 +65,12 @@ export function EventDetails() {
             </Box>
 
             <Box {...styles.flexItem} {...styles.flexItemTable}>
-              <Text {...styles.text}>{t('eventDetails:main.showLecture')}</Text>
-              <AddPopover label={t('eventDetails:main.addLecture')}><AddLecture /></AddPopover>
-              <Divider size="40px"></Divider>
 
               <ShowLecture />
             </Box>
 
             <Box {...styles.flexItem} {...styles.flexItemTable} >
-              <Text {...styles.text}>{t('eventDetails:main.showLecturer')}</Text>
-              <AddPopover label={t('eventDetails:main.addLecture')}><AddLecturer /></AddPopover>
-              <Divider size="40px"></Divider>
+              
               <ShowLecturer />
             </Box>
 
