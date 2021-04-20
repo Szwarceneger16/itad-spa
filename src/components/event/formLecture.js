@@ -7,12 +7,13 @@ import {
     Flex,Stack,
     Spacer,
     DividerWithText,
-
+    IconButton
 } from "@chakra-ui/react";
+
 import { useTranslation } from 'react-i18next';
 import { InputDate, InputText,InputTextArea,InputTime } from '../forms/InputElements';
 import { ErrorMessage } from '../forms/elements';
-
+import { CloseIconButton, DeleteIconButton } from "../forms/buttons";
   
 const labelStyle = {
     fontFamily:'sans-serif',
@@ -28,6 +29,10 @@ const labelStyle = {
         alert("")
         actions.setSubmitting(false);
     
+    }
+
+    const deleteForm = () => {
+
     }
     
     // const validationSchema = Yup.object({
@@ -84,17 +89,22 @@ const labelStyle = {
                         <Flex align='center' mt={4}>
                         <Box>
                             <ButtonGroup>
-                            <Button 
-                                isLoading={props.isSubmitting}
-                                type="submit"
-                            >
+                                <Button 
+                                    isLoading={props.isSubmitting}
+                                    type="submit"
+                                >
                                 {t('common:buttons.submit.title')}
-                            </Button > 
-                                <Button variant="outline" onClick={onCancel}>
-                                {t('common:buttons.cancel.title')}
-                            </Button>
+                                </Button > 
+                                {initialValues && initialValues.id && 
+                                    <DeleteIconButton 
+                                        onClick={() => {
+                                            onCancel();
+                                            deleteForm();
+                                        }} />
+                                }
+                                <CloseIconButton onClick={onCancel} />
                             </ButtonGroup>
-                            
+
                         </Box>
                         </Flex>
                     </Form>     

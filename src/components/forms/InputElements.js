@@ -26,28 +26,36 @@ import {
     DateTimePicker
   } from "@material-ui/pickers";
 
-export function InputFile ( {fieldName, labelStyle,labels,innerRef,placeholder,accept}) {
+export function InputFile ( {fieldName, labelStyle,labels,multiple,innerRef,placeholder,accept}) {
     let ref;
     //const reffToInput = innerRef || ref;
+    const setRef = element => { ref = element; };
     
     return (
-        <Field innerRef={ref} name={fieldName} >
+        <Field /* innerRef={ref} */ name={fieldName} >
         {( { field,form } ) => {
             
-            field.onChange= (event) => {
-                form.setFieldValue(fieldName, event.currentTarget.files);
-              };
+            // field.onChange= (event) => {
+            //     form.setFieldValue(fieldName, event.currentTarget.files);
+            //   };
             return (
             <FormControl pd={4} isInvalid={form.errors[fieldName] && form.touched[fieldName]}>
                 <FormLabel htmlFor={fieldName} {...labelStyle}>
                     {/* {label ? label : fieldName} */ labels.inputTitle}
                 </FormLabel>
-                <Input {...field} type='file' ref={(el) => ref = el}
+                <Input type='file' ref={setRef}
                     accept={accept} id={fieldName} placeholder={placeholder} 
-                    d="none"
+                    d="none" 
+                    onBlur={field.onBlur}
+                    multiple={multiple}
+                    onChange={(e) => { 
+                        //form.setFieldTouched("file",true,false);
+                        form.setFieldValue("file", e.currentTarget.files);
+                    }}
+                    
                 />
                 <Button rightIcon={<AttachmentIcon />} colorScheme="blue" variant="outline"
-                onClick={ (e) => { debugger; ref.click(); e.preventDefault(); }}
+                onClick={ (e) => { ref.click(); e.preventDefault(); }}
                 >
                     {labels.buttonTitle}
                 </Button>

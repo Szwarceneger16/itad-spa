@@ -7,8 +7,9 @@ import {
     Flex,Stack,
     Spacer,
     DividerWithText,
-
+    IconButton
 } from "@chakra-ui/react";
+import { CloseIconButton, DeleteIconButton } from "../forms/buttons";
 import { useTranslation } from 'react-i18next';
 import { InputFile, InputText,InputTextArea } from '../forms/InputElements';
 import { ErrorMessage } from '../forms/elements';
@@ -25,9 +26,14 @@ const labelStyle = {
     const [ submitError, setSubmitError ] = useState();
 
     const submitFrom = async (values, actions) => {    
-        alert("")
+        
+        console.log(values);
+        console.log( values.file[0].name)
         actions.setSubmitting(false);
-    
+    }
+
+    const deleteForm = () => {
+
     }
     
     // const validationSchema = Yup.object({
@@ -43,21 +49,23 @@ const labelStyle = {
         firstName: (initialValues && initialValues.firstName) || '',
         secondName:(initialValues &&  initialValues.secondName) || "",
         description:(initialValues &&  initialValues.description) || "",
-        file:(initialValues &&  initialValues.file) || undefined,
+        //file:(initialValues &&  initialValues.file) || '',
     }
 
     return (
       <Stack spacing={4}>
 
-        {submitError && <ErrorMessage>{submitError}</ErrorMessage>}
+        {/* {submitError && <ErrorMessage>{submitError}</ErrorMessage>} */}
             <Formik
                 enableReinitialize
                 initialValues={_initialValues}
                 //initialErrors={true}
                 onSubmit={submitFrom}
+                initialTouched
+
             >      
                 {( props ) => (    
-                      <>          
+                      <Form>   
                         <InputText 
                             labelStyle={labelStyle}
                             innerRef={firstFieldRef}
@@ -77,7 +85,6 @@ const labelStyle = {
                         />
                         <InputFile 
                             labelStyle={labelStyle}
-                            innerRef={firstFieldRef}
                             fieldName='file'
                             accept="image/png, image/jpeg"
                             labels={{inputTitle: t('addLecturer:input.file.title'),
@@ -94,13 +101,18 @@ const labelStyle = {
                                 >
                                     {t('common:buttons.submit.title')}
                                 </Button > 
-                                    <Button variant="outline" onClick={onCancel}>
-                                    {t('common:buttons.cancel.title')}
-                                </Button>
+                                {initialValues && initialValues.id && 
+                                    <DeleteIconButton 
+                                        onClick={() => {
+                                            onCancel();
+                                            deleteForm();
+                                        }} />
+                                }
+                                <CloseIconButton onClick={onCancel} />
                             </ButtonGroup> 
                         </Box>
                         </Flex>
-                    </>     
+                    </Form> 
                 )}
             </Formik>
       </Stack>
