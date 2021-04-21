@@ -25,7 +25,7 @@ export default function (params) {
     const initEditPopover = (el) => {
         const values = {
             id: el,
-            eventName: "asdsd",
+            lectureName: "asdsd",
             description: "nazwisko",
             startTime: undefined,
             endTime: undefined,
@@ -36,7 +36,7 @@ export default function (params) {
     return (
 
         <>
-            <Text {...styles.text}>{t('eventDetails:main.showLecture')}</Text>
+            <Heading {...styles.text}>{t('eventDetails:main.showLecture')}</Heading>
             <InputPopover 
                 defaultIsOpen={!!initialFormValues}
                 //OnOpen={() => setOpenPopover(true)} 

@@ -18,6 +18,18 @@ export function DeleteIconButton( {onClick} ) {
     )
 }
 
+export function SubmitButton({isSubmitting}) {
+    const { t } = useTranslation();
+    return (
+        <Button 
+            isLoading={isSubmitting}
+            type="submit"
+        >
+            {t('common:buttons.submit.title')}
+        </Button > 
+    )
+}
+
 export function DeleteButton( {onClick} ) {
     const { t } = useTranslation();
     return (

@@ -9,11 +9,11 @@ import {
     DividerWithText,
     IconButton
 } from "@chakra-ui/react";
-
+import { CloseIconButton, DeleteIconButton,SubmitButton } from "../forms/buttons";
 import { useTranslation } from 'react-i18next';
-import { InputDate, InputText,InputTextArea,InputTime } from '../forms/InputElements';
+import { InputFile, InputText,InputTextArea } from '../forms/InputElements';
 import { ErrorMessage } from '../forms/elements';
-import { CloseIconButton, DeleteIconButton, SubmitButton } from "../forms/buttons";
+
   
 const labelStyle = {
     fontFamily:'sans-serif',
@@ -21,14 +21,15 @@ const labelStyle = {
     fontSize:[14,16,18]
 }
 
-  function FormLecture ({ firstFieldRef, onCancel,initialValues }) {
-    const { t, i18n } = useTranslation(['common','formLecture']);
+  function FormEvent ({ firstFieldRef, onCancel,initialValues }) {
+    const { t, i18n } = useTranslation(['common','formEvent']);
     const [ submitError, setSubmitError ] = useState();
 
     const submitFrom = async (values, actions) => {    
-        alert("")
+        
+        console.log(values);
+        console.log( values.file[0].name)
         actions.setSubmitting(false);
-    
     }
 
     const deleteForm = () => {
@@ -42,16 +43,13 @@ const labelStyle = {
     //     .required(t('common:forms.errors.required')),
         
     // });
-    
-    let _initialValues = {
-        id: (initialValues && initialValues.id) || '',
-        lectureName: (initialValues && initialValues.lectureName) || '',
-        description:(initialValues &&  initialValues.description) || "",
-        startTime:(initialValues &&  initialValues.startTime) || new Date(),
-        endTime:(initialValues &&  initialValues.endTime) || new Date(Date.now() + 3600000),
-    }
 
-    console.log(initialValues);
+    let _initialValues = {
+        eventId: (initialValues && initialValues.id) || '',
+        eventName: (initialValues && initialValues.eventName) || '',
+        eventDescription:(initialValues &&  initialValues.eventDescription) || "",
+        //file:(initialValues &&  initialValues.file) || '',
+    }
 
     return (
       <Stack spacing={4}>
@@ -60,30 +58,30 @@ const labelStyle = {
             <Formik
                 enableReinitialize
                 initialValues={_initialValues}
+                //initialErrors={true}
                 onSubmit={submitFrom}
+                initialTouched
             >      
                 {( props ) => (    
-                      <Form>          
+                      <Form>   
                         <InputText 
                             labelStyle={labelStyle}
                             innerRef={firstFieldRef}
-                            fieldName='lectureName' 
-                            labels={{inputTitle: t('formLecture:input.name.title')}}
+                            fieldName='eventName' 
+                            labels={{inputTitle: t('addLecturer:input.firstName.title')}}
                         />
                         <InputTextArea 
                             labelStyle={labelStyle}
-                            fieldName='description' 
-                            labels={{inputTitle: t('formLecture:input.description.title')}}
+                            fieldName='eventDescription' 
+                            labels={{inputTitle: t('addLecturer:input.description.title')}}
                         />
-                        <InputTime 
+                        <InputFile 
                             labelStyle={labelStyle}
-                            fieldName='startTime' 
-                            labels={{inputTitle: t('formLecture:input.startTime.title')}}
-                        />
-                        <InputTime 
-                            labelStyle={labelStyle}
-                            fieldName='endTime' 
-                            labels={{inputTitle: t('formLecture:input.endTime.title')}}
+                            fieldName='eventImage'
+                            accept="image/png, image/jpeg"
+                            labels={{inputTitle: t('addLecturer:input.file.title'),
+                            buttonTitle: t('addLecturer:input.file.Button'),
+                        }}
                         />
 
                         <Flex align='center' mt={4}>
@@ -98,15 +96,14 @@ const labelStyle = {
                                         }} />
                                 }
                                 <CloseIconButton onClick={onCancel} />
-                            </ButtonGroup>
-
+                            </ButtonGroup> 
                         </Box>
                         </Flex>
-                    </Form>     
+                    </Form> 
                 )}
             </Formik>
       </Stack>
 
     )
   }
-  export default FormLecture;
+  export default FormEvent;

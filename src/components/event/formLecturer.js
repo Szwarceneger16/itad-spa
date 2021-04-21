@@ -9,7 +9,7 @@ import {
     DividerWithText,
     IconButton
 } from "@chakra-ui/react";
-import { CloseIconButton, DeleteIconButton } from "../forms/buttons";
+import { CloseIconButton, DeleteIconButton, SubmitButton } from "../forms/buttons";
 import { useTranslation } from 'react-i18next';
 import { InputFile, InputText,InputTextArea } from '../forms/InputElements';
 import { ErrorMessage } from '../forms/elements';
@@ -21,8 +21,8 @@ const labelStyle = {
     fontSize:[14,16,18]
 }
 
-  function AddLecture ({ firstFieldRef, onCancel,initialValues }) {
-    const { t, i18n } = useTranslation(['common','addLecturer']);
+  function FormLecturer ({ firstFieldRef, onCancel,initialValues }) {
+    const { t, i18n } = useTranslation(['common','formLecturer']);
     const [ submitError, setSubmitError ] = useState();
 
     const submitFrom = async (values, actions) => {    
@@ -70,37 +70,32 @@ const labelStyle = {
                             labelStyle={labelStyle}
                             innerRef={firstFieldRef}
                             fieldName='firstName' 
-                            labels={{inputTitle: t('addLecturer:input.firstName.title')}}
+                            labels={{inputTitle: t('formLecturer:input.firstName.title')}}
                         />
                         <InputText 
                             labelStyle={labelStyle}
                             innerRef={firstFieldRef}
                             fieldName='secondName' 
-                            labels={{inputTitle: t('addLecturer:input.secondName.title')}}
+                            labels={{inputTitle: t('formLecturer:input.secondName.title')}}
                         />
                         <InputTextArea 
                             labelStyle={labelStyle}
                             fieldName='description' 
-                            labels={{inputTitle: t('addLecturer:input.description.title')}}
+                            labels={{inputTitle: t('formLecturer:input.description.title')}}
                         />
                         <InputFile 
                             labelStyle={labelStyle}
                             fieldName='file'
                             accept="image/png, image/jpeg"
-                            labels={{inputTitle: t('addLecturer:input.file.title'),
-                            buttonTitle: t('addLecturer:input.file.Button'),
+                            labels={{inputTitle: t('formLecturer:input.file.title'),
+                            buttonTitle: t('formLecturer:input.file.Button'),
                         }}
                         />
 
                         <Flex align='center' mt={4}>
                         <Box>
                             <ButtonGroup>
-                                <Button 
-                                    isLoading={props.isSubmitting}
-                                    type="submit"
-                                >
-                                    {t('common:buttons.submit.title')}
-                                </Button > 
+                                <SubmitButton isSubmitting={props.isSubmitting} />
                                 {initialValues && initialValues.id && 
                                     <DeleteIconButton 
                                         onClick={() => {
@@ -119,4 +114,4 @@ const labelStyle = {
 
     )
   }
-  export default AddLecture;
+  export default FormLecturer;

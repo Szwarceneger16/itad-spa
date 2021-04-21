@@ -35,7 +35,7 @@ export default function (params) {
 
     return (
         <>
-            <Text {...styles.text}>{t('eventDetails:main.showLecturer')}</Text>
+            <Heading {...styles.text}>{t('eventDetails:main.showLecturer')}</Heading>
             <InputPopover 
                 defaultIsOpen={!!initialFormValues}
                 //OnOpen={() => setOpenPopover(true)} 
