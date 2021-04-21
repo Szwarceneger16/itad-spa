@@ -8,8 +8,8 @@ import { Flex,
   
 } from '@chakra-ui/react';
 import { useFormik,Form } from "formik";
-import ShowLecturer from '../components/event/showLecturer';
-import ShowLecture from '../components/event/showLecture';
+import ShowLecturer from '../components/eventDetails/showLecturer';
+import ShowLecture from '../components/eventDetails/showLecture';
 import React, { Suspense, useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import InputPopover from "../components/forms/InputPopover";
