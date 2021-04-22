@@ -19,7 +19,7 @@ import i18next from './components/i18nextConfig.js';
 import { userTokenContext } from './components/contexts.js';
 import MenuDotNetCircle from './components/spinBar';
 import Footer from './components/footer';
-import Store from './components/sessionStore/store.js'
+
 
 const definedRoutes = route.filter( el => {
   if ( el.component === undefined) return false;
@@ -34,7 +34,6 @@ export default function App() {
     debugger;
   return (
     // <div>
-    <React.Provider store={Store}>
       <Router basename="">
         <Suspense fallback={<h1>Page is loading</h1>}>
             <TopNav route={definedRoutes} /* store={sessionManager} */ />
@@ -50,7 +49,6 @@ export default function App() {
             <Footer></Footer>
         </Suspense>
       </Router>
-      </React.Provider>
     // </div>
   )
 
