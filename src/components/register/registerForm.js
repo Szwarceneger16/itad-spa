@@ -3,7 +3,7 @@ import React, { Suspense} from "react";
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import * as Yup from 'yup';
-import { InputPassword, InputText, Switch} from './InputElements.js';
+import { InputPassword, InputText, Switch} from '../forms/InputElements.js';
 import {
     Stack,
     Box,

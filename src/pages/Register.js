@@ -1,5 +1,5 @@
 import { Flex, Stack, Box, Heading } from '@chakra-ui/react';
-import RegisterForm from '../components/forms/registerForm';
+import RegisterForm from '../components/register/registerForm';
 import React, { Suspense } from "react";
 
 export function Register() {

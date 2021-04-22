@@ -3,7 +3,7 @@ import React, { Suspense, useEffect, useState,useContext } from "react";
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import * as Yup from 'yup';
-import { InputPassword, InputText, InputSwitch} from './InputElements.js';
+import { InputPassword, InputText, InputSwitch} from '../forms/InputElements.js';
 import {
     Box,
     Button,
@@ -14,9 +14,12 @@ import {
     useHistory,
   } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
-import { DividerWithText, ErrorMessage } from './elements.js';
+import { DividerWithText, ErrorMessage } from '../forms/elements.js';
 //import { sessionManager } from '../sessionStore/sessionManager.js.bak';
 import api from '../../api/apiEntity';
+import { useSelector, useDispatch } from 'react-redux';
+import { connect } from "react-redux";
+import { login } from "../../actions/auth";
 
 const labelStyle = {
     fontFamily:'sans-serif',
@@ -30,21 +33,34 @@ function LoginForm() {
     const [ submitError, setSubmitError ] = useState();
     let history = useHistory();
     i18n.loadNamespaces('loginForm');
+    const dispatch = useDispatch()
 
-    const submitFrom = async (values, actions) => {    
-        api.login(values.login,values.password,values.rememberMe)
+    const submitFrom = async (values, actions) => {   
+        dispatch(login(this.state.username, this.state.password))
+        .then(() => {
+            history.push("/");
+            window.location.reload();
+        })
+        .catch(() => {
+            this.setState({
+                loading: false
+            });
+            history.push('/about');
+        });
+        
+/*         api.login(values.login,values.password,values.rememberMe)
         .then((res) => {       
-/*             sessionManager.dispatch({
+            sessionManager.dispatch({
                 type: 'setAuth', 
                 payload: {userData: res}
-            }); */
-            history.push('/about'); 
+            });
+            
         })
         .catch(err => {
             console.log(err);
             setSubmitError(t("common:forms.errors.submit400"));
             actions.setSubmitting(false);
-        });  
+        });   */
     }
 
     const validationSchema = Yup.object({
@@ -112,4 +128,13 @@ function LoginForm() {
     );
 }
 
-export default LoginForm;
+function mapStateToProps(state) {
+    const { isLoggedIn } = state.auth;
+    const { message } = state.message;
+    return {
+      isLoggedIn,
+      message
+    };
+  }
+
+export default connect(mapStateToProps)(LoginForm);
