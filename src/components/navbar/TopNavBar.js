@@ -7,25 +7,25 @@ import { popElement,createRouteComparator } from './../../utils';
 import { userTokenContext } from './../contexts.js';
 import * as styles from './styles.js';
 import {UserAvatar} from './user.js'
-import { sessionManager } from "../sessionManager";
+//import { sessionManager } from "../sessionStore/sessionManager.js.bak";
 import { useHistory } from "react-router";
 
-function MenuLinks( {store, ...props} ) {
+function MenuLinks( {/* store, */ ...props} ) {
   const { t, i18n } = useTranslation('common');
-  const [authenticated, setAuthenticated] = useState(!!store.getState().userData);
-  const history = useHistory();
+/*   const [authenticated, setAuthenticated] = useState(!!store.getState().userData);
+ */  const history = useHistory();
 
-  useEffect( () => {
+/*   useEffect( () => {
     const unsubscribe = store.subscribe(() => {
       //console.log('reload navbar',store.getState());
       setAuthenticated(!!store.getState().userData);
     })
     return unsubscribe;
-  }, [])
+  }, []) */
 
   const logout = () => {
-    store.dispatch({type: 'unsetAuth'});
-    history.push('/home');
+/*     store.dispatch({type: 'unsetAuth'});
+    history.push('/home'); */
   }
 
 
@@ -33,7 +33,8 @@ function MenuLinks( {store, ...props} ) {
   //const loginRoute =popElement(route,createRouteComparator('login'));
   //const registerRoute =popElement(route,createRouteComparator('register'));
 
-  if (!authenticated) { // not authorized
+  const authenticated = false;
+/*   if (!authenticated) { // not authorized
     route = route.filter( el => {
       if ( el.secure) {
         return false;
@@ -53,7 +54,7 @@ function MenuLinks( {store, ...props} ) {
       }
       return true;
     }) 
-  }
+  } */
 
   // create links elements
   route = route.map( ( {secure,name,path} ) => {
@@ -94,7 +95,7 @@ function MenuLinks( {store, ...props} ) {
           label={t('routes.'+registerRoute.name)}
           {...styles.registerButtonStyle}
       />} */}
-      {authenticated && <UserAvatar userData={sessionManager.getState().userData} />}
+      {authenticated && <UserAvatar /* userData={sessionManager.getState().userData} */ />}
       {authenticated && <Button 
         {...styles.ButtonStyle.logout} 
         onClick={() => logout()}

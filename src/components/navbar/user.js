@@ -16,7 +16,7 @@ import {
   } from "@chakra-ui/react"
 import React from 'react';
 
-export function UserAvatar( {userData}) {
+export function UserAvatar( /* {userData} */) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef()
 
@@ -24,8 +24,8 @@ export function UserAvatar( {userData}) {
         
         <>
         <Link ref={btnRef} onClick={onOpen}>
-            <Avatar name="Oshigaki Kisame" src={"https://bit.ly/"+userData.avatarSrc}>
-              <AvatarBadge border color="yellow" bg="grey" boxSize="1.25em">{userData.eventsCount}</AvatarBadge>
+            <Avatar name="Oshigaki Kisame" src={"https://bit.ly/"/* +userData.avatarSrc */}>
+              <AvatarBadge border color="yellow" bg="grey" boxSize="1.25em">{/* userData.eventsCount */}</AvatarBadge>
             </Avatar>
         </Link>
         <Drawer

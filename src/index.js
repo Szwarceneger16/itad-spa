@@ -9,6 +9,7 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { pl, enUS,enGB } from 'date-fns/locale'
 
+
 // const theme = extendTheme({
 //   fonts: {
 //     body: "Tangerine, serif",
@@ -19,13 +20,14 @@ import { pl, enUS,enGB } from 'date-fns/locale'
 
 ReactDOM.render(
   <React.StrictMode>
-    <ChakraProvider /* theme={theme} */>
-      {/* <ColorModeScript /> */}
-      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={pl}>
-        <App />
-      </MuiPickersUtilsProvider>
-      
-    </ChakraProvider>
+    
+      <ChakraProvider /* theme={theme} */>
+        {/* <ColorModeScript /> */}
+        <MuiPickersUtilsProvider utils={DateFnsUtils} locale={pl}>
+          <App />
+        </MuiPickersUtilsProvider>
+        
+      </ChakraProvider>
   </React.StrictMode>
   ,
   document.getElementById('root')

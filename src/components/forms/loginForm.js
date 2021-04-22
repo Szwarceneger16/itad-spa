@@ -15,7 +15,7 @@ import {
   } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { DividerWithText, ErrorMessage } from './elements.js';
-import { sessionManager } from './../sessionManager.js';
+//import { sessionManager } from '../sessionStore/sessionManager.js.bak';
 import api from '../../api/apiEntity';
 
 const labelStyle = {
@@ -34,10 +34,10 @@ function LoginForm() {
     const submitFrom = async (values, actions) => {    
         api.login(values.login,values.password,values.rememberMe)
         .then((res) => {       
-            sessionManager.dispatch({
+/*             sessionManager.dispatch({
                 type: 'setAuth', 
                 payload: {userData: res}
-            });
+            }); */
             history.push('/about'); 
         })
         .catch(err => {
