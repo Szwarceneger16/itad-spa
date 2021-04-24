@@ -7,7 +7,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { extendTheme } from "@chakra-ui/react";
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import { pl, enUS,enGB } from 'date-fns/locale'
+import { pl, enUS,enGB } from 'date-fns/locale';
 
 // const theme = extendTheme({
 //   fonts: {

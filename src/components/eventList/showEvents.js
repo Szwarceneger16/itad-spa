@@ -17,10 +17,14 @@ import { Flex,
   import FormEvent from './formEvent'
   import * as Yup from 'yup';
   import styles from "./style";
+import { Icon } from '@material-ui/core';
+import { InfoIcon } from '@chakra-ui/icons';
+import { useHistory } from "react-router-dom";
 
 export default function (params) {
     const { t, i18n } = useTranslation(['common','eventsList']);
     const [initialFormValues,setInitialFormvalues] = useState(null);
+    let history = useHistory();
 
     const initEditPopover = (el) => {
         const values = {
@@ -36,12 +40,12 @@ export default function (params) {
     return (
 
         <>
-            <Heading {...styles.text}>{t('eventsList:main.showLecture')}</Heading>
+            <Heading {...styles.text}>{t('eventsList:main.showEvents')}</Heading>
             <InputPopover 
                 defaultIsOpen={!!initialFormValues}
                 //OnOpen={() => setOpenPopover(true)} 
                 OnClose={() => { setInitialFormvalues(null); }} 
-                label={ initialFormValues ? t('eventsList:main.editLecture') : t('eventsList:main.addLecture')}
+                label={ initialFormValues ? t('eventsList:main.editEvent') : t('eventsList:main.addEvent')}
                 component={FormEvent}
                 initialValues={initialFormValues}
             />
@@ -52,9 +56,9 @@ export default function (params) {
                 <Thead d="block">
                     <Tr w="100%" d="block">
                     <Th {...styles.th("30%")}><Text {...styles.thText}>{t('eventsList:event.name')}</Text></Th>
-                    <Th {...styles.th("20%")} ><Text {...styles.thText}>{t('eventsList:event.description')}</Text></Th>
-                    <Th {...styles.th("20%")} ><Text {...styles.thText}>{t('eventsList:event.date')}</Text></Th>
-                    <Th {...styles.th("20%")} ><Text {...styles.thText}>{t('eventsList:event.image')}</Text></Th>
+                    <Th {...styles.th("25%")} ><Text {...styles.thText}>{t('eventsList:event.description')}</Text></Th>
+                    <Th {...styles.th("25%")} ><Text {...styles.thText}>{t('eventsList:event.date')}</Text></Th>
+                    <Th {...styles.th("10%")} ><Text {...styles.thText}>{t('eventsList:event.info')}</Text></Th>
                     </Tr>
                 </Thead>
                 <Tbody >
@@ -63,10 +67,20 @@ export default function (params) {
                         key={index}
                         onClick={() => initEditPopover(index)}
                     >
-                        <Td {...styles.td("md")} ><Text {...styles.tdText}>'some data'</Text></Td>
-                        <Td {...styles.td("4xl")} ><Text {...styles.tdText}>{'somedata '.repeat(10)}</Text></Td>
-                        <Td {...styles.td("xs")} ><Text {...styles.tdText}>'some data'</Text></Td>
-                        <Td {...styles.td("xs")} ><Text {...styles.tdText}>'some data'</Text></Td>
+                        <Td {...styles.td("30%")} ><Text {...styles.tdText}>'some data'</Text></Td>
+                        <Td {...styles.td("25%")} ><Text {...styles.tdText}>{'somedata '.repeat(10)}</Text></Td>
+                        <Td {...styles.td("25%")} ><Text {...styles.tdText}>'some data'</Text></Td>
+                        <Td {...styles.td("10%")} ><Text {...styles.tdText}>
+                            <Icon 
+                                onClick={ (e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    history.push('/eventDetails/1')
+                                }}
+                            >
+                                <InfoIcon />
+                            </Icon>
+                        </Text></Td>
                     </Tr>
                     ))}
                 </Tbody>

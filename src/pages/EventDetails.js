@@ -14,7 +14,9 @@ import React, { Suspense, useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import InputPopover from "../components/forms/InputPopover";
 import { InputFile } from '../components/forms/InputElements';
-
+import { 
+  useParams
+ } from "react-router-dom";
 import styles from './styles/EventDetailsStyle.js'
 
 // const labelStyle = {
@@ -54,6 +56,7 @@ const eventData = {
 
 export function EventDetails() {
   const { t, i18n } = useTranslation(['common','eventDetails']);
+  const { eventId } = useParams();
 
   // const formik = useFormik({
   //   initialValues: {
@@ -69,7 +72,7 @@ export function EventDetails() {
   return (
       <VStack spacing={8} mx="auto" w="100%" py={12} px={0} p={0} m={0}>
         <Heading fontSize="3xl" textAlign="center">
-          {t('eventDetails:main.heading')}
+          {t('eventDetails:main.heading') + ` ${eventId} `}
         </Heading>
         <Flex {...styles.flexContainer}>
 

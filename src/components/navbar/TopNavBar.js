@@ -9,11 +9,18 @@ import * as styles from './styles.js';
 import {UserAvatar} from './user.js'
 import { sessionManager } from "../sessionManager";
 import { useHistory } from "react-router";
+import {
+  useSelector,
+  useParams
+} from "react-router-dom";
 
 function MenuLinks( {store, ...props} ) {
   const { t, i18n } = useTranslation('common');
   const [authenticated, setAuthenticated] = useState(!!store.getState().userData);
   const history = useHistory();
+  
+  //const userRoles = useSelector( state => state.userData.role);
+  const userRoles = [];
 
   useEffect( () => {
     const unsubscribe = store.subscribe(() => {
@@ -33,30 +40,33 @@ function MenuLinks( {store, ...props} ) {
   //const loginRoute =popElement(route,createRouteComparator('login'));
   //const registerRoute =popElement(route,createRouteComparator('register'));
 
-  if (!authenticated) { // not authorized
-    route = route.filter( el => {
-      if ( el.secure) {
-        return false;
-      }
-      return true;
-    }) ;
-  }else { // authorized
-    const userRoles = store.getState().userData.role;
+  // if (!authenticated) { // not authorized
+  //   route = route.filter( el => {
+  //     if ( el.secure) {
+  //       return false;
+  //     }
+  //     return true;
+  //   }) ;
+  // }else { // authorized
+  //   const userRoles = store.getState().userData.role;
 
-    route = route.filter( el => {
-      if (["login","register"].includes(el.name) ) {
-        return false;
-      }
+  route = route.filter( el => {
+    //debugger;
+    if (authenticated &&["login","register"].includes(el.name) ) {
+      return false;
+    }
 
-      if ( el.secure && !el.secure.some( el => userRoles.includes( el )) ) {
-        return false;
-      }
-      return true;
-    }) 
-  }
+    if ( el.secure && !el.secure.some( el => userRoles.includes( el )) ) {
+      return false;
+    }
+    if ( !el.navbarDisplay || el.navbarDisplay === false  ) {
+      return false;
+    }
+    return true;
+  }) 
 
   // create links elements
-  route = route.map( ( {secure,name,path} ) => {
+  route = route.map( ( {name,path} ) => {
     return (<MyLink {...styles.ButtonStyle[name]} className={name} key={'top'+name} to={path} label={t('routes.'+name)} />)
   })
 
