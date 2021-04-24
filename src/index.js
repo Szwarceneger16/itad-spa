@@ -8,7 +8,8 @@ import { extendTheme } from "@chakra-ui/react";
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { pl, enUS,enGB } from 'date-fns/locale'
-
+import { Provider } from "react-redux";
+import store from "./store.js";
 
 // const theme = extendTheme({
 //   fonts: {
@@ -17,10 +18,11 @@ import { pl, enUS,enGB } from 'date-fns/locale'
 //     mono: "Tangerine, serif",
 //   },
 // })
+debugger;
 
 ReactDOM.render(
   <React.StrictMode>
-    
+    <Provider store={store}>
       <ChakraProvider /* theme={theme} */>
         {/* <ColorModeScript /> */}
         <MuiPickersUtilsProvider utils={DateFnsUtils} locale={pl}>
@@ -28,6 +30,7 @@ ReactDOM.render(
         </MuiPickersUtilsProvider>
         
       </ChakraProvider>
+    </Provider>
   </React.StrictMode>
   ,
   document.getElementById('root')

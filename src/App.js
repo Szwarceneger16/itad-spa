@@ -19,14 +19,14 @@ import i18next from './components/i18nextConfig.js';
 import { userTokenContext } from './components/contexts.js';
 import MenuDotNetCircle from './components/spinBar';
 import Footer from './components/footer';
-
+import { connect } from "react-redux";
 
 const definedRoutes = route.filter( el => {
   if ( el.component === undefined) return false;
   return true;
 }) 
 
-export default function App() { 
+function App() { 
     //const [ mrr, setMrr ] = useState('initial');
     const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
     //const store = useStore(pageProps.initialReduxState);
@@ -53,3 +53,12 @@ export default function App() {
   )
 
 };
+
+function mapStateToProps(state) {
+  const { user } = state.auth;
+  return {
+    user,
+  };
+}
+export default connect(mapStateToProps)(App);
+
