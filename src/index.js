@@ -18,7 +18,6 @@ import store from "./store.js";
 //     mono: "Tangerine, serif",
 //   },
 // })
-debugger;
 
 ReactDOM.render(
   <React.StrictMode>

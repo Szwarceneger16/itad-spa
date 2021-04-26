@@ -7,21 +7,25 @@ import { popElement,createRouteComparator } from './../../utils';
 import { userTokenContext } from './../contexts.js';
 import * as styles from './styles.js';
 import {UserAvatar} from './leftDrawer.js'
-import { sessionManager } from "../sessionManager";
+//import { sessionManager } from "../sessionManager";
 import { useHistory } from "react-router";
 import {
-  useSelector,
   useParams
 } from "react-router-dom";
+import {
+  useSelector,
+  useDispatch
+} from 'react-redux';
 
 function MenuLinks( {/* store, */ ...props} ) {
   const { t, i18n } = useTranslation('common');
-  //const [authenticated, setAuthenticated] = useState(!!store.getState().userData);
-  const authenticated = true;
+  //const [isLoggedIn, setAuthenticated] = useState(!!store.getState().userData);
+  const isLoggedIn = useSelector( state => state.auth.isLoggedIn);
+  const dispatch = useDispatch()
   const history = useHistory();
   
-  //const userRoles = useSelector( state => state.userData.role);
-  const userRoles = [];
+  const userRoles = useSelector( state => (state.auth.user && state.auth.user.role)?? [] );
+  //const userRoles = [];
 
   // useEffect( () => {
   //   const unsubscribe = store.subscribe(() => {
@@ -32,8 +36,8 @@ function MenuLinks( {/* store, */ ...props} ) {
   // }, [])
 
   const logout = () => {
-/*     store.dispatch({type: 'unsetAuth'});
-    history.push('/home'); */
+    dispatch({type: 'LOGOUT'})
+    history.push('/home');
   }
 
 
@@ -41,7 +45,7 @@ function MenuLinks( {/* store, */ ...props} ) {
   //const loginRoute =popElement(route,createRouteComparator('login'));
   //const registerRoute =popElement(route,createRouteComparator('register'));
 
-  // if (!authenticated) { // not authorized
+  // if (!isLoggedIn) { // not authorized
   //   route = route.filter( el => {
   //     if ( el.secure) {
   //       return false;
@@ -53,7 +57,7 @@ function MenuLinks( {/* store, */ ...props} ) {
 
   route = route.filter( el => {
     //debugger;
-    if (authenticated &&["login","register"].includes(el.name) ) {
+    if (isLoggedIn && ["login","register"].includes(el.name) ) {
       return false;
     }
 
@@ -91,22 +95,22 @@ function MenuLinks( {/* store, */ ...props} ) {
       mb={[4,4,0,0]}
     >
       {route}
-      {/* {!authenticated && loginRoute && <MyLink
+      {/* {!isLoggedIn && loginRoute && <MyLink
           as='button'
           key={'top'+loginRoute.name} 
           to={loginRoute.path} 
           label={t('routes.'+loginRoute.name)}
           {...styles.loginButtonStyle}
       />}
-      {!authenticated && registerRoute && <MyLink
+      {!isLoggedIn && registerRoute && <MyLink
           as='button'
           key={'top'+registerRoute.name} 
           to={registerRoute.path} 
           label={t('routes.'+registerRoute.name)}
           {...styles.registerButtonStyle}
       />} */}
-      {authenticated && <UserAvatar /* userData={sessionManager.getState().userData} */ />}
-      {authenticated && <Button 
+      {isLoggedIn && <UserAvatar /* userData={sessionManager.getState().userData} */ />}
+      {isLoggedIn && <Button 
         {...styles.ButtonStyle.logout} 
         onClick={() => logout()}
       >Logout</Button>}

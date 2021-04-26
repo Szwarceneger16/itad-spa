@@ -31,7 +31,7 @@ function App() {
     const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
     //const store = useStore(pageProps.initialReduxState);
     //console.log('rerender = ' + mrr);
-    debugger;
+
   return (
     // <div>
       <Router basename="">
@@ -54,11 +54,12 @@ function App() {
 
 };
 
-function mapStateToProps(state) {
-  const { user } = state.auth;
-  return {
-    user,
-  };
-}
-export default connect(mapStateToProps)(App);
+// function mapStateToProps(state) {
+//   const { user } = state.auth;
+//   return {
+//     user,
+//   };
+// }
+// export default connect(mapStateToProps)(App);
+export default App;
 

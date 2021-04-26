@@ -7,5 +7,4 @@ const combined = combineReducers({
   message,
 });
 
-debugger;
 export default combined;

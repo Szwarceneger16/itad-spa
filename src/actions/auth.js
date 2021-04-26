@@ -24,6 +24,7 @@ export const register = (username, email, password) => (dispatch) => {
       return Promise.resolve();
     },
     (error) => {
+      
       const message =
         (error.response &&
           error.response.data &&
@@ -56,6 +57,7 @@ export const login = (username, password) => (dispatch) => {
       return Promise.resolve();
     },
     (error) => {
+      console.error(error.response);
       const message =
         (error.response &&
           error.response.data &&

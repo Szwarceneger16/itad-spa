@@ -36,16 +36,15 @@ function LoginForm() {
     const dispatch = useDispatch()
 
     const submitFrom = async (values, actions) => {   
-        dispatch(login(this.state.username, this.state.password))
+        debugger;
+        dispatch(login(values.login, values.password))
         .then(() => {
             history.push("/");
-            window.location.reload();
+            //window.location.reload();
         })
         .catch(() => {
-            this.setState({
-                loading: false
-            });
-            history.push('/about');
+
+            //history.push('/login');
         });
         
 /*         api.login(values.login,values.password,values.rememberMe)
@@ -65,16 +64,16 @@ function LoginForm() {
 
     const validationSchema = Yup.object({
         login: Yup.string()
-        .min(5,t('common:forms.errors.min',{number: 5}) )
-        .max(15,t('common:forms.errors.max', {number: 15}) )
+        // .min(5,t('common:forms.errors.min',{number: 5}) )
+        // .max(15,t('common:forms.errors.max', {number: 15}) )
         .required(t('common:forms.errors.required')),
         password: Yup.string()
-        .min(6,t('common:forms.errors.min',{number: 6}))
-        .max(15,t('common:forms.errors.max', {number: 15}))
-        .matches(/([a-z]+)/,t('common:forms.errors.password.lowerLetter') )
-        .matches(/([A-Z]+)/,t('common:forms.errors.password.upperLetter') )
-        .matches(/(\W+)/,t('common:forms.errors.password.special') )
-        .matches(/(\d+)/,t('common:forms.errors.password.digit'))
+        // .min(6,t('common:forms.errors.min',{number: 6}))
+        // .max(15,t('common:forms.errors.max', {number: 15}))
+        // .matches(/([a-z]+)/,t('common:forms.errors.password.lowerLetter') )
+        // .matches(/([A-Z]+)/,t('common:forms.errors.password.upperLetter') )
+        // .matches(/(\W+)/,t('common:forms.errors.password.special') )
+        // .matches(/(\d+)/,t('common:forms.errors.password.digit'))
         .required(t('common:forms.errors.required')),
     });
 
@@ -128,13 +127,14 @@ function LoginForm() {
     );
 }
 
-function mapStateToProps(state) {
-    const { isLoggedIn } = state.auth;
-    const { message } = state.message;
-    return {
-      isLoggedIn,
-      message
-    };
-  }
+// function mapStateToProps(state) {
+//     const { isLoggedIn } = state.auth;
+//     const { message } = state.message;
+//     return {
+//       isLoggedIn,
+//       message
+//     };
+//   }
 
-export default connect(mapStateToProps)(LoginForm);
+// export default connect(mapStateToProps)(LoginForm);
+export default LoginForm;
