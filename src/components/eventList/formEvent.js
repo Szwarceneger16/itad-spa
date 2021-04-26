@@ -88,7 +88,7 @@ const labelStyle = {
                         <Box>
                             <ButtonGroup>
                                 <SubmitButton isSubmitting={props.isSubmitting} />
-                                {initialValues && initialValues.id && 
+                                {initialValues && !!initialValues.id && 
                                     <DeleteIconButton 
                                         onClick={() => {
                                             onCancel();

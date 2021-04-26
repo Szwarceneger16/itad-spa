@@ -41,7 +41,7 @@ export default function (params) {
                 defaultIsOpen={!!initialFormValues}
                 //OnOpen={() => setOpenPopover(true)} 
                 OnClose={() => { setInitialFormvalues(null); }} 
-                label={t('eventDetails:main.editLecture')}
+                label={initialFormValues ? t('eventDetails:main.editLecture') : t('eventDetails:main.addLecture')}
                 component={FormLecture}
                 initialValues={initialFormValues}
             />

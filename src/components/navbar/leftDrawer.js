@@ -15,8 +15,9 @@ import {
     DrawerCloseButton,
   } from "@chakra-ui/react"
 import React from 'react';
+import UserDashboard from '../user/dashboard';
 
-export function UserAvatar( /* {userData} */) {
+export function UserAvatar() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef()
 
@@ -24,8 +25,8 @@ export function UserAvatar( /* {userData} */) {
         
         <>
         <Link ref={btnRef} onClick={onOpen}>
-            <Avatar name="Oshigaki Kisame" src={"https://bit.ly/"/* +userData.avatarSrc */}>
-              <AvatarBadge border color="yellow" bg="grey" boxSize="1.25em">{/* userData.eventsCount */}</AvatarBadge>
+            <Avatar name="Oshigaki Kisame" /* src={"https://bit.ly/"+userData.avatarSrc} */ src="https://bit.ly/dan-abramov">
+              <AvatarBadge border color="yellow" bg="grey" boxSize="1.25em">4{/* userData.eventsCount */}</AvatarBadge>
             </Avatar>
         </Link>
         <Drawer
@@ -42,7 +43,7 @@ export function UserAvatar( /* {userData} */) {
               <DrawerBody>
                 <Input placeholder="Type here..." />
               </DrawerBody>
-  
+                <UserDashboard />
               <DrawerFooter>
                 <Button variant="outline" mr={3} onClick={onClose}>
                   Cancel
