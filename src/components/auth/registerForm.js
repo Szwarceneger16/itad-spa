@@ -1,23 +1,33 @@
 import { Formik,Field, Form, FormikConsumer } from 'formik';
-import React, { Suspense} from "react";
+import React, { useState } from "react";
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import * as Yup from 'yup';
-import { InputPassword, InputText, Switch} from '../forms/InputElements.js';
+import { register } from "../../actions/auth";
+import { 
+    InputPassword, 
+    InputText, 
+    InputSwitch,
+    InputEmail
+} from '../forms/InputElements.js';
 import {
     Stack,
     Box,
-    FormControl,
-    FormLabel,
-    FormErrorMessage,
-    FormHelperText,
-    InputGroup,
-    InputRightElement,
+    Flex,
+    Spacer,
     Input,
     Button,
     color
 } from "@chakra-ui/react";
+import {
+    useHistory,
+  } from "react-router-dom";
+import { 
+    useSelector,
+    useDispatch
+} from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import EmailVerificationAlert from './emailVerificationAlert'
 
 const labelStyle = {
     fontFamily:'sans-serif',
@@ -34,30 +44,38 @@ const labelStyle = {
 //     return result;
 // }
 
-const submitForm = async (values, actions) => {
-    //debugger;
-    // setTimeout(() => {
-    //   alert(JSON.stringify(values, null, 2))
-    //   actions.setSubmitting(false)
-    // }, 3000)
-    const resp = await fetch('https://f176f6fd-47ff-411c-bb08-83fad0dfd0e8.mock.pstmn.io/loginGood',{
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-          },
-          body: JSON.stringify(values),
-    }).then(response => response.text())
-    .catch(e => {
-        console.log(e);
-    })
-    console.log('Success:', resp);
-    return true;
-  }
-
 function RegisterForm() {
-    const { t, i18n } = useTranslation(['common','registerForm']);
-    i18n.loadNamespaces('registerForm');
+    const { t, i18n } = useTranslation(['common','auth']);
+    const [isOpen, setIsOpen] = useState(false);
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    const submitForm = async (values, actions) => {
+        handleOpenAlert();
+        // await dispatch(register(values.email ,values.login, values.password))
+        // .then(() => {
+            
+            
+        // })
+        // .catch(() => {
+        //     //history.push('/login');
+        // });
+    }
+    
+    let timeoutID;
+    const handleOpenAlert = () => {
+        setIsOpen(true);
+        timeoutID = setTimeout( () => {
+            setIsOpen(false);
+            history.push("/");
+        },10000)
+    }
+
+    const handleCloseAlert = () => {
+        setIsOpen(false);
+        clearTimeout(timeoutID);
+        history.push("/");
+    }
 
     const validationSchema = Yup.object({
         login: Yup.string()
@@ -72,20 +90,30 @@ function RegisterForm() {
         .matches(/(\W+)/,t('common:forms.errors.password.special') )
         .matches(/(\d+)/,t('common:forms.errors.password.digit'))
         .required(t('common:forms.errors.reqired')),
+        email: Yup.string().email().required(),
     });
 
   return (
+      <>
+      <EmailVerificationAlert isOpen={isOpen} onClose={() => handleCloseAlert()} />
         <Formik
             initialValues={{
-                login: 'piotr',
-                password: 'aa'
+                login: '',
+                password: '',
+                email: '',
+                rememberMe: false
             }}
             initialErrors={true}
             validationSchema={validationSchema}
             onSubmit={submitForm}
         >
             {( props ) => (
-            <Form>              
+            <Form>
+                <InputEmail 
+                    labelStyle={labelStyle}
+                    fieldName='email' 
+                    labels={{inputTitle: t('registerForm:input.email.title')}}
+                />      
                 <InputText 
                     labelStyle={labelStyle}
                     fieldName='login' 
@@ -101,15 +129,22 @@ function RegisterForm() {
                     }}
                 />
                 
-                <Button 
-                    mt={4} 
-                    isLoading={props.isSubmitting}
-                    type="submit"
-                >{t('common:buttons.submit.title')}</Button > 
+                <Flex align='center' flexWrap="wrap" mt={4}>
+                    {/* <Box>
+                        <InputSwitch fieldName='rememberMe'>Remember Me</InputSwitch>
+                    </Box> */}
+                    <Spacer />
+                    <Box alignSelf="flex-end">
+                        <Button 
+                            isLoading={props.isSubmitting}
+                            type="submit"
+                        >{t('common:buttons.submit.title')}</Button > 
+                    </Box>
+                </Flex>
             </Form>  
             )}
         </Formik>   
-
+    </>
   );
 }
 

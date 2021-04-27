@@ -1,5 +1,5 @@
 import { Flex, Stack, Box, Heading } from '@chakra-ui/react';
-import LoginForm from '../components/login/loginForm';
+import LoginForm from '../components/auth/loginForm';
 import React, { Suspense } from "react";
 
 export function Login() {

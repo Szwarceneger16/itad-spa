@@ -6,7 +6,12 @@ import {
   LOGOUT,
 } from "../actions/types";
 
-const user = JSON.parse(localStorage.getItem("user"));
+let user = JSON.parse(localStorage.getItem("user"));
+
+if (user && !user.rememberMe) {
+  localStorage.removeItem("user");
+  user = null;
+}
 
 const initialState = user
   ? { isLoggedIn: true, user }

@@ -12,6 +12,7 @@ import { useHistory } from "react-router";
 import {
   useParams
 } from "react-router-dom";
+import { logout } from "../../actions/auth";
 import {
   useSelector,
   useDispatch
@@ -35,25 +36,12 @@ function MenuLinks( {/* store, */ ...props} ) {
   //   return unsubscribe;
   // }, [])
 
-  const logout = () => {
-    dispatch({type: 'LOGOUT'})
+  const logoutHandler = () => {
+    dispatch(logout());
     history.push('/home');
   }
 
-
   let route = Array.from(props.route);
-  //const loginRoute =popElement(route,createRouteComparator('login'));
-  //const registerRoute =popElement(route,createRouteComparator('register'));
-
-  // if (!isLoggedIn) { // not authorized
-  //   route = route.filter( el => {
-  //     if ( el.secure) {
-  //       return false;
-  //     }
-  //     return true;
-  //   }) ;
-  // }else { // authorized
-  //   const userRoles = store.getState().userData.role;
 
   route = route.filter( el => {
     //debugger;
@@ -112,7 +100,7 @@ function MenuLinks( {/* store, */ ...props} ) {
       {isLoggedIn && <UserAvatar /* userData={sessionManager.getState().userData} */ />}
       {isLoggedIn && <Button 
         {...styles.ButtonStyle.logout} 
-        onClick={() => logout()}
+        onClick={() => logoutHandler()}
       >Logout</Button>}
     </Stack>
   </Box>

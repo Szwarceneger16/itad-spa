@@ -9,16 +9,24 @@ import {
 //import Switch from 'react-router-transition-switch'
 import { Box } from '@chakra-ui/react'
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-
+import {
+    useSelector,
+    useDispatch
+  } from 'react-redux';
 import './styles.css'
+import route , {Home} from "../routes/route.js";
 
 function AppRoutes( props ) {
     const transitionNodeRef = React.createRef();
-    const route = props.route;
+    //const route = props.route;
     const location = useLocation();
+    const userRoles = useSelector( state => (state.auth.user && state.auth.user.role)?? [] );
 
     const childRoutes = route.map(el =>{
         if ( !el.component ) return;
+        if ( el.secure && !el.secure.some( el => userRoles.includes( el )) ) {
+            return false;
+          }
         return (
             <Route 
             key={el.name} 
@@ -41,8 +49,9 @@ function AppRoutes( props ) {
                     <Box className='page' py='10vh' ref={transitionNodeRef} px='1vw' /* w='100%' minH='100vh' */ bg="gray.100">
                         <Switch /* key={location.key} */ location={location}>
                             {childRoutes }
-                            <Route path='*'>
-                                <Redirect to="/home" />
+                            <Route path='*' /* component={Home.component} */>
+
+                                <Redirect push to="/home" />
                             </Route>      
                         </Switch>   
                     </Box>

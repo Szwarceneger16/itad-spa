@@ -1,12 +1,15 @@
 import * as Pages from '../../pages';
 
+const Home = {
+  name: 'home',
+  path: '/home',
+  navbarDisplay: true,
+  component: Pages.Home
+};
+export { Home };
+
 export default [
-  {
-    name: 'home',
-    path: '/home',
-    navbarDisplay: true,
-    component: Pages.Home
-  },
+  Home,
   {
     name: 'about',
     path: '/about',
@@ -16,13 +19,9 @@ export default [
   {
     name: 'myEvents',
     path: '/myEvents',
-    secure: ["admin"],
+    secure: ["user","admin"],
     navbarDisplay: true,
     component: Pages.MyEvents
-  },
-  {
-    name: 'DDD',
-    path: '/ddd'
   },
   {
     name: 'login',
@@ -39,12 +38,15 @@ export default [
   {
     name: 'events',
     path: '/eventsList',
+    secure: ["user","admin"],
     navbarDisplay: true,
     component: Pages.EventsList
   },
   {
     name: 'list',
     path: '/eventDetails/:eventId',
+    secure: ["user","admin"],
     component: Pages.EventDetails
   },
 ];
+

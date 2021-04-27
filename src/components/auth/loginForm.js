@@ -18,7 +18,6 @@ import { DividerWithText, ErrorMessage } from '../forms/elements.js';
 //import { sessionManager } from '../sessionStore/sessionManager.js.bak';
 import api from '../../api/apiEntity';
 import { useSelector, useDispatch } from 'react-redux';
-import { connect } from "react-redux";
 import { login } from "../../actions/auth";
 
 const labelStyle = {
@@ -28,38 +27,20 @@ const labelStyle = {
 }
 
 function LoginForm() {
-    const { t, i18n } = useTranslation(['common','loginForm']);
+    const { t, i18n } = useTranslation(['common','auth']);
     //debugger;
     const [ submitError, setSubmitError ] = useState();
-    let history = useHistory();
-    i18n.loadNamespaces('loginForm');
+    const history = useHistory();
     const dispatch = useDispatch()
 
     const submitFrom = async (values, actions) => {   
-        debugger;
-        dispatch(login(values.login, values.password))
+        dispatch(login(values.login, values.password,values.rememberMe))
         .then(() => {
             history.push("/");
-            //window.location.reload();
         })
         .catch(() => {
-
             //history.push('/login');
         });
-        
-/*         api.login(values.login,values.password,values.rememberMe)
-        .then((res) => {       
-            sessionManager.dispatch({
-                type: 'setAuth', 
-                payload: {userData: res}
-            });
-            
-        })
-        .catch(err => {
-            console.log(err);
-            setSubmitError(t("common:forms.errors.submit400"));
-            actions.setSubmitting(false);
-        });   */
     }
 
     const validationSchema = Yup.object({
@@ -108,17 +89,17 @@ function LoginForm() {
                             }}
                         />
                         <DividerWithText></DividerWithText>
-                        <Flex align='center' mt={4}>
-                        <Box>
-                            <InputSwitch fieldName='rememberMe'>Remember Me</InputSwitch>
-                        </Box>
-                        <Spacer />
-                        <Box>
-                            <Button 
-                                isLoading={props.isSubmitting}
-                                type="submit"
-                            >{t('common:buttons.submit.title')}</Button > 
-                        </Box>
+                        <Flex align='center' flexWrap="wrap" mt={4}>
+                            <Box>
+                                <InputSwitch fieldName='rememberMe'>Remember Me</InputSwitch>
+                            </Box>
+                            <Spacer />
+                            <Box>
+                                <Button 
+                                    isLoading={props.isSubmitting}
+                                    type="submit"
+                                >{t('common:buttons.submit.title')}</Button > 
+                            </Box>
                         </Flex>
                     </Form>      
                 )}

@@ -46,6 +46,7 @@ export function InputFile ( {fieldName, labelStyle,labels,multiple,innerRef,plac
                 <Input type='file' ref={setRef}
                     accept={accept} id={fieldName} placeholder={placeholder} 
                     d="none" 
+                    width="100%"
                     onBlur={field.onBlur}
                     multiple={multiple}
                     onChange={(e) => { 
@@ -77,7 +78,7 @@ export function InputText ( {fieldName, labelStyle,labels,innerRef,placeholder})
                 <FormLabel htmlFor={fieldName} {...labelStyle}>
                     {/* {label ? label : fieldName} */ labels.inputTitle}
                 </FormLabel>
-                <Input {...field} type='text' id={fieldName} placeholder={placeholder} />
+                <Input {...field} type='text' width="100%" id={fieldName} placeholder={placeholder} />
                 
                 <FormErrorMessage d='block'>{form.errors[fieldName]}</FormErrorMessage>
             </FormControl>
@@ -171,7 +172,7 @@ export function InputEmail ( {fieldName, labelStyle,labels,innerRef,placeholder}
                 <FormLabel htmlFor={fieldName} {...labelStyle}>
                     {/* {label ? label : fieldName} */ labels.inputTitle}
                 </FormLabel>
-                <Input {...field} type='email' id={fieldName} placeholder={placeholder} />
+                <Input {...field} width="100%" type='email' id={fieldName} placeholder={placeholder} />
                 <FormErrorMessage d='block'>{form.errors[fieldName]}</FormErrorMessage>
             </FormControl>
         )}}
@@ -190,7 +191,7 @@ export function InputTextArea ( {fieldName, labelStyle,labels,innerRef,placehold
                     {/* {label ? label : fieldName} */ labels.inputTitle}
                 </FormLabel>
                 <Textarea 
-                resize="vertical" {...field} 
+                resize="vertical" {...field} width="100%"
                 id={fieldName} placeholder={placeholder} />
                 <FormErrorMessage d='block'>{form.errors[fieldName]}</FormErrorMessage>
             </FormControl>
@@ -216,7 +217,7 @@ export function InputPassword ( {fieldName, labelStyle, labels,innerRef,placehol
                 <FormLabel htmlFor={fieldName} {...labelStyle}>
                     {/* {label ? label : fieldName} */ labels.inputTitle}
                 </FormLabel>
-                    <InputGroup size="md">
+                    <InputGroup size="md" width="100%">
                         <Input 
                             {...field} 
                             type={show ? "text" : "password"} 

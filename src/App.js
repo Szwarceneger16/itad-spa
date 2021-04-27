@@ -3,12 +3,6 @@ import worker from './workerStart.js';
 import React, { Component, Suspense,  useCallback, useContext, useState } from "react";
 import {
   BrowserRouter  as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
-  useRouteMatch,
-  Redirect
 } from "react-router-dom";
 import { useMediaQuery } from '@chakra-ui/react';
 import TopNav from './components/navbar/TopNavBar.js';
