@@ -20,7 +20,7 @@ export default [
     name: 'myEvents',
     path: '/myEvents',
     secure: ["user","admin"],
-    navbarDisplay: true,
+    navbarDisplay: false,
     component: Pages.MyEvents
   },
   {

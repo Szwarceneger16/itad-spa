@@ -32,6 +32,7 @@ export default function (state = initialState, action) {
         isLoggedIn: false,
       };
     case LOGIN_SUCCESS:
+      //  JSON.parse(payload.user)
       return {
         ...state,
         isLoggedIn: true,

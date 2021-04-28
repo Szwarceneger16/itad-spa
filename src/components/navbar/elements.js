@@ -10,6 +10,8 @@ import {
   } from "react-router-dom";
 import dotNetLogo from './../../img/grupa-net-gear--color.ico';
 
+//const NavBarOpenContext = React.createContext(setIsOpen);
+
 function Logo({src,to,alt,...props}) {
     return (
       <Box {...props}>
@@ -53,7 +55,7 @@ const MenuToggle = ({ toggle, isOpen }) => {
   );
 };
 
-function MyLink({ label, secure, to, activeOnlyWhenExact,...rest }) {
+function MyLink({ label, onClick, secure, to, activeOnlyWhenExact,...rest }) {
     let match = !!useRouteMatch({
       path: to,
       exact: true
@@ -61,6 +63,7 @@ function MyLink({ label, secure, to, activeOnlyWhenExact,...rest }) {
 
     return (
         <RouterLink 
+          onClick={() => onClick()}
             to={to}
         >
             <Text fontSize={[18,18,20,20]} {...rest}>

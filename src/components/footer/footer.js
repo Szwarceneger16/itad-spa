@@ -7,7 +7,8 @@ import LanguageSelector from "./languagePopover.js";
 import { useTranslation } from 'react-i18next';
 
 const flexChildreenStyle = {
-    p: 4,
+    p: 0,
+    m: 1,
 }
 
 const FooterContainer = ({ children, ...props }) => {
@@ -20,6 +21,7 @@ const FooterContainer = ({ children, ...props }) => {
         align="center"
         m={0}
         p={0}
+        h={"6vh"}
         bg={["green.500", "green.500", "orange.400", "orange.400"]}
         color={["white", "white", "green.700", "green.700"]}
         {...props}
@@ -50,10 +52,10 @@ function Footer(params) {
     
     return (
         <FooterContainer>
-            <Box m={1} {...flexChildreenStyle}>
+            <Box {...flexChildreenStyle}>
                 <Text >{t('common:footer.title', { author: ".NET"})}</Text>
             </Box>
-            <Box m={1} {...flexChildreenStyle}>
+            <Box {...flexChildreenStyle}>
                 <LanguageSelector supportedLanguage={supportedLanguage} />
             </Box>
             

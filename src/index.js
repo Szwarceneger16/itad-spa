@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ChakraProvider } from "@chakra-ui/react";
@@ -10,7 +9,9 @@ import DateFnsUtils from '@date-io/date-fns';
 import { pl, enUS,enGB } from 'date-fns/locale'
 import { Provider } from "react-redux";
 import store from "./store.js";
-
+import {
+  BrowserRouter  as Router,
+} from "react-router-dom";
 // const theme = extendTheme({
 //   fonts: {
 //     body: "Tangerine, serif",
@@ -25,7 +26,9 @@ ReactDOM.render(
       <ChakraProvider /* theme={theme} */>
         {/* <ColorModeScript /> */}
         <MuiPickersUtilsProvider utils={DateFnsUtils} locale={pl}>
-          <App />
+          <Router basename="">
+            <App />
+          </Router> 
         </MuiPickersUtilsProvider>
         
       </ChakraProvider>

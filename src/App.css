@@ -6,12 +6,19 @@
 
 /* ============== contain CSS */
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
-#main {
+/* #main {
   transition: margin-left .5s;
-}
+} */
 
 body {
-  font-family: "Lato", sans-serif;
-  transition: background-color .5s;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  height: min-content;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
 

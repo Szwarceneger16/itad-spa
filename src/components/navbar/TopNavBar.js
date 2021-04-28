@@ -17,24 +17,17 @@ import {
   useSelector,
   useDispatch
 } from 'react-redux';
+import {
+  GetUserRoles,
+  GetLogginStatus
+} from '../../selectors';
 
-function MenuLinks( {/* store, */ ...props} ) {
+function MenuLinks( {/* store, */onClick, ...props} ) {
   const { t, i18n } = useTranslation('common');
-  //const [isLoggedIn, setAuthenticated] = useState(!!store.getState().userData);
-  const isLoggedIn = useSelector( state => state.auth.isLoggedIn);
+  const isLoggedIn = GetLogginStatus();
+  const userRoles = /* useSelector( */ GetUserRoles() /* ) */;
   const dispatch = useDispatch()
   const history = useHistory();
-  
-  const userRoles = useSelector( state => (state.auth.user && state.auth.user.role)?? [] );
-  //const userRoles = [];
-
-  // useEffect( () => {
-  //   const unsubscribe = store.subscribe(() => {
-  //     //console.log('reload navbar',store.getState());
-  //     setAuthenticated(!!store.getState().userData);
-  //   })
-  //   return unsubscribe;
-  // }, [])
 
   const logoutHandler = () => {
     dispatch(logout());
@@ -60,19 +53,21 @@ function MenuLinks( {/* store, */ ...props} ) {
 
   // create links elements
   route = route.map( ( {name,path} ) => {
-    return (<MyLink {...styles.ButtonStyle[name]} className={name} key={'top'+name} to={path} label={t('routes.'+name)} />)
+    return (<MyLink 
+      {...styles.ButtonStyle[name]}
+       onClick={onClick} 
+       className={name} 
+       key={'top'+name} 
+       to={path} 
+       label={t('routes.'+name)} 
+       />)
   })
-
-  //
   
     return (
   <Box
     display={{ base: props.isOpen ? "block" : "none", md: "block" }}
     flexBasis={{ base: "100%", md: "auto" }}
   >
-    {/* <userTokenContext.Consumer>
-      {value => setAuthenticated(value)}
-    </userTokenContext.Consumer> */}
     <Stack
       spacing={6}
       align="center"
@@ -83,29 +78,14 @@ function MenuLinks( {/* store, */ ...props} ) {
       mb={[4,4,0,0]}
     >
       {route}
-      {/* {!isLoggedIn && loginRoute && <MyLink
-          as='button'
-          key={'top'+loginRoute.name} 
-          to={loginRoute.path} 
-          label={t('routes.'+loginRoute.name)}
-          {...styles.loginButtonStyle}
-      />}
-      {!isLoggedIn && registerRoute && <MyLink
-          as='button'
-          key={'top'+registerRoute.name} 
-          to={registerRoute.path} 
-          label={t('routes.'+registerRoute.name)}
-          {...styles.registerButtonStyle}
-      />} */}
-      {isLoggedIn && <UserAvatar /* userData={sessionManager.getState().userData} */ />}
+      {isLoggedIn && <UserAvatar />}
       {isLoggedIn && <Button 
         {...styles.ButtonStyle.logout} 
-        onClick={() => logoutHandler()}
+        onClick={() => { onClick(); logoutHandler(); }}
       >Logout</Button>}
     </Stack>
   </Box>
   );
-// )};
 };
 
 const NavBarContainer = ({ children, ...props }) => {
@@ -138,15 +118,15 @@ const NavBar = ( { route, logoSrc,auth,store , ...props}) => {
 
   return (
     <NavBarContainer {...props}>
-      <Logo
-        src={dotNetLogo}
-        to='/home'
-        w={['30px','36px','48px','64px']/* { base: "42px", md: "50px", lg: "66px" } */}
-        h={['30px','36px','48px','64px']/* { base: "42px", md: "50px", lg: "66px" } */}
-        color={["white", "white", "green.500", "green.500"]}
-      />
-      <MenuToggle toggle={toggle} isOpen={isOpen} />
-      <MenuLinks isOpen={isOpen} store={store} route={route} auth={auth} />
+        <Logo
+          src={dotNetLogo}
+          to='/home'
+          w={['30px','36px','48px','64px']/* { base: "42px", md: "50px", lg: "66px" } */}
+          h={['30px','36px','48px','64px']/* { base: "42px", md: "50px", lg: "66px" } */}
+          color={["white", "white", "green.500", "green.500"]}
+        />
+        <MenuToggle toggle={toggle} isOpen={isOpen} />
+        <MenuLinks isOpen={isOpen} route={route} onClick={() => setIsOpen(false)} />
     </NavBarContainer>
   );
 };

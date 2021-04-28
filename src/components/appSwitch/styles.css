@@ -1,8 +1,6 @@
 .page {
-  margin-top: 6vh;
-  overflow: hidden;
-  min-height: 100vh;
-  overflow: none;  /* Firefox */
+  min-height: 94vh;
+  overflow: none;
 }
 
 .page-enter {
@@ -14,8 +12,7 @@
   opacity: 1;
   transform: scale(1);
   transition: opacity 600ms, transform 600ms;
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+
 }
 .page-enter-active::-webkit-scrollbar {
   display: none; /* Chrome, Safari and Opera */

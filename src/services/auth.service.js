@@ -10,6 +10,7 @@ class AuthService {
       .post(API_URL + "login",
        { username, password })
       .then((response) => {
+        //return response.data;
         let data = response.data;
         if (response.data.authenticationToken) {
           data.rememberMe = rememberMe;
