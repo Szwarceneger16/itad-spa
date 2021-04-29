@@ -1,6 +1,6 @@
 import { SET_MESSAGE, CLEAR_MESSAGE, STATUS_MESSAGE } from "../actions/types";
 
-const initialState = {};
+const initialState = {} ;
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
@@ -9,7 +9,7 @@ export default function (state = initialState, action) {
     case SET_MESSAGE:
 
       return { 
-        title: payload.title,
+        message: payload.message,
         status: !!STATUS_MESSAGE.includes(payload.status) ? payload.status : "success",
        };
 
