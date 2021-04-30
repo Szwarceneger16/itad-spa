@@ -32,13 +32,14 @@ function LoginForm() {
   const dispatch = useDispatch();
 
   const submitFrom = async (values, actions) => {
-    dispatch(login(values.login, values.password, values.rememberMe))
+    await dispatch(login(values.login, values.password, values.rememberMe))
       .then(() => {
         dispatch(
           setMessage("aaaa" /* t("auth:alert.login.succes") */, "succes")
-        );
-        actions.setSubmitting(false);
-        history.push("/");
+        ).then(() => {
+          actions.setSubmitting(false);
+          history.push("/");
+        });
       })
       .catch(() => {
         //history.push('/login');

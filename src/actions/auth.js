@@ -9,22 +9,18 @@ import {
 
 import AuthService from "../services/auth.service";
 
-export const register = (username, email, password) => (dispatch) => {
-  return AuthService.register(username, email, password).then(
+export const register = (email, username, password, rememberMe) => (
+  dispatch
+) => {
+  return AuthService.register(email, username, password, rememberMe).then(
     (response) => {
       dispatch({
         type: REGISTER_SUCCESS,
       });
 
-      dispatch({
-        type: SET_MESSAGE,
-        payload: response.data.message,
-      });
-
       return Promise.resolve();
     },
     (error) => {
-      
       const message =
         (error.response &&
           error.response.data &&
@@ -36,18 +32,13 @@ export const register = (username, email, password) => (dispatch) => {
         type: REGISTER_FAIL,
       });
 
-      dispatch({
-        type: SET_MESSAGE,
-        payload: message,
-      });
-
       return Promise.reject();
     }
   );
 };
 
-export const login = (username, password,rememberMe) => (dispatch) => {
-  return AuthService.login(username, password,rememberMe).then(
+export const login = (username, password, rememberMe) => (dispatch) => {
+  return AuthService.login(username, password, rememberMe).then(
     (data) => {
       dispatch({
         type: LOGIN_SUCCESS,
@@ -67,11 +58,6 @@ export const login = (username, password,rememberMe) => (dispatch) => {
 
       dispatch({
         type: LOGIN_FAIL,
-      });
-
-      dispatch({
-        type: SET_MESSAGE,
-        payload: message,
       });
 
       return Promise.reject();

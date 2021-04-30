@@ -47,13 +47,11 @@ function RegisterForm() {
 
   const submitForm = async (values, actions) => {
     handleOpenAlert();
-    // await dispatch(register(values.email ,values.login, values.password))
-    // .then(() => {
-
-    // })
-    // .catch(() => {
-    //     //history.push('/login');
-    // });
+    await dispatch(register(values.email, values.login, values.password))
+      .then(() => {})
+      .catch(() => {
+        //history.push('/login');
+      });
   };
 
   let timeoutID;

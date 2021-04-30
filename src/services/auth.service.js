@@ -5,8 +5,6 @@ import axios from "axios";
 //const API_URL = "/" /* "http://localhost:3100/api/auth/" */;
 const API_URL = process.env.REACT_APP_API_URL;
 
-// import {API_URL} from './axiosInstance'
-
 class AuthService {
   login(username, password, rememberMe) {
     //return Promise.resolve("");
@@ -15,6 +13,7 @@ class AuthService {
       .then((response) => {
         //return response.data;
         let data = response.data;
+
         if (response.data.authenticationToken) {
           data.rememberMe = rememberMe;
           localStorage.setItem("user", JSON.stringify(data));
@@ -28,12 +27,24 @@ class AuthService {
     localStorage.removeItem("user");
   }
 
-  register(email, username, password) {
-    return axios.post(API_URL + "auth/signup", {
-      username,
-      email,
-      password,
-    });
+  register(email, username, password, rememberMe) {
+    return axios
+      .post(API_URL + "auth/signup", {
+        username,
+        email,
+        password,
+      })
+      .then((response) => {
+        //return response.data;
+        let data = response.data;
+
+        if (response.data.authenticationToken) {
+          data.rememberMe = rememberMe;
+          localStorage.setItem("user", JSON.stringify(data));
+        }
+
+        return data;
+      });
   }
 }
 

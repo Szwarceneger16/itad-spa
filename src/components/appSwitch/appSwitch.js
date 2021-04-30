@@ -4,61 +4,59 @@ import {
   Route,
   Switch,
   Redirect,
-  useLocation
+  useLocation,
 } from "react-router-dom";
 //import Switch from 'react-router-transition-switch'
-import { Box } from '@chakra-ui/react'
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import {
-    useSelector,
-    useDispatch
-  } from 'react-redux';
-import './styles.css'
-import route , {Home} from "../routes/route.js";
+import { Box } from "@chakra-ui/react";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { useSelector, useDispatch } from "react-redux";
+import "./styles.css";
+import { GetUserRoles } from "../../selectors";
 
-function AppRoutes( props ) {
-    const transitionNodeRef = React.createRef();
-    //const route = props.route;
-    const location = useLocation();
-    const userRoles = useSelector( state => (state.auth.user && state.auth.user.role)?? [] );
+function AppRoutes({ route }) {
+  const transitionNodeRef = React.createRef();
+  //const route = props.route;
+  const location = useLocation();
+  //const userRoles = GetUserRoles();
 
-    const childRoutes = route.map(el =>{
-        if ( !el.component ) return;
-        if ( el.secure && !el.secure.some( el => userRoles.includes( el )) ) {
-            return false;
-          }
-        return (
-            <Route 
-            key={el.name} 
-            path={el.path}
-            exact={true}
-            component={el.component}
-            />
-        );
-    })
-
+  const childRoutes = route.map((el) => {
     return (
-        <>
-            <TransitionGroup component={null}>
-                <CSSTransition
-                    key={location.key}
-                    classNames="page"
-                    timeout={600}
-                    nodeRef={transitionNodeRef}
-                >                     
-                    <Box className='page' py='10vh' ref={transitionNodeRef} px='1vw' /* w='100%' minH='100vh' */ bg="gray.100">
-                        <Switch /* key={location.key} */ location={location}>
-                            {childRoutes }
-                            <Route path='*' /* component={Home.component} */>
-
-                                <Redirect push to="/home" />
-                            </Route>      
-                        </Switch>   
-                    </Box>
-                </CSSTransition>
-            </TransitionGroup>
-        </>
+      <Route
+        key={el.name}
+        path={el.path}
+        exact={true}
+        component={el.component}
+      />
     );
+  });
+
+  return (
+    <>
+      <TransitionGroup component={null}>
+        <CSSTransition
+          key={location.key}
+          classNames="page"
+          timeout={600}
+          nodeRef={transitionNodeRef}
+        >
+          <Box
+            className="page"
+            py="10vh"
+            ref={transitionNodeRef}
+            px="1vw"
+            /* w='100%' minH='100vh' */ bg="gray.100"
+          >
+            <Switch /* key={location.key} */ location={location}>
+              {childRoutes}
+              <Route path="*" /* component={Home.component} */>
+                <Redirect push to="/home" />
+              </Route>
+            </Switch>
+          </Box>
+        </CSSTransition>
+      </TransitionGroup>
+    </>
+  );
 }
 
 export default AppRoutes;

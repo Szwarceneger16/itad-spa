@@ -1,8 +1,9 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 export default function authHeader() {
-  //const user = JSON.parse(localStorage.getItem("user"));
-  const userToken = useSelector( state => state.auth.user.authenticationToken )
+  const userToken = JSON.parse(localStorage.getItem("user"))
+    .authenticationToken;
+  //const userToken = useSelector((state) => state.auth.user.authenticationToken);
 
   if (userToken) {
     // For Spring Boot back-end
