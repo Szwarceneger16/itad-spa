@@ -6,4 +6,10 @@ export const LOGOUT = "LOGOUT";
 
 export const SET_MESSAGE = "SET_MESSAGE";
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
-export const STATUS_MESSAGE = ["success", "error", "warning", "info"]
+export const STATUS_MESSAGE = ["success", "error", "warning", "info"];
+
+export const EVENT_APPEND = "EVENT_APPEND";
+export const EVENT_REMOVE = "EVENT_REMOVE";
+export const EVENT_MODIFY = "EVENT_MODIFY";
+export const EVENTS_SET = "EVENTS_SET";
+export const EVENTS_CLEAR = "EVENTS_CLEAR";

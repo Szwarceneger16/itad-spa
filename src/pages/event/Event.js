@@ -63,7 +63,8 @@ export function EventDetails() {
               <Text {...styles.text}>{eventData.eventDescription}</Text>
             </Box>
 
-            <Box></Box>
+            <Box>Statistics</Box>
+            <Box>Obecnosci</Box>
 
             <ShowLecture />
             <ShowLecturer />

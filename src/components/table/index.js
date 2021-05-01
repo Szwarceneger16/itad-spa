@@ -83,7 +83,9 @@ MyTable.propTypes = {
       PropTypes.oneOfType([PropTypes.string, PropTypes.element])
     )
   ).isRequired,
-  columnsWidth: PropTypes.arrayOf(PropTypes.string).isRequired,
+  columnsWidth: PropTypes.arrayOf(
+    PropTypes.oneOf([PropTypes.string, PropTypes.arrayOf(PropTypes.string)])
+  ).isRequired,
   onRowClick: PropTypes.func,
   onCellsClick: PropTypes.arrayOf(
     PropTypes.shape({ cellNumber: PropTypes.number, callback: PropTypes.func })

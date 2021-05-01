@@ -37,20 +37,20 @@ export default [
   },
   {
     name: "events",
-    path: "/events",
+    path: "/eventsAll",
     secure: ["user", "admin"],
     navbarDisplay: true,
     component: Pages.Events,
   },
   {
     name: "list",
-    path: "/eventDetails/:eventId",
+    path: "/event/detail/:eventId",
     secure: ["user", "admin"],
     component: Pages.EventDetails,
   },
   {
     name: "event",
-    path: "/eventModify/:id?",
+    path: "/event/modify/:id?",
     secure: ["user", "admin"],
     navbarDisplay: false,
     component: Pages.EventAddEdit,

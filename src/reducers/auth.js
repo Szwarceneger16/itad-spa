@@ -8,11 +8,6 @@ import {
 
 let user = JSON.parse(localStorage.getItem("user"));
 
-if (user && !user.rememberMe) {
-  localStorage.removeItem("user");
-  user = null;
-}
-
 const initialState = user
   ? { isLoggedIn: true, user }
   : { isLoggedIn: false, user: {} };

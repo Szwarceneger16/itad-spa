@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import EventForm from "src/components/events/EventForm";
 import { useTranslation } from "react-i18next";
-import styles from "./styles/Events.js";
+import styles from "./styles/EventsAll.js";
 
 const eventData = {
   eventName: "tytul",

@@ -10,7 +10,7 @@ import React, {
 
 import { useMediaQuery } from "@chakra-ui/react";
 import TopNav from "./components/navbar/TopNavBar.js";
-import AppSwitch from "./components/appSwitch/appSwitch";
+import AppSwitch from "./components/router/appSwitch";
 import "./App.css";
 import routesConf from "./components/routes/route.js";
 import i18next from "./components/i18nextConfig.js";

@@ -78,13 +78,13 @@ export default function (params) {
     {
       cellNumber: 4,
       callback: (dataRowNumber) => {
-        history.push("/eventModify/" + dataRowNumber);
+        history.push("/event/modify/" + dataRowNumber);
       },
     },
     {
       cellNumber: 3,
       callback: (dataRowNumber) => {
-        history.push("/eventDetails/" + dataRowNumber);
+        history.push("/event/detail/" + dataRowNumber);
       },
     },
   ];
