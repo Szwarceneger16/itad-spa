@@ -35,7 +35,7 @@ function LoginForm() {
     await dispatch(login(values.login, values.password, values.rememberMe))
       .then(() => {
         dispatch(
-          setMessage("aaaa" /* t("auth:alert.login.succes") */, "succes")
+          setMessage(t("auth:alert.login.succes"), "succes")
         ).then(() => {
           actions.setSubmitting(false);
           history.push("/");

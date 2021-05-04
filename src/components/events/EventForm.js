@@ -36,7 +36,7 @@ const labelStyle = {
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 function FormEvent({ firstFieldRef, onCancel, initialValues }) {
-  const { t, i18n } = useTranslation(["common", "event"]);
+  const { t, i18n } = useTranslation(["common", "events"]);
   //const [submitError, setSubmitError] = useState("");
   //const user = undefined;
 
@@ -83,13 +83,13 @@ function FormEvent({ firstFieldRef, onCancel, initialValues }) {
               labelStyle={labelStyle}
               innerRef={firstFieldRef}
               fieldName="name"
-              labels={{ inputTitle: t("event:input.name.title") }}
+              labels={{ inputTitle: t("events:event.input.name") }}
             />
             <InputTextArea
               labelStyle={labelStyle}
               fieldName="description"
               labels={{
-                inputTitle: t("event:input.description.title"),
+                inputTitle: t("events:event.input.description"),
               }}
             />
             <InputDate
@@ -97,7 +97,7 @@ function FormEvent({ firstFieldRef, onCancel, initialValues }) {
               fieldName="startDate"
               disablePast
               labels={{
-                inputTitle: t("event:input.startDate.title"),
+                inputTitle: t("events:event.input.startDate"),
               }}
             ></InputDate>
             <InputDate
@@ -105,20 +105,20 @@ function FormEvent({ firstFieldRef, onCancel, initialValues }) {
               fieldName="endDate"
               disablePast
               labels={{
-                inputTitle: t("event:input.endDate.title"),
+                inputTitle: t("events:event.input.endDate"),
               }}
             ></InputDate>
             <InputNumber
               labelStyle={labelStyle}
               innerRef={firstFieldRef}
               fieldName="availableTickets"
-              labels={{ inputTitle: t("event:input.availableTickets.title") }}
+              labels={{ inputTitle: t("events:event.input.availableTickets") }}
             />
             <InputNumber
               labelStyle={labelStyle}
               innerRef={firstFieldRef}
               fieldName="ticketPrice"
-              labels={{ inputTitle: t("event:input.ticketPrice.title") }}
+              labels={{ inputTitle: t("events:event.input.ticketPrice") }}
             />
 
             <Flex align="center" mt={4}>

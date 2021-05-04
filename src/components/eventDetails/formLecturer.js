@@ -22,7 +22,7 @@ const labelStyle = {
 }
 
   function FormLecturer ({ firstFieldRef, onCancel,initialValues }) {
-    const { t, i18n } = useTranslation(['common','formLecturer']);
+    const { t, i18n } = useTranslation(['common','events']);
     const [ submitError, setSubmitError ] = useState();
 
     const submitFrom = async (values, actions) => {    
@@ -70,25 +70,25 @@ const labelStyle = {
                             labelStyle={labelStyle}
                             innerRef={firstFieldRef}
                             fieldName='firstName' 
-                            labels={{inputTitle: t('formLecturer:input.firstName.title')}}
+                            labels={{inputTitle: t('events:formLecturer.input.firstName')}}
                         />
                         <InputText 
                             labelStyle={labelStyle}
                             innerRef={firstFieldRef}
                             fieldName='secondName' 
-                            labels={{inputTitle: t('formLecturer:input.secondName.title')}}
+                            labels={{inputTitle: t('events:formLecturer.input.secondName')}}
                         />
                         <InputTextArea 
                             labelStyle={labelStyle}
                             fieldName='description' 
-                            labels={{inputTitle: t('formLecturer:input.description.title')}}
+                            labels={{inputTitle: t('events:formLecturer.input.description')}}
                         />
                         <InputFile 
                             labelStyle={labelStyle}
                             fieldName='file'
                             accept="image/png, image/jpeg"
-                            labels={{inputTitle: t('formLecturer:input.file.title'),
-                            buttonTitle: t('formLecturer:input.file.Button'),
+                            labels={{inputTitle: t('events:formLecturer.input.file.title'),
+                            buttonTitle: t('events:formLecturer.input.file.Button'),
                         }}
                         />
 

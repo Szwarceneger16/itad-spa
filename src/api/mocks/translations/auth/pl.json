@@ -1,0 +1,24 @@
+{
+      "input": {
+        "email": {
+            "title": "E-mail"
+        },
+        "login": {
+            "title": "Login"
+        },
+        "password": {
+            "title": "Hasło"
+        }
+    },
+    "alert": {
+        "login": {
+            "succes": "Udało się zalogować",
+            "error": "Błąd logowania"
+        }
+    }, 
+    "emailregistration": {
+        "header": "Nagłówek",
+        "body": "Treść",
+        "redirect": "Przeadresować"
+    }
+}

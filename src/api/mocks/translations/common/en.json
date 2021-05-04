@@ -16,16 +16,26 @@
                 "digit": "Expression doesn't contain any digit",
                 "special": "Expression doesn't contain any special character"
             },
-            "min": "min {{number}} characters",
-            "max": " max {{number}} characters",
-            "required": "this field are required",
-            "submit400": "wrong creditalias"
+            "min": "Min {{number}} characters",
+            "max": " Max {{number}} characters",
+            "required": "This field are required",
+            "submit400": "Wrong creditalias"
         }
     },
     "routes": {
         "home": "Home",
         "login": "SIGN IN",
         "about": " About Us",
-        "register": "SIGN UP"
+        "register": "SIGN UP",
+        "events": "Events"
+    },
+    "button": {
+        "cancel": "Cancel"
+    },
+    "message": {
+        "waitingForData": "Waiting For Data"
+    },
+    "footer": {
+        "title": "Author {{author}}"
     }
 }

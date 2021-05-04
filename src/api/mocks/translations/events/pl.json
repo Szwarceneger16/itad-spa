@@ -1,0 +1,91 @@
+{
+    "EventModify": {
+        "main": {
+            "heading": "Wydarzenie",
+            "subheading": "Podtytuł"
+        }
+    },
+    "EventsAll": {
+        "main": {
+            "heading": "Wydarzenie",
+            "eventsList": "Lista wydarzeń",
+            "showEvents": "Pokaż wydarzenia"
+        }
+    },
+    "event":{
+        "eventDetails": {
+            "heading": "Wydarzenie",
+            "eventName": "Nazwa Wydarzenia",
+            "accordion": {
+                "details": "Detale",
+                "statistic": "Statystyki",
+                "lecture": "Prelekcja",
+                "lecturers": "Prelegenci"
+            },
+            "Description": "Opis"
+        },
+        "input": {
+            "name": "Nazwa",
+            "description": "Opis",
+            "startDate": "Czas Rozpoczęcia",
+            "endDate": "Czas Zakończenia",
+            "availableTickets": "Dostępne Bilety",
+            "ticketPrice": "Cena Biletu"
+        },
+        "summary": {
+            "name": "Nazwa",
+            "description": "Opis",
+            "date": "Data"
+        }, 
+        "main": {
+            "showEvents": "Pokaż Wydarzenia"
+        }
+    },
+    "showLecture": {
+        "lecture": {
+            "name": "Nazwa",
+            "description": "Opis",
+            "startTime": "Czas Rozpoczęcia",
+            "endTime": "Czas Zakończenia"           
+        },
+        "main": {
+            "showLecture": "Prelekcje",
+            "editLecture": "Edytuj Prelekcję",
+            "addLecture": "Dodaj Prelekcje"
+        }
+    },
+    "formLecturer": {
+        "input": {
+            "firstName": "Imię",
+            "secondName": "Nazwisko",
+            "description": "Opis",
+            "file":{
+                "title": "Tytuł",
+                "Button": "Dodaj"
+            }
+        }
+    },
+    "formLecture":{
+        "input": {
+            "name": "Nazwa",
+            "description": "Opis",
+            "startTime": "Czas Rozpoczęcia",
+            "endTime": "Czas Zakończenia"
+        }
+    },
+    "eventDetails": {
+        "lecturer": {
+            "tableheading":{
+                "firstname": "Imię",
+                "secondName": "Nazwisko",
+                "description": "Opis",
+                "photo": "Zdjęcie"
+            }
+        },
+        "main": {
+            "showLecturer": "Prelegenci",
+            "editLecturer": "Edytuj Prelegenta",
+            "addLecturer": "Dodaj Prelegenta"
+        }
+    }
+}

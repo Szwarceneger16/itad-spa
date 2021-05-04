@@ -22,7 +22,7 @@ const labelStyle = {
 }
 
   function FormLecture ({ firstFieldRef, onCancel,initialValues }) {
-    const { t, i18n } = useTranslation(['common','formLecture']);
+    const { t, i18n } = useTranslation(['common','events']);
     const [ submitError, setSubmitError ] = useState();
 
     const submitFrom = async (values, actions) => {    
@@ -68,22 +68,22 @@ const labelStyle = {
                             labelStyle={labelStyle}
                             innerRef={firstFieldRef}
                             fieldName='lectureName' 
-                            labels={{inputTitle: t('formLecture:input.name.title')}}
+                            labels={{inputTitle: t('events:formLecture.input.name')}}
                         />
                         <InputTextArea 
                             labelStyle={labelStyle}
                             fieldName='description' 
-                            labels={{inputTitle: t('formLecture:input.description.title')}}
+                            labels={{inputTitle: t('events:formLecture.input.description')}}
                         />
                         <InputTime 
                             labelStyle={labelStyle}
                             fieldName='startTime' 
-                            labels={{inputTitle: t('formLecture:input.startTime.title')}}
+                            labels={{inputTitle: t('events:formLecture.input.startTime')}}
                         />
                         <InputTime 
                             labelStyle={labelStyle}
                             fieldName='endTime' 
-                            labels={{inputTitle: t('formLecture:input.endTime.title')}}
+                            labels={{inputTitle: t('events:formLecture.input.endTime')}}
                         />
 
                         <Flex align='center' mt={4}>

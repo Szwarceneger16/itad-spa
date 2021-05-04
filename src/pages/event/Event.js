@@ -22,18 +22,18 @@ const eventData = {
 };
 
 export function EventDetails() {
-  const { t, i18n } = useTranslation(["common", "event"]);
+  const { t, i18n } = useTranslation(["common", "events"]);
   const { eventId } = useParams();
 
   return (
     <VStack spacing={8} mx="auto" w="100%" py={12} px={0} p={0} m={0}>
       <Heading fontSize="3xl" textAlign="center">
-        {t("event:eventDetails.heading") + ` ${eventId} `}
+        {t("events:event.eventDetails.heading") + ` ${eventId} `}
       </Heading>
       <Flex {...styles.flexContainer}>
         <Box {...styles.flexItem}>
           <Heading {...styles.text}>
-            {t("event:eventDetails.eventName")}
+            {t("events:event.eventDetails.eventName")}
           </Heading>
           <Text {...styles.text}>{eventData.eventName}</Text>
           <Divider size="40px"></Divider>
@@ -42,10 +42,10 @@ export function EventDetails() {
         <Box {...styles.flexItem} {...styles.flexItemTable}>
           <MyAccordion
             labels={[
-              t("event:eventDetails.accordion.details"),
-              t("event:eventDetails.accordion.statistic"),
-              t("event:eventDetails.accordion.lecture"),
-              t("event:eventDetails.accordion.lecturers"),
+              t("events:event.eventDetails.accordion.details"),
+              t("events:event.eventDetails.accordion.statistic"),
+              t("events:event.eventDetails.accordion.lecture"),
+              t("events:event.eventDetails.accordion.lecturers"),
             ]}
           >
             <Box>
@@ -58,7 +58,7 @@ export function EventDetails() {
               </Box>
               <Divider size="40px"></Divider>
               <Heading {...styles.text}>
-                {t("event:eventDetails.Description")}
+                {t("events:event.eventDetails.Description")}
               </Heading>
               <Text {...styles.text}>{eventData.eventDescription}</Text>
             </Box>

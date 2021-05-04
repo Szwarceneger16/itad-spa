@@ -18,16 +18,16 @@ const eventData = {
 };
 
 export function EventAddEdit() {
-  const { t, i18n } = useTranslation(["common", "event"]);
+  const { t, i18n } = useTranslation(["common", "events"]);
 
   return (
     <VStack {...styles.vStack}>
       <Heading fontSize="3xl" textAlign="center">
-        {t("event:main.heading")}
+        {t("events:EventModify.main.heading")}
       </Heading>
       <Flex {...styles.flexContainer}>
         <Box {...styles.flexItem}>
-          <Heading {...styles.text}>{t("event:main.subheading")}</Heading>
+          <Heading {...styles.text}>{t("events:EventModify.main.subheading")}</Heading>
           <Text {...styles.text}>{eventData.eventName}</Text>
           <Divider size="40px"></Divider>
         </Box>

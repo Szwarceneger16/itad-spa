@@ -28,7 +28,7 @@ import MyTable from "../table";
 
 const cellWidths = ["25%", "25%", "40%", "10%"];
 export default function (params) {
-  const { t, i18n } = useTranslation(["common", "eventDetails"]);
+  const { t, i18n } = useTranslation(["common", "events"]);
   const [initialFormValues, setInitialFormvalues] = useState(null);
 
   const initEditPopover = (el) => {
@@ -43,16 +43,16 @@ export default function (params) {
   };
 
   const headers = [
-    t("eventDetails:lecture.name"),
-    t("eventDetails:lecture.description"),
-    t("eventDetails:lecture.startTime"),
-    t("eventDetails:lecture.endTime"),
+    t("events:showLecture.lecture.name"),
+    t("events:showLecture.lecture.description"),
+    t("events:showLecture.lecture.startTime"),
+    t("events:showLecture.lecture.endTime"),
   ];
   const data = [["some data", "some data", "some data", "some data"]];
 
   return (
     <>
-      <Heading {...styles.text}>{t("eventDetails:main.showLecture")}</Heading>
+      <Heading {...styles.text}>{t("events:showLecture.main.showLecture")}</Heading>
       <InputPopover
         defaultIsOpen={!!initialFormValues}
         //OnOpen={() => setOpenPopover(true)}
@@ -61,8 +61,8 @@ export default function (params) {
         }}
         label={
           initialFormValues
-            ? t("eventDetails:main.editLecture")
-            : t("eventDetails:main.addLecture")
+            ? t("events:showLecture.main.editLecture")
+            : t("events:showLecture.main.addLecture")
         }
         component={FormLecture}
         initialValues={initialFormValues}

@@ -39,7 +39,7 @@ const cellWidths = [
   ["5%", "4%"],
 ];
 export default function (params) {
-  const { t, i18n } = useTranslation(["common", "event"]);
+  const { t, i18n } = useTranslation(["common", "events"]);
   const [eventsData, setEventsData] = useState([
     t("common:message.waitingForData"),
     t("common:message.waitingForData"),
@@ -67,9 +67,9 @@ export default function (params) {
   // };
 
   const headers = [
-    t("event:summary.name"),
-    t("event:summary.description"),
-    t("event:summary.date"),
+    t("events:event.summary.name"),
+    t("events:event.summary.description"),
+    t("events:event.summary.date"),
     <InfoIcon />,
     <EditIcon />,
   ];
@@ -93,7 +93,7 @@ export default function (params) {
 
   return (
     <>
-      <Heading {...styles.text}>{t("event:main.showEvents")}</Heading>
+      <Heading {...styles.text}>{t("events:event.main.showEvents")}</Heading>
 
       <Divider size="40px"></Divider>
 
