@@ -20,7 +20,6 @@ import UserDashboard from '../user/dashboard';
 export function UserAvatar() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef()
-
     return (
         
         <>
@@ -38,17 +37,16 @@ export function UserAvatar() {
           <DrawerOverlay>
             <DrawerContent>
               <DrawerCloseButton />
-              <DrawerHeader>Create your account</DrawerHeader>
+              <DrawerHeader>Account</DrawerHeader>
   
               <DrawerBody>
-                <Input placeholder="Type here..." />
-              </DrawerBody>
                 <UserDashboard />
+              </DrawerBody>
               <DrawerFooter>
                 <Button variant="outline" mr={3} onClick={onClose}>
                   Cancel
                 </Button>
-                <Button color="blue">Save</Button>
+                {/*<Button color="blue">Save</Button>*/}
               </DrawerFooter>
             </DrawerContent>
           </DrawerOverlay>
