@@ -21,12 +21,9 @@ const eventData = {
 
 export function EventAddEdit() {
   const { t, i18n } = useTranslation(["common", "events"]);
-<<<<<<< HEAD
-=======
   const params = useParams();
   // @ts-ignore
   const eventId = Number(params.eventId);
->>>>>>> develop
 
   return (
     <VStack {...styles.vStack}>
@@ -35,13 +32,9 @@ export function EventAddEdit() {
       </Heading>
       <Flex {...styles.flexContainer}>
         <Box {...styles.flexItem}>
-<<<<<<< HEAD
-          <Heading {...styles.text}>{t("events:EventModify.main.subheading")}</Heading>
-=======
           <Heading {...styles.text}>
             {t("events:EventModify.main.subheading")}
           </Heading>
->>>>>>> develop
           <Text {...styles.text}>{eventData.eventName}</Text>
           <Divider size="40px"></Divider>
         </Box>

@@ -43,16 +43,7 @@ function FormEvent({ firstFieldRef, onCancel, eventId }) {
   const history = useHistory();
   const dispatch = useDispatch();
 
-<<<<<<< HEAD
-function FormEvent({ firstFieldRef, onCancel, initialValues }) {
-  const { t, i18n } = useTranslation(["common", "events"]);
-  //const [submitError, setSubmitError] = useState("");
-  //const user = undefined;
-
-  const submitFrom = async (values, actions) => {
-=======
   const submitFrom = (values, actions) => {
->>>>>>> develop
     const _values = { ...values };
     if (_values.eventId === null) delete values.eventId;
     console.log(_values);
@@ -113,11 +104,7 @@ function FormEvent({ firstFieldRef, onCancel, initialValues }) {
               fieldName="startTime"
               disablePast
               labels={{
-<<<<<<< HEAD
-                inputTitle: t("events:event.input.startDate"),
-=======
                 inputTitle: t("events:event.input.startTime"),
->>>>>>> develop
               }}
             ></InputDate>
             {/* <InputDate
@@ -139,11 +126,7 @@ function FormEvent({ firstFieldRef, onCancel, initialValues }) {
               innerRef={firstFieldRef}
               fieldName="ticketPrice"
               labels={{ inputTitle: t("events:event.input.ticketPrice") }}
-<<<<<<< HEAD
-            />
-=======
             /> */}
->>>>>>> develop
 
             <Flex align="center" mt={4}>
               <Box>
