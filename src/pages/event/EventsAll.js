@@ -12,12 +12,11 @@ import EventsSummary from "../../components/events/EventsSummary";
 import React, { Suspense, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styles from "./styles/EventsAll";
-import EventService from "src/services/event.service";
+import { useEventData } from "src/hooks/useEventData.js";
 import { InfoIcon, EditIcon } from "@chakra-ui/icons";
 import { useHistory } from "react-router-dom";
 import MyTable from "src/components/table";
-
-const fetchEventsData = EventService.getAllEvents();
+import * as DateFns from "date-fns";
 
 // const eventData = {
 //   eventName: "tytul",
@@ -26,7 +25,7 @@ const fetchEventsData = EventService.getAllEvents();
 // };
 
 const cellWidths = [
-  ["25%"],
+  ["25%", "25%"],
   ["30%", "40%"],
   ["25%", "15%"],
   ["5%", "4%"],
@@ -34,45 +33,43 @@ const cellWidths = [
 ];
 export function Events() {
   const { t, i18n } = useTranslation(["common", "eventsList"]);
-  const [eventsData, setEventsData] = useState([
-    t("common:message.waitingForData"),
-    t("common:message.waitingForData"),
-    t("common:message.waitingForData"),
-    "",
-    "",
-  ]);
+  let eventsData = useEventData();
   let history = useHistory();
 
-  useEffect(() => {
-    fetchEventsData.then((data) => {
-      setEventsData(data);
-    });
-  }, []);
+  const infoIcon = <InfoIcon />;
+  const editIcon = <EditIcon />;
 
+  const loadingData = [
+    [
+      t("common:message.waitingForData"),
+      t("common:message.waitingForData"),
+      t("common:message.waitingForData"),
+      "",
+      "",
+    ],
+  ];
   const headers = [
     t("event:summary.name"),
     t("event:summary.description"),
     t("event:summary.date"),
-    <InfoIcon />,
-    <EditIcon />,
+    infoIcon,
+    editIcon,
   ];
 
   const callbacks = [
     {
       cellNumber: 4,
       callback: (dataRowNumber) => {
-        history.push("/event/modify/" + dataRowNumber);
+        history.push("/event/modify/" + eventsData[dataRowNumber].eventId);
       },
     },
     {
       cellNumber: 3,
       callback: (dataRowNumber) => {
-        history.push("/event/detail/" + dataRowNumber);
+        history.push("/event/detail/" + eventsData[dataRowNumber].eventId);
       },
     },
   ];
-
-  const data = [["aaa", "bbb", "ccc", <InfoIcon />, <EditIcon />]];
 
   return (
     <VStack {...styles.vStack}>
@@ -95,7 +92,17 @@ export function Events() {
 
           <MyTable
             columnsWidth={cellWidths}
-            data={data}
+            data={
+              eventsData
+                ? eventsData.map((eventData, index) => [
+                    eventData.name,
+                    eventData.description,
+                    DateFns.format(eventData.startDate, "MM-dd-yyyy"),
+                    infoIcon,
+                    editIcon,
+                  ])
+                : loadingData
+            }
             labels={headers}
             onCellsClick={callbacks}
           />

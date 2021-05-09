@@ -31,9 +31,9 @@ export function InputFile({
   labelStyle,
   labels,
   multiple,
-  innerRef,
-  placeholder,
   accept,
+  innerRef = undefined,
+  placeholder = undefined,
 }) {
   let ref;
   //const reffToInput = innerRef || ref;
@@ -95,8 +95,8 @@ export function InputText({
   fieldName,
   labelStyle,
   labels,
-  innerRef,
-  placeholder,
+  innerRef = undefined,
+  placeholder = undefined,
 }) {
   return (
     <Field innerRef={innerRef} name={fieldName}>
@@ -131,8 +131,8 @@ export function InputNumber({
   fieldName,
   labelStyle,
   labels,
-  innerRef,
-  placeholder,
+  innerRef = undefined,
+  placeholder = undefined,
 }) {
   return (
     <Field innerRef={innerRef} name={fieldName}>
@@ -167,7 +167,7 @@ export function InputDate({
   fieldName,
   labelStyle,
   labels,
-  innerRef,
+  innerRef = undefined,
   ...forCalendar
 }) {
   // const [selectedDate, handleDateChange] = useState(new Date());
@@ -216,7 +216,7 @@ export function InputTime({
   fieldName,
   labelStyle,
   labels,
-  innerRef,
+  innerRef = undefined,
   startDate,
   endDate,
   defaultDate,
@@ -244,8 +244,9 @@ export function InputTime({
               <TimePicker
                 autoOk
                 // disableToolbar
-                step="5"
+                //step="5"
                 //variant="inline"
+                minutesStep={5}
                 name={fieldName}
                 value={field.value}
                 onChange={(date) => form.setFieldValue(field.name, date, false)}
@@ -266,8 +267,8 @@ export function InputEmail({
   fieldName,
   labelStyle,
   labels,
-  innerRef,
-  placeholder,
+  innerRef = undefined,
+  placeholder = undefined,
 }) {
   return (
     <Field innerRef={innerRef} name={fieldName}>
@@ -301,8 +302,8 @@ export function InputTextArea({
   fieldName,
   labelStyle,
   labels,
-  innerRef,
-  placeholder,
+  innerRef = undefined,
+  placeholder = undefined,
 }) {
   return (
     <Field
@@ -340,8 +341,8 @@ export function InputPassword({
   fieldName,
   labelStyle,
   labels,
-  innerRef,
-  placeholder,
+  innerRef = undefined,
+  placeholder = undefined,
 }) {
   const [show, setShow] = useState(false);
   const handleMouseDown = (e) => {
@@ -399,7 +400,12 @@ export function InputSwitch({ fieldName, children }) {
           <FormLabel htmlFor={fieldName} mb="0">
             {children}
           </FormLabel>
-          <ChakraSwitch id={fieldName} {...field} />
+          <ChakraSwitch
+            id={fieldName}
+            isChecked={field.value}
+            value={field.value}
+            {...field}
+          />
         </FormControl>
       )}
     </Field>
