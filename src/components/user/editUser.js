@@ -7,7 +7,7 @@ import { InputDate, InputText, InputPassword, InputEmail} from '../forms/InputEl
 import { CloseIconButton, DeleteIconButton, SubmitButton } from "../forms/buttons";
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
-
+import { editUserFormValidationSchema } from "../auth/yupSchemas";
 const labelStyle = {
     fontFamily:'sans-serif',
     color:'orange.600',
@@ -36,8 +36,8 @@ const submitFrom = async (values, actions) => {
                   password: "12#fA34",
                   email: "jan@gmail.com"
                 }}
+                validationSchema={editUserFormValidationSchema(t)}
                 onSubmit={submitFrom}
-                //validationSchema={validationSchema}
             >  
             {(props) =>(
               <Form>

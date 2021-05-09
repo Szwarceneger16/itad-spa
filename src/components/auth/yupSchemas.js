@@ -19,6 +19,18 @@ const email = (t) =>
     .email(t("common:forms.errors.email"))
     .required(t("common:forms.errors.reqired"));
 
+const firstName = (t) =>
+  Yup.string()
+    .min(1, t("common:forms.errors.min", { number: 1 }))
+    .max(15, t("common:forms.errors.max", { number: 15 }))
+    .required();
+    
+const surname = (t) =>
+  Yup.string()
+    .min(1, t("common:forms.errors.min", { number: 1 }))
+    .max(15, t("common:forms.errors.max", { number: 15 }))
+    .required();
+
 export const registerFormValidationSchema = (t) =>
   Yup.object({
     login: login(t),
@@ -31,3 +43,12 @@ export const loginFormValidationSchema = (t) =>
     login: login(t),
     password: password(t),
   });
+
+export const editUserFormValidationSchema = (t) =>
+  Yup.object({
+    firstName: firstName(t),
+    surname: surname(t),
+    password: password(t),
+    email: email(t),
+  });
+
