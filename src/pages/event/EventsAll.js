@@ -12,12 +12,11 @@ import EventsSummary from "../../components/events/EventsSummary";
 import React, { Suspense, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styles from "./styles/EventsAll";
-import EventService from "src/services/event.service";
+import { useEventData } from "src/hooks/useEventData.js";
 import { InfoIcon, EditIcon } from "@chakra-ui/icons";
 import { useHistory } from "react-router-dom";
 import MyTable from "src/components/table";
-
-const fetchEventsData = EventService.getAllEvents();
+import * as DateFns from "date-fns";
 
 // const eventData = {
 //   eventName: "tytul",
@@ -26,62 +25,60 @@ const fetchEventsData = EventService.getAllEvents();
 // };
 
 const cellWidths = [
-  ["25%"],
+  ["25%", "25%"],
   ["30%", "40%"],
   ["25%", "15%"],
   ["5%", "4%"],
   ["5%", "4%"],
 ];
 export function Events() {
-  const { t, i18n } = useTranslation(["common", "events"]);
-  const [eventsData, setEventsData] = useState([
-    t("common:message.waitingForData"),
-    t("common:message.waitingForData"),
-    t("common:message.waitingForData"),
-    "",
-    "",
-  ]);
+  const { t, i18n } = useTranslation(["common", "eventsList"]);
+  let eventsData = useEventData();
   let history = useHistory();
 
-  useEffect(() => {
-    fetchEventsData.then((data) => {
-      setEventsData(data);
-    });
-  }, []);
+  const infoIcon = <InfoIcon />;
+  const editIcon = <EditIcon />;
 
+  const loadingData = [
+    [
+      t("common:message.waitingForData"),
+      t("common:message.waitingForData"),
+      t("common:message.waitingForData"),
+      "",
+      "",
+    ],
+  ];
   const headers = [
-    t("events:event.summary.name"),
-    t("events:event.summary.description"),
-    t("events:event.summary.date"),
-    <InfoIcon />,
-    <EditIcon />,
+    t("event:summary.name"),
+    t("event:summary.description"),
+    t("event:summary.date"),
+    infoIcon,
+    editIcon,
   ];
 
   const callbacks = [
     {
       cellNumber: 4,
       callback: (dataRowNumber) => {
-        history.push("/event/modify/" + dataRowNumber);
+        history.push("/event/modify/" + eventsData[dataRowNumber].eventId);
       },
     },
     {
       cellNumber: 3,
       callback: (dataRowNumber) => {
-        history.push("/event/detail/" + dataRowNumber);
+        history.push("/event/detail/" + eventsData[dataRowNumber].eventId);
       },
     },
   ];
 
-  const data = [["aaa", "bbb", "ccc", <InfoIcon />, <EditIcon />]];
-
   return (
     <VStack {...styles.vStack}>
       <Heading fontSize="3xl" textAlign="center">
-        {t("events:EventsAll.main.heading")}
+        {t("eventsList:main.heading")}
       </Heading>
       <Flex {...styles.flexContainerForTable}>
         <Box {...styles.flexItem}>
-          <Heading {...styles.text}>{t("events:EventsAll.main.eventsList")}</Heading>
+          <Heading {...styles.text}>{t("eventsList:main.eventsList")}</Heading>
           <Text {...styles.text}>
             aaaaaaaaaaaaaaaaaaa{/* {eventData.eventName} */}
           </Text>
@@ -89,13 +86,23 @@ export function Events() {
         </Box>
 
         <Box {...styles.flexItem}>
-          <Heading {...styles.text}>{t("events:event.main.showEvents")}</Heading>
+          <Heading {...styles.text}>{t("event:main.showEvents")}</Heading>
 
           <Divider size="40px"></Divider>
 
           <MyTable
             columnsWidth={cellWidths}
-            data={data}
+            data={
+              eventsData
+                ? eventsData.map((eventData, index) => [
+                    eventData.name,
+                    eventData.description,
+                    DateFns.format(eventData.startDate, "MM-dd-yyyy"),
+                    infoIcon,
+                    editIcon,
+                  ])
+                : loadingData
+            }
             labels={headers}
             onCellsClick={callbacks}
           />

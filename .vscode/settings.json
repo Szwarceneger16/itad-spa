@@ -16,5 +16,7 @@
     ]
   },
   "html-related-links.alwaysShow": true,
-  "html-related-links.fileroot": ["./app"]
+  "html-related-links.fileroot": [
+    "./app"
+  ]
 }

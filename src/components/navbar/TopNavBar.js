@@ -1,6 +1,7 @@
 import React, { Suspense, useContext, useEffect, useState } from "react";
 import { Link, Box, Flex, Text, Button, Stack, Image } from "@chakra-ui/react";
-import dotNetLogo from "./../../img/grupa-net-gear--color.ico";
+// @ts-ignore
+import dotNetLogo from "src/img/grupa-net-gear--color.ico";
 import { MyLink, MenuToggle, Logo } from "./elements.js";
 import { useTranslation } from "react-i18next";
 import { popElement, createRouteComparator } from "./../../utils";
@@ -102,7 +103,7 @@ const NavBarContainer = ({ children, ...props }) => {
   );
 };
 
-const NavBar = ({ route, isLoggedIn, logoSrc, auth, store, ...props }) => {
+const NavBar = ({ route, isLoggedIn, ...props }) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -112,6 +113,7 @@ const NavBar = ({ route, isLoggedIn, logoSrc, auth, store, ...props }) => {
       <Logo
         src={dotNetLogo}
         to="/home"
+        alt=""
         w={
           [
             "30px",

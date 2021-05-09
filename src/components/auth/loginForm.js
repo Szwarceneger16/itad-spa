@@ -2,7 +2,7 @@ import { Formik, Field, Form } from "formik";
 import React, { Suspense, useEffect, useState, useContext } from "react";
 import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
-import * as Yup from "yup";
+import { loginFormValidationSchema } from "./yupSchemas";
 import {
   InputPassword,
   InputText,
@@ -31,37 +31,20 @@ function LoginForm() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const submitFrom = async (values, actions) => {
-    await dispatch(login(values.login, values.password, values.rememberMe))
-      .then(() => {
-        dispatch(
-          setMessage(t("auth:alert.login.succes"), "succes")
-        ).then(() => {
-          actions.setSubmitting(false);
-          history.push("/");
-        });
-      })
-      .catch(() => {
-        //history.push('/login');
-        actions.setSubmitting(false);
-        dispatch(setMessage(t("auth:alert.login.error"), "error"));
-      });
+  const submitFrom = (values, actions) => {
+    try {
+      const result = dispatch(
+        login(values.login, values.password, values.rememberMe)
+      );
+      dispatch(setMessage(t("auth:alert.login.succes"), "succes"));
+      actions.setSubmitting(false);
+      history.push("/");
+    } catch (error) {
+      debugger;
+      dispatch(setMessage(t("auth:alert.login.error"), "error"));
+      actions.setSubmitting(false);
+    }
   };
-
-  const validationSchema = Yup.object({
-    login: Yup.string()
-      // .min(5,t('common:forms.errors.min',{number: 5}) )
-      // .max(15,t('common:forms.errors.max', {number: 15}) )
-      .required(t("common:forms.errors.required")),
-    password: Yup.string()
-      // .min(6,t('common:forms.errors.min',{number: 6}))
-      // .max(15,t('common:forms.errors.max', {number: 15}))
-      // .matches(/([a-z]+)/,t('common:forms.errors.password.lowerLetter') )
-      // .matches(/([A-Z]+)/,t('common:forms.errors.password.upperLetter') )
-      // .matches(/(\W+)/,t('common:forms.errors.password.special') )
-      // .matches(/(\d+)/,t('common:forms.errors.password.digit'))
-      .required(t("common:forms.errors.required")),
-  });
 
   return (
     <>
@@ -70,10 +53,10 @@ function LoginForm() {
         initialValues={{
           login: "",
           password: "",
-          rememberMe: false,
+          rememberMe: true,
         }}
-        initialErrors={true}
-        validationSchema={validationSchema}
+        //initialErrors={true}
+        validationSchema={loginFormValidationSchema(t)}
         onSubmit={submitFrom}
       >
         {(props) => (
