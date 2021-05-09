@@ -29,8 +29,6 @@ import { useHistory } from "react-router-dom";
 import MyTable from "../table";
 import EventService from "src/services/event.service";
 
-const fetchEventsData = EventService.getAllEvents();
-
 const cellWidths = [
   ["25%"],
   ["30%", "40%"],
@@ -48,12 +46,6 @@ export default function (params) {
     "",
   ]);
   let history = useHistory();
-
-  useEffect(() => {
-    fetchEventsData.then((data) => {
-      setEventsData(data);
-    });
-  }, []);
 
   // const initEditPopover = (el) => {
   //   const values = {

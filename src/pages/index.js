@@ -6,3 +6,4 @@ export * from "./MyEvents.js";
 export * from "./event/Event.js";
 export * from "./event/EventsAll";
 export * from "./event/EventModify";
+export * from "./AccountVerification";

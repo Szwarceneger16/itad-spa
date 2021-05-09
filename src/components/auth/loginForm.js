@@ -2,7 +2,7 @@ import { Formik, Field, Form } from "formik";
 import React, { Suspense, useEffect, useState, useContext } from "react";
 import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
-import { loginFormValidationSchema } from "./yupSchemas";
+import { loginFormValidationSchema } from "../yupSchemas";
 import {
   InputPassword,
   InputText,

@@ -1,4 +1,4 @@
-import * as Pages from "../../pages";
+import * as Pages from "../pages";
 
 const Home = {
   name: "home",
@@ -36,6 +36,11 @@ export default [
     component: Pages.Register,
   },
   {
+    name: "accountVerification",
+    path: "/accountVerification/:token",
+    component: Pages.AccountVerification,
+  },
+  {
     name: "events",
     path: "/eventsAll",
     secure: ["user", "admin"],
@@ -50,7 +55,7 @@ export default [
   },
   {
     name: "event",
-    path: "/event/modify/:id?",
+    path: "/event/modify/:eventId?",
     secure: ["user", "admin"],
     navbarDisplay: false,
     component: Pages.EventAddEdit,

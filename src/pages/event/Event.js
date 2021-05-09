@@ -27,7 +27,7 @@ export function EventDetails() {
   const { t, i18n } = useTranslation(["common", "event"]);
   const params = useParams();
   const eventId = Number(params.eventId);
-  const eventsData = useEventData();
+  const eventData = useEventData(eventId);
   const history = useHistory();
 
   if (Number.isNaN(eventId)) {
@@ -37,7 +37,7 @@ export function EventDetails() {
 
   return (
     <VStack spacing={8} mx="auto" w="100%" py={12} px={0} p={0} m={0}>
-      <Skeleton isLoaded={!!eventsData}>
+      <Skeleton isLoaded={!!eventData}>
         <Heading fontSize="3xl" textAlign="center">
           {t("event:eventDetails.heading") + ` ${eventId} `}
         </Heading>
@@ -46,9 +46,7 @@ export function EventDetails() {
             <Heading {...styles.text}>
               {t("event:eventDetails.eventName")}
             </Heading>
-            <Text {...styles.text}>
-              {eventsData && eventsData[eventId].name}
-            </Text>
+            <Text {...styles.text}>{eventData && eventData.name}</Text>
             <Divider size="40px"></Divider>
           </Box>
 
@@ -64,7 +62,7 @@ export function EventDetails() {
               <Box>
                 <Box {...styles.flexItemImage}>
                   <Image
-                    src={eventsData && eventData.imageSrc}
+                    src={eventData && eventData.imageSrc}
                     fallbackSrc="https://bit.ly/sage-adebayo"
                     alt="Segun Adebayo"
                   />
@@ -74,7 +72,7 @@ export function EventDetails() {
                   {t("event:eventDetails.Description")}
                 </Heading>
                 <Text {...styles.text}>
-                  {eventsData && eventsData[eventId].description}
+                  {eventData && eventData.description}
                 </Text>
               </Box>
 

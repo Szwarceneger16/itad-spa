@@ -9,29 +9,19 @@ const defaultHeaders = {
 const API_URL = process.env.REACT_APP_API_URL;
 
 class EventService {
-  getAllEvents() {
+  getEventsAll() {
     return axios.get(API_URL + "event/all");
   }
 
-  addEvent(data) {
-    const exampleData = {
-      name: "Przykladowa nazwa",
-      description: "Przykladowy Opis",
-      startDate: "2021-03-29T14:30:59.692612Z",
-      endDate: "2021-03-29T14:30:59.692612Z",
-      availableTickets: 100,
-      bookedTickets: 1,
-      ticketPrice: 6,
-      owner: "0",
-      partners: [],
-      lectures: [],
-    };
+  getEventByID(eventId) {
+    if (!eventId || typeof eventId !== "number") throw "wrong input args";
+    return axios.get(API_URL + "event/findById?id=" + eventId);
+  }
 
-    return axios.post(
-      API_URL + "event",
-      { ...exampleData, ...data },
-      { headers: { defaultHeaders, ...authHeader() } }
-    );
+  addEvent(data) {
+    return axios.post(API_URL + "event", data, {
+      headers: { defaultHeaders, ...authHeader() },
+    });
   }
 }
 
