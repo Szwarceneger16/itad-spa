@@ -4,7 +4,7 @@ export default {
     colorScheme: "blackAlpha",
     variant: "striped",
     wordBreak: "break-word",
-    h: ["50vh", "50vh", "50vw"],
+    maxH: ["30vh", "40vh", "40vh"],
     w: "100%",
     p: 1,
     m: 0,
