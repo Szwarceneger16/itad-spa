@@ -21,6 +21,7 @@ import { connect } from "react-redux";
 import spinBarRoutes from "./components/routes/spinBarRoutes";
 import Toast from "./components/toast";
 import { GetUserRoles, GetLogginStatus } from "./selectors";
+import { useEventData } from "src/hooks/useEventData.js";
 
 const routes = routesConf.filter((el) => {
   if (el.component === undefined) return false;
@@ -34,6 +35,7 @@ function App() {
   const crownRoutes = spinBarRoutes();
   const userRoles = GetUserRoles();
   const isLoggedIn = GetLogginStatus();
+  const eventsData = useEventData();
 
   const filteredRoutes = routes.filter((el) => {
     //debugger;
@@ -49,19 +51,21 @@ function App() {
   });
 
   return (
-    <Suspense fallback={<h1>Page is loading</h1>}>
-      <TopNav route={filteredRoutes} isLoggedIn={isLoggedIn} />
-      {isLargerThan768 && (
-        <MenuDotNetCircle right="-25px" onClicksFunctions={crownRoutes} />
-      )}
+    <>
+      <Suspense fallback={<h1>Page is loading</h1>}>
+        <TopNav route={filteredRoutes} isLoggedIn={isLoggedIn} />
+        {isLargerThan768 && (
+          <MenuDotNetCircle right="-25px" onClicksFunctions={crownRoutes} />
+        )}
 
-      <Suspense fallback={<h1>Profile loading</h1>}>
-        <AppSwitch route={filteredRoutes} />
+        <Suspense fallback={<h1>Profile loading</h1>}>
+          <AppSwitch route={filteredRoutes} />
+        </Suspense>
+
+        <Footer></Footer>
       </Suspense>
-
-      <Footer></Footer>
       <Toast />
-    </Suspense>
+    </>
   );
 }
 

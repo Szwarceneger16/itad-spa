@@ -19,6 +19,7 @@ function createAxiosResponseInterceptor() {
       return response;
     },
     (error) => {
+      console.error("AXIOS = catch repsosne error");
       // Reject promise if usual error
       if (
         error &&
@@ -46,8 +47,13 @@ function createAxiosResponseInterceptor() {
         username,
         refreshToken,
       };
+      console.error("AXIOS = request refresh token");
       return axios(options)
         .then((response) => {
+          console.error(
+            "AXIOS = response refresh token",
+            response.data.authenticationToken
+          );
           let user = JSON.parse(localStorage.getItem("user"));
           user.access_token = response.data.token;
           localStorage.setItem("user", JSON.stringify(user));

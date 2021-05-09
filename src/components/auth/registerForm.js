@@ -2,7 +2,7 @@ import { Formik, Field, Form, FormikConsumer } from "formik";
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
-import * as Yup from "yup";
+import { registerFormValidationSchema } from "./yupSchemas";
 import { register } from "../../actions/auth";
 import {
   InputPassword,
@@ -23,21 +23,13 @@ import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import EmailVerificationAlert from "./emailVerificationAlert";
+import { setMessage } from "src/actions/message";
 
 const labelStyle = {
   fontFamily: "sans-serif",
   color: "orange.600",
   fontSize: [14, 16, 18],
 };
-
-// async function getMesseges (lang) {
-//     const result = await new Promise(resolve => {
-//         setTimeout(() => {
-//             resolve('abcd');
-//           }, 5000)
-//     })
-//     return result;
-// }
 
 function RegisterForm() {
   const { t, i18n } = useTranslation(["common", "auth"]);
@@ -46,12 +38,14 @@ function RegisterForm() {
   const history = useHistory();
 
   const submitForm = async (values, actions) => {
-    handleOpenAlert();
-    await dispatch(register(values.email, values.login, values.password))
-      .then(() => {})
-      .catch(() => {
-        //history.push('/login');
-      });
+    try {
+      await dispatch(register(values.email, values.login, values.password));
+      handleOpenAlert();
+      history.push("/login");
+    } catch (error) {
+      dispatch(setMessage(t("auth:alert.login.error"), "error"));
+      actions.setSubmitting(false);
+    }
   };
 
   let timeoutID;
@@ -69,22 +63,6 @@ function RegisterForm() {
     history.push("/");
   };
 
-  const validationSchema = Yup.object({
-    login: Yup.string()
-      .min(5, t("common:forms.errors.min", { number: 5 }))
-      .max(15, t("common:forms.errors.max", { number: 15 }))
-      .required(),
-    password: Yup.string()
-      .min(6, t("common:forms.errors.min", { number: 6 }))
-      .max(15, t("common:forms.errors.max", { number: 15 }))
-      .matches(/([a-z]+)/, t("common:forms.errors.password.lowerLetter"))
-      .matches(/([A-Z]+)/, t("common:forms.errors.password.upperLetter"))
-      .matches(/(\W+)/, t("common:forms.errors.password.special"))
-      .matches(/(\d+)/, t("common:forms.errors.password.digit"))
-      .required(t("common:forms.errors.reqired")),
-    email: Yup.string().email().required(),
-  });
-
   return (
     <>
       <EmailVerificationAlert
@@ -96,10 +74,10 @@ function RegisterForm() {
           login: "",
           password: "",
           email: "",
-          rememberMe: false,
+          rememberMe: true,
         }}
-        initialErrors={true}
-        validationSchema={validationSchema}
+        //initialErrors={true}
+        validationSchema={registerFormValidationSchema(t)}
         onSubmit={submitForm}
       >
         {(props) => (
