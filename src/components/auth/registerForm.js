@@ -2,7 +2,7 @@ import { Formik, Field, Form, FormikConsumer } from "formik";
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
-import { registerFormValidationSchema } from "./yupSchemas";
+import { registerFormValidationSchema } from "../yupSchemas";
 import { register } from "../../actions/auth";
 import {
   InputPassword,
@@ -34,6 +34,7 @@ const labelStyle = {
 function RegisterForm() {
   const { t, i18n } = useTranslation(["common", "auth"]);
   const [isOpen, setIsOpen] = useState(false);
+  const [timeoutID, setTimeoutID] = useState(null);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -41,26 +42,26 @@ function RegisterForm() {
     try {
       await dispatch(register(values.email, values.login, values.password));
       handleOpenAlert();
-      history.push("/login");
     } catch (error) {
-      dispatch(setMessage(t("auth:alert.login.error"), "error"));
+      dispatch(setMessage(t("auth:alert.register.error"), "error"));
       actions.setSubmitting(false);
     }
   };
 
-  let timeoutID;
   const handleOpenAlert = () => {
     setIsOpen(true);
-    timeoutID = setTimeout(() => {
-      setIsOpen(false);
-      history.push("/");
-    }, 10000);
+    setTimeoutID(
+      setTimeout(() => {
+        setIsOpen(false);
+        history.push("/login");
+      }, 10000)
+    );
   };
 
   const handleCloseAlert = () => {
     setIsOpen(false);
     clearTimeout(timeoutID);
-    history.push("/");
+    history.push("/login");
   };
 
   return (

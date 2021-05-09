@@ -17,6 +17,7 @@ import { InfoIcon, EditIcon } from "@chakra-ui/icons";
 import { useHistory } from "react-router-dom";
 import MyTable from "src/components/table";
 import * as DateFns from "date-fns";
+import { Button } from "@material-ui/core";
 
 // const eventData = {
 //   eventName: "tytul",
@@ -33,7 +34,7 @@ const cellWidths = [
 ];
 export function Events() {
   const { t, i18n } = useTranslation(["common", "eventsList"]);
-  let eventsData = useEventData();
+  let eventsData = useEventData(-1);
   let history = useHistory();
 
   const infoIcon = <InfoIcon />;
@@ -83,6 +84,16 @@ export function Events() {
             aaaaaaaaaaaaaaaaaaa{/* {eventData.eventName} */}
           </Text>
           <Divider size="40px"></Divider>
+        </Box>
+        <Box>
+          <Button
+            variant="contained"
+            onClick={() => {
+              history.push("/event/modify");
+            }}
+          >
+            {t("event:main.button.addEvent")}
+          </Button>
         </Box>
 
         <Box {...styles.flexItem}>

@@ -19,7 +19,7 @@ function createAxiosResponseInterceptor() {
       return response;
     },
     (error) => {
-      console.error("AXIOS = catch repsosne error");
+      //console.error("AXIOS = catch repsosne error");
       // Reject promise if usual error
       if (
         error &&
@@ -34,6 +34,9 @@ function createAxiosResponseInterceptor() {
        * Eject the interceptor so it doesn't loop in case
        * token refresh causes the 404 response
        */
+      if (!localStorage.getItem("user")) {
+        return Promise.reject(error);
+      }
       axios.interceptors.response.eject(interceptor);
 
       const { username, refreshToken, authenticationToken } = JSON.parse(
@@ -47,13 +50,13 @@ function createAxiosResponseInterceptor() {
         username,
         refreshToken,
       };
-      console.error("AXIOS = request refresh token");
+      //console.error("AXIOS = request refresh token");
       return axios(options)
         .then((response) => {
-          console.error(
+          /* console.error(
             "AXIOS = response refresh token",
             response.data.authenticationToken
-          );
+          ); */
           let user = JSON.parse(localStorage.getItem("user"));
           user.access_token = response.data.token;
           localStorage.setItem("user", JSON.stringify(user));

@@ -46,6 +46,10 @@ class AuthService {
         return data;
       });
   }
+
+  emailVerify(token) {
+    return axios.get(API_URL + "auth/accountVerification/" + token);
+  }
 }
 
 export default new AuthService();

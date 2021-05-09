@@ -12,13 +12,13 @@ import { useMediaQuery } from "@chakra-ui/react";
 import TopNav from "./components/navbar/TopNavBar.js";
 import AppSwitch from "./components/router/appSwitch";
 import "./App.css";
-import routesConf from "./components/routes/route.js";
+import routesConf from "./routes/route.js";
 import i18next from "./components/i18nextConfig.js";
 import { userTokenContext } from "./components/contexts.js";
 import MenuDotNetCircle from "./components/spinBar";
 import Footer from "./components/footer";
 import { connect } from "react-redux";
-import spinBarRoutes from "./components/routes/spinBarRoutes";
+import spinBarRoutes from "./routes/spinBarRoutes";
 import Toast from "./components/toast";
 import { GetUserRoles, GetLogginStatus } from "./selectors";
 import { useEventData } from "src/hooks/useEventData.js";
@@ -35,7 +35,6 @@ function App() {
   const crownRoutes = spinBarRoutes();
   const userRoles = GetUserRoles();
   const isLoggedIn = GetLogginStatus();
-  const eventsData = useEventData();
 
   const filteredRoutes = routes.filter((el) => {
     //debugger;

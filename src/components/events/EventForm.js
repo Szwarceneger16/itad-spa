@@ -8,7 +8,6 @@ import {
   Flex,
   Stack,
   Spacer,
-  DividerWithText,
   IconButton,
 } from "@chakra-ui/react";
 import {
@@ -25,7 +24,12 @@ import {
   InputDate,
 } from "../forms/InputElements";
 import { ErrorMessage } from "../forms/elements";
+import { useEventData } from "src/hooks/useEventData";
 import EventService from "src/services/event.service";
+import { eventModifyValidaitonSchema } from "src/components/yupSchemas";
+import { useHistory } from "react-router";
+import { useDispatch } from "react-redux";
+import { setMessage } from "src/actions/message";
 
 const labelStyle = {
   fontFamily: "sans-serif",
@@ -33,38 +37,45 @@ const labelStyle = {
   fontSize: [14, 16, 18],
 };
 
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+function FormEvent({ firstFieldRef, onCancel, eventId }) {
+  const { t, i18n } = useTranslation(["common", "events"]);
+  const eventData = useEventData(eventId);
+  const history = useHistory();
+  const dispatch = useDispatch();
 
+<<<<<<< HEAD
 function FormEvent({ firstFieldRef, onCancel, initialValues }) {
   const { t, i18n } = useTranslation(["common", "events"]);
   //const [submitError, setSubmitError] = useState("");
   //const user = undefined;
 
   const submitFrom = async (values, actions) => {
+=======
+  const submitFrom = (values, actions) => {
+>>>>>>> develop
     const _values = { ...values };
     if (_values.eventId === null) delete values.eventId;
-    await EventService.addEvent(_values);
+    console.log(_values);
+    EventService.addEvent(_values)
+      .then((response) => {
+        dispatch(setMessage(t("events:event.input.succesmessage"), "succes"));
+        history.push("/eventAll");
+      })
+      .catch((error) => {
+        dispatch(setMessage(t("events:event.input.errorMessage"), "error"));
+      });
   };
 
-  const deleteForm = (eventId) => {};
+  const deleteEvent = (eventId) => {};
 
-  // const validationSchema = Yup.object({
-  //     login: Yup.string()
-  //     .min(5,t('common:forms.errors.min',{number: 5}) )
-  //     .max(15,t('common:forms.errors.max', {number: 15}) )
-  //     .required(t('common:forms.errors.required')),
-
-  // });
-
-  let _initialValues = initialValues ?? {
-    eventId: null,
+  let _initialValues = eventData ?? {
     name: "",
     description: "",
-    startDate: new Date(),
-    endDate: new Date(),
-    availableTickets: 0,
-    ticketPrice: 0,
-    owner: 0,
+    startTime: new Date(),
+    // endDate: new Date(),
+    // availableTickets: 0,
+    // ticketPrice: 0,
+    // owner: 0,
     //file:(initialValues &&  initialValues.file) || '',
   };
 
@@ -72,10 +83,15 @@ function FormEvent({ firstFieldRef, onCancel, initialValues }) {
     <>
       {/* {submitError && <ErrorMessage>{submitError}</ErrorMessage>} */}
       <Formik
-        enableReinitialize
+        // enableReinitialize
         initialValues={_initialValues}
+        validationSchema={eventModifyValidaitonSchema(t)}
         //initialErrors={true}
+
         onSubmit={submitFrom}
+        initialTouched={{
+          eventId: true,
+        }}
       >
         {(props) => (
           <Form>
@@ -94,13 +110,17 @@ function FormEvent({ firstFieldRef, onCancel, initialValues }) {
             />
             <InputDate
               labelStyle={labelStyle}
-              fieldName="startDate"
+              fieldName="startTime"
               disablePast
               labels={{
+<<<<<<< HEAD
                 inputTitle: t("events:event.input.startDate"),
+=======
+                inputTitle: t("events:event.input.startTime"),
+>>>>>>> develop
               }}
             ></InputDate>
-            <InputDate
+            {/* <InputDate
               labelStyle={labelStyle}
               fieldName="endDate"
               disablePast
@@ -119,17 +139,21 @@ function FormEvent({ firstFieldRef, onCancel, initialValues }) {
               innerRef={firstFieldRef}
               fieldName="ticketPrice"
               labels={{ inputTitle: t("events:event.input.ticketPrice") }}
+<<<<<<< HEAD
             />
+=======
+            /> */}
+>>>>>>> develop
 
             <Flex align="center" mt={4}>
               <Box>
                 <ButtonGroup>
                   <SubmitButton isSubmitting={props.isSubmitting} />
-                  {initialValues && !!initialValues.id && (
+                  {eventData && !!eventData.id && (
                     <DeleteIconButton
                       onClick={() => {
                         onCancel();
-                        deleteForm();
+                        deleteEvent();
                       }}
                     />
                   )}
