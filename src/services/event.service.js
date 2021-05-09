@@ -1,12 +1,10 @@
 import axios from "axios";
 import authHeader from "./auth-header";
+import { API_URL } from "./config";
 
 const defaultHeaders = {
   "Content-Type": "application/json",
 };
-//const API_URL = "http://localhost:3100/api/";
-// import {API_URL} from './axiosInstance'
-const API_URL = process.env.REACT_APP_API_URL;
 
 class EventService {
   getEventsAll() {
@@ -18,10 +16,14 @@ class EventService {
     return axios.get(API_URL + "event/findById?id=" + eventId);
   }
 
-  addEvent(data) {
-    return axios.post(API_URL + "event", data, {
-      headers: { defaultHeaders, ...authHeader() },
-    });
+  addEvent(name, description, startTime) {
+    return axios.post(
+      API_URL + "event",
+      { name, description, startTime },
+      {
+        headers: { defaultHeaders, ...authHeader() },
+      }
+    );
   }
 }
 

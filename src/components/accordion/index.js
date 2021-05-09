@@ -11,7 +11,7 @@ export default function ({ labels, children }) {
   return (
     <Accordion allowToggle>
       {children.map((child, index_child) => (
-        <AccordionItem>
+        <AccordionItem key={index_child}>
           <h2>
             <AccordionButton>
               <Box flex="1" textAlign="left">

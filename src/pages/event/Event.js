@@ -8,8 +8,8 @@ import {
   Divider,
   Skeleton,
 } from "@chakra-ui/react";
-import ShowLecturer from "src/components/eventDetails/showLecturer";
-import ShowLecture from "src/components/eventDetails/showLecture";
+import ShowSpeakers from "src/components/eventDetails/showSpeakers";
+import ShowLectures from "src/components/eventDetails/showLectures";
 import React, { Suspense, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router-dom";
@@ -55,6 +55,7 @@ export function EventDetails() {
               labels={[
                 t("event:eventDetails.accordion.details"),
                 t("event:eventDetails.accordion.statistic"),
+                t("event:eventDetails.accordion.attendance"),
                 t("event:eventDetails.accordion.lecture"),
                 t("event:eventDetails.accordion.lecturers"),
               ]}
@@ -79,8 +80,8 @@ export function EventDetails() {
               <Box>Statistics</Box>
               <Box>Obecnosci</Box>
 
-              <ShowLecture />
-              <ShowLecturer />
+              <ShowLectures eventId={eventId} />
+              <ShowSpeakers eventId={eventId} />
             </MyAccordion>
           </Box>
         </Flex>

@@ -17,48 +17,38 @@ import {
   Tbody,
   TableCaption,
   Td,
+  Skeleton,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import FormLecturer from "./formLecturer";
+import FormSpeaker from "./formSpeaker";
 import InputPopover from "../forms/InputPopover";
 import * as Yup from "yup";
 import styles from "./style";
 import MyTable from "../table";
+import { useSpeakersData } from "src/hooks/useSpeakerData";
 
-const cellWidths = ["25%", "25%", "40%", "10%"];
-export default function (params) {
+const cellWidths = [["25%"], ["25%"], ["40%"], ["10%"]];
+export default function ({ eventId }) {
   const { t, i18n } = useTranslation(["common", "eventDetails"]);
   const [initialFormValues, setInitialFormvalues] = useState(null);
+  const speakersData = useSpeakersData(eventId);
 
-  const initEditPopover = (el) => {
-    const values = {
-      id: el,
-      firstName: "asdsd",
-      secondName: "nazwisko",
-      description: "description",
-      file: undefined,
-    };
-    setInitialFormvalues(values);
+  const initEditPopover = (rowIndex) => {
+    setInitialFormvalues(speakersData[rowIndex]);
   };
 
   const headers = [
     t("eventDetails:lecturer.tableheading.firstname"),
     t("eventDetails:lecturer.tableheading.secondName"),
     t("eventDetails:lecturer.tableheading.description"),
-    t("eventDetails:lecturer.tableheading.photo"),
+    // t("eventDetails:lecturer.tableheading.photo"),
   ];
-  const data = [
+  const loadingData = [
     [
-      "some data",
-      "some data",
-      "some data",
-      <Image
-        w="100%"
-        margin="auto"
-        fallbackSrc="https://bit.ly/sage-adebayo"
-        alt="Segun Adebayo"
-      />,
+      t("common:message.waitingForData"),
+      t("common:message.waitingForData"),
+      t("common:message.waitingForData"),
     ],
   ];
 
@@ -78,18 +68,28 @@ export default function (params) {
             ? t("eventDetails:main.editLecturer")
             : t("eventDetails:main.addLecturer")
         }
-        component={FormLecturer}
+        component={FormSpeaker}
         initialValues={initialFormValues}
       />
 
       <Divider size="40px"></Divider>
-      <MyTable
-        // @ts-ignore
-        columnsWidth={cellWidths}
-        data={data}
-        labels={headers}
-        onRowClick={initEditPopover}
-      />
+      <Skeleton isLoaded={!!speakersData}>
+        <MyTable
+          // @ts-ignore
+          columnsWidth={cellWidths}
+          data={
+            speakersData
+              ? speakersData.map((element) => [
+                  element.name,
+                  element.surname,
+                  element.description,
+                ])
+              : loadingData
+          }
+          labels={headers}
+          onRowClick={initEditPopover}
+        />
+      </Skeleton>
     </>
   );
 }

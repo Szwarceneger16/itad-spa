@@ -8,23 +8,17 @@ import {
   Flex,
   Stack,
   Spacer,
+  DividerWithText,
   IconButton,
 } from "@chakra-ui/react";
-
-import { useTranslation } from "react-i18next";
-import {
-  InputDate,
-  InputNumber,
-  InputText,
-  InputTextArea,
-  InputTime,
-} from "../forms/InputElements";
-import { ErrorMessage } from "../forms/elements";
 import {
   CloseIconButton,
   DeleteIconButton,
   SubmitButton,
 } from "../forms/buttons";
+import { useTranslation } from "react-i18next";
+import { InputFile, InputText, InputTextArea } from "../forms/InputElements";
+import { ErrorMessage } from "../forms/elements";
 
 const labelStyle = {
   fontFamily: "sans-serif",
@@ -32,29 +26,24 @@ const labelStyle = {
   fontSize: [14, 16, 18],
 };
 
-function FormLecture({ firstFieldRef, onCancel, initialValues }) {
-  const { t, i18n } = useTranslation(["common", "formLecture"]);
+function FormLecturer({ firstFieldRef, onCancel, initialValues }) {
+  const { t, i18n } = useTranslation(["common", "formLecturer"]);
   const [submitError, setSubmitError] = useState();
 
   const submitFrom = async (values, actions) => {
-    alert("");
+    console.log(values);
+    console.log(values.file[0].name);
     actions.setSubmitting(false);
   };
 
   const deleteForm = () => {};
 
   let _initialValues = initialValues ?? {
-    lectureId: null,
+    speakerId: null,
     name: "",
+    surname: "",
     description: "",
-    startDate: new Date(),
-    availableSeats: 0,
-    // endTime:
-    //   (initialValues && initialValues.endTime) ||
-    //   new Date(Date.now() + 3600000),
   };
-
-  console.log(initialValues);
 
   return (
     <Stack spacing={4}>
@@ -62,7 +51,9 @@ function FormLecture({ firstFieldRef, onCancel, initialValues }) {
       <Formik
         enableReinitialize
         initialValues={_initialValues}
+        //initialErrors={true}
         onSubmit={submitFrom}
+        // initialTouched
       >
         {(props) => (
           <Form>
@@ -70,38 +61,38 @@ function FormLecture({ firstFieldRef, onCancel, initialValues }) {
               labelStyle={labelStyle}
               innerRef={firstFieldRef}
               fieldName="name"
-              labels={{ inputTitle: t("formLecture:input.name.title") }}
+              labels={{ inputTitle: t("formLecturer:input.name.title") }}
+            />
+            <InputText
+              labelStyle={labelStyle}
+              innerRef={firstFieldRef}
+              fieldName="surname"
+              labels={{
+                inputTitle: t("formLecturer:input.surname.title"),
+              }}
             />
             <InputTextArea
               labelStyle={labelStyle}
               fieldName="description"
-              labels={{ inputTitle: t("formLecture:input.description.title") }}
-            />
-            <InputTime
-              labelStyle={labelStyle}
-              fieldName="startDate"
-              labels={{ inputTitle: t("formLecture:input.startTime.title") }}
-            />
-            <InputNumber
-              labelStyle={labelStyle}
-              innerRef={firstFieldRef}
-              fieldName="availableSeats"
               labels={{
-                inputTitle: t("formLecture:input.availableSeats.title"),
+                inputTitle: t("formLecturer:input.description.title"),
               }}
             />
-
-            {/* <InputTime
-              labelStyle={labelStyle}
-              fieldName="endTime"
-              labels={{ inputTitle: t("formLecture:input.endTime.title") }}
-            /> */}
+            {/* <InputFile
+                labelStyle={labelStyle}
+                fieldName="file"
+                accept="image/png, image/jpeg"
+                labels={{
+                  inputTitle: t("formLecturer:input.file.title"),
+                  buttonTitle: t("formLecturer:input.file.Button"),
+                }}
+              /> */}
 
             <Flex align="center" mt={4}>
               <Box>
                 <ButtonGroup>
                   <SubmitButton isSubmitting={props.isSubmitting} />
-                  {initialValues && !!initialValues.lectureId && (
+                  {initialValues && !!initialValues.speakerId && (
                     <DeleteIconButton
                       onClick={() => {
                         onCancel();
@@ -119,4 +110,4 @@ function FormLecture({ firstFieldRef, onCancel, initialValues }) {
     </Stack>
   );
 }
-export default FormLecture;
+export default FormLecturer;

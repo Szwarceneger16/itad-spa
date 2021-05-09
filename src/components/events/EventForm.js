@@ -47,7 +47,7 @@ function FormEvent({ firstFieldRef, onCancel, eventId }) {
     const _values = { ...values };
     if (_values.eventId === null) delete values.eventId;
     console.log(_values);
-    EventService.addEvent(_values)
+    EventService.addEvent(_values.name, _values.description, _values.startTime)
       .then((response) => {
         dispatch(setMessage(t("events:event.input.succesmessage"), "succes"));
         history.push("/eventAll");
