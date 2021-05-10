@@ -1,3 +1,8 @@
+import { 
+  Text,
+  Heading,
+  Stack,
+} from "@chakra-ui/react"
 import { Button } from "@chakra-ui/button";
 import { Spinner } from "@chakra-ui/spinner";
 import React, { Suspense, useState, useTransition } from "react";
@@ -66,7 +71,50 @@ export function About() {
   //console.log('About',message)
   return (
     <div>
-      <Suspense fallback={<Spinner />}>
+      <Center>
+          <Stack spacing={3}>
+            <Heading as="h1" size="4xl" style={mystyle}>
+              Connect 
+            </Heading>     
+            <Text fontSize={{ 
+              base: "24px", 
+              md: "30px", 
+              lg: "40px" }}
+              fontFamily = "Arial, sans-serif" 
+              textAlign = "center">
+              Aplikacja do zarządzania wydarzeniami. 
+            </Text> 
+            <Text fontSize={{ 
+              base: "24px", 
+              md: "30px", 
+              lg: "40px" }}
+              fontFamily = "Arial, sans-serif"
+              textAlign = "center">
+              Dzieki niej będziesz mógł zroganizować wydarzenie.
+            </Text> 
+            <Text fontSize={{ 
+              base: "24px", 
+              md: "30px", 
+              lg: "40px" }}
+              fontFamily = "Arial, sans-serif"
+              textAlign = "center">
+              Dzieki niej będziesz mógł zroganizować wydarzenie.
+            </Text> 
+             
+            </Stack>
+            
+        </Center>
+    </div>
+  );
+}
+function Ell({ resource }) {
+  const user = resource.user.read();
+  //console.log(user);
+  return <h1>{user}</h1>;
+}
+
+/*
+<Suspense fallback={<Spinner />}>
         <Button onClick={() => setMessage(fetchProfileData(1))}>Click</Button>
         <h2>About</h2>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam aliquet,
@@ -82,11 +130,4 @@ export function About() {
         erat erat nec elit. Aenean posuere nunc ac cursus facilisis. Aenean vel
         porta turpis, ut iaculis justo.
       </Suspense>
-    </div>
-  );
-}
-function Ell({ resource }) {
-  const user = resource.user.read();
-  //console.log(user);
-  return <h1>{user}</h1>;
-}
+*/
