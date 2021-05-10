@@ -7,6 +7,7 @@ import authService from "src/services/auth.service";
 import { useDispatch } from "react-redux";
 import { setMessage } from "src/actions/message";
 import { useTranslation } from "react-i18next";
+import { ErrorEmail } from "src/components/auth/errorEmail";
 
 export function AccountVerification() {
   const { t, i18n } = useTranslation(["common", "auth"]);
@@ -46,13 +47,17 @@ export function AccountVerification() {
           {isEmailVerify === null ? (
             <Spinner />
           ) : isEmailVerify === true ? (
-            <Text>
-              {t("auth:input.accountVerification.errorDescription.server")}
-            </Text>
+            <ErrorEmail
+              label={t(
+                "auth:input.accountVerification.errorDescription.server"
+              )}
+            />
           ) : (
-            <Text>
-              {t("auth:input.accountVerification.errorDescription.emptyToken")}
-            </Text>
+            <ErrorEmail
+              label={t(
+                "auth:input.accountVerification.errorDescription.emptyToken"
+              )}
+            />
           )}
         </Stack>
       </Box>
