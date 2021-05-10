@@ -30,7 +30,10 @@
             "startDate": "Start Date",
             "endDate": "End Date",
             "availableTickets": "Available Tickets",
-            "ticketPrice": "Ticket Price"
+            "ticketPrice": "Ticket Price",
+            "startTime": "Start Time",
+            "succesmessage": "Succes",
+            "errorMessage": "Error"
         },
         "summary": {
             "name": "Name",

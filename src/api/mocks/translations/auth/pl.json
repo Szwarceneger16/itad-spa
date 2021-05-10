@@ -8,6 +8,15 @@
         },
         "password": {
             "title": "Hasło"
+        },
+        "accountVerification": {
+            "succes": "Udało się",
+            "error": "Błąd",
+            "title": "Weryfikacja",
+            "errorDescription": {
+                "server": "Serwer",
+                "emptyToken": "Pusty Token"
+            }
         }
     },
     "alert": {

@@ -21,6 +21,7 @@
                 "statistic": "Statystyki",
                 "lecture": "Prelekcja",
                 "lecturers": "Prelegenci"
+                
             },
             "Description": "Opis"
         },
@@ -30,7 +31,10 @@
             "startDate": "Czas Rozpoczęcia",
             "endDate": "Czas Zakończenia",
             "availableTickets": "Dostępne Bilety",
-            "ticketPrice": "Cena Biletu"
+            "ticketPrice": "Cena Biletu",
+            "startTime": "Czas rozpoczęcia",
+            "succesmessage": "Udało się",
+            "errorMessage": "Błąd"
         },
         "summary": {
             "name": "Nazwa",
