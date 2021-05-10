@@ -21,6 +21,7 @@ export default function ErrorEmail() {
               boxSize="200px"
               objectFit="cover"
               src="https://i.ibb.co/6XX6yKW/Blad-email2.png"
+              //src="src/components/img/Blad_email2.png"
               alt="Error email"
             />
             <Text fontSize={{ 
