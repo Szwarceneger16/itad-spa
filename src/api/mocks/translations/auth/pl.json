@@ -1,0 +1,33 @@
+{
+      "input": {
+        "email": {
+            "title": "E-mail"
+        },
+        "login": {
+            "title": "Login"
+        },
+        "password": {
+            "title": "Hasło"
+        },
+        "accountVerification": {
+            "succes": "Udało się",
+            "error": "Błąd",
+            "title": "Weryfikacja",
+            "errorDescription": {
+                "server": "Serwer",
+                "emptyToken": "Pusty Token"
+            }
+        }
+    },
+    "alert": {
+        "login": {
+            "succes": "Udało się zalogować",
+            "error": "Błąd logowania"
+        }
+    }, 
+    "emailregistration": {
+        "header": "Nagłówek",
+        "body": "Treść",
+        "redirect": "Przeadresować"
+    }
+}

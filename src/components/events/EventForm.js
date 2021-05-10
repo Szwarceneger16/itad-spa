@@ -90,13 +90,13 @@ function FormEvent({ firstFieldRef, onCancel, eventId }) {
               labelStyle={labelStyle}
               innerRef={firstFieldRef}
               fieldName="name"
-              labels={{ inputTitle: t("event:input.name.title") }}
+              labels={{ inputTitle: t("events:event.input.name") }}
             />
             <InputTextArea
               labelStyle={labelStyle}
               fieldName="description"
               labels={{
-                inputTitle: t("event:input.description.title"),
+                inputTitle: t("events:event.input.description"),
               }}
             />
             <InputDate
@@ -112,14 +112,14 @@ function FormEvent({ firstFieldRef, onCancel, eventId }) {
               fieldName="endDate"
               disablePast
               labels={{
-                inputTitle: t("event:input.endDate.title"),
+                inputTitle: t("events:event.input.endDate"),
               }}
             ></InputDate>
             <InputNumber
               labelStyle={labelStyle}
               innerRef={firstFieldRef}
               fieldName="availableTickets"
-              labels={{ inputTitle: t("event:input.availableTickets.title") }}
+              labels={{ inputTitle: t("events:event.input.availableTickets") }}
             />
             <InputNumber
               labelStyle={labelStyle}

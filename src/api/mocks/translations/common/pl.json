@@ -1,31 +1,41 @@
 {
     "buttons": {
         "passwordVisibilityToggle": {
-            "hide": "Hide",
-            "show": "Show"
+            "hide": "Ukryj",
+            "show": "Pokaż"
         },
         "submit": {
-            "title": "Submit"
+            "title": "Prześlij"
         }
     },
     "forms": {
         "errors": {
             "password" : {
-                "lowerLetter": "Expression doesn't contain lower letter",
-                "upperLetter": "Expression doesn't contain upper letter",
-                "digit": "Expression doesn't contain any digit",
-                "special": "Expression doesn't contain any special character"
+                "lowerLetter": "Hasło nie zawiera małej litery",
+                "upperLetter": "Hasło nie zawiera dużej litery",
+                "digit": "Hasło nie zawiera żadnej cyfry",
+                "special": "Hasło nie zawiera żadnego znaku specjalnego"
             },
-            "min": "min {{number}} characters",
-            "max": " max {{number}} characters",
-            "required": "this field are required",
-            "submit400": "wrong creditalias"
+            "min": "Minimum {{number}} znaków",
+            "max": "Maksimum {{number}} znaków",
+            "required": "To pole jest wymagane",
+            "submit400": "Błędne creditalia"
         }
     },
     "routes": {
         "home": "Powitalna",
         "login": "Zaloguj",
         "about": " O nas",
-        "register": "Zarejestruj"
+        "register": "Zarejestruj",
+        "events": "Wydarzenia"
+    },
+    "button": {
+        "cancel": "Anuluj"
+    },
+    "message": {
+        "waitingForData": "Czekam Na Dane"
+    },
+    "footer": {
+        "title": "Autor {{author}}"
     }
 }

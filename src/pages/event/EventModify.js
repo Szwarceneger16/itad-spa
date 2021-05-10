@@ -28,7 +28,7 @@ export function EventAddEdit() {
   return (
     <VStack {...styles.vStack}>
       <Heading fontSize="3xl" textAlign="center">
-        {t("event:main.heading")}
+        {t("events:EventModify.main.heading")}
       </Heading>
       <Flex {...styles.flexContainer}>
         <Box {...styles.flexItem}>
