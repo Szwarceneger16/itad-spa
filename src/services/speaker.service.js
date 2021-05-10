@@ -21,13 +21,30 @@ class SpeakerService {
     );
   }
 
-  addSpeaker(name, surname, description, eventId) {
+  addSpeaker(eventId, name, surname, description) {
     return axios.post(
       API_URL + "speaker",
       { name, surname, description, eventId },
       {
         headers: { defaultHeaders, ...authHeader() },
       }
+    );
+  }
+
+  modifySpeaker(speakerId, name, surname, description) {
+    return axios.put(
+      API_URL + "speaker",
+      { name, surname, description, speakerId },
+      {
+        headers: { defaultHeaders, ...authHeader() },
+      }
+    );
+  }
+
+  deleteSpeaker(speakerId, eventId) {
+    if (!speakerId || typeof speakerId !== "number") throw "wrong input args";
+    return axios.delete(
+      API_URL + "speaker?speakerId=" + speakerId + "&eventId=" + eventId
     );
   }
 }

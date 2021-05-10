@@ -31,8 +31,8 @@ import { useSpeakersData } from "src/hooks/useSpeakerData";
 const cellWidths = [["25%"], ["25%"], ["40%"], ["10%"]];
 export default function ({ eventId }) {
   const { t, i18n } = useTranslation(["common", "eventDetails"]);
-  const [initialFormValues, setInitialFormvalues] = useState(null);
-  const speakersData = useSpeakersData(eventId);
+  const [initialFormValues, setInitialFormvalues] = useState(undefined);
+  const speakersData = useSpeakersData(eventId, initialFormValues);
 
   const initEditPopover = (rowIndex) => {
     setInitialFormvalues(speakersData[rowIndex]);
@@ -70,7 +70,7 @@ export default function ({ eventId }) {
         }
         component={FormSpeaker}
         componentProps={{
-          initialFormValues,
+          initialValues: initialFormValues,
           eventId,
         }}
       />

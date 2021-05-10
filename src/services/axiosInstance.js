@@ -1,4 +1,7 @@
 import axios from "axios";
+import store from "src/store";
+import {} from "src/reducers/auth";
+import { LOGIN_SUCCESS } from "src/actions/types";
 //import authHeader from "./auth-header";
 
 const options = {
@@ -61,6 +64,10 @@ function createAxiosResponseInterceptor() {
           let user = JSON.parse(localStorage.getItem("user"));
           user.access_token = response.data.token;
           localStorage.setItem("user", JSON.stringify(user));
+          store.dispatch({
+            type: LOGIN_SUCCESS,
+            payload: { user },
+          });
           error.response.config.headers["Authorization"] =
             "Bearer " + response.data.authenticationToken;
           return axios(error.response.config);

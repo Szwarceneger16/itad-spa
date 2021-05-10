@@ -8,11 +8,11 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import { useFormik, Form } from "formik";
-import EventsSummary from "../../components/events/EventsSummary";
+//import EventsSummary from "../../components/events/EventsSummary.js.bak";
 import React, { Suspense, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styles from "./styles/EventsAll";
-import { useEventData } from "src/hooks/useEventData.js";
+import { useEventsData } from "src/hooks/useEventData.js";
 import { InfoIcon, EditIcon } from "@chakra-ui/icons";
 import { useHistory } from "react-router-dom";
 import MyTable from "src/components/table";
@@ -34,7 +34,7 @@ const cellWidths = [
 ];
 export function Events() {
   const { t, i18n } = useTranslation(["common", "eventsList"]);
-  let eventsData = useEventData(-1);
+  let eventsData = useEventsData();
   let history = useHistory();
 
   const infoIcon = <InfoIcon />;

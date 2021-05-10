@@ -31,20 +31,20 @@ class LectureService {
     );
   }
 
-  modifyLecture(lectureId, name, description, startDate, eventId) {
+  modifyLecture(lectureId, eventId, name, description, startDate) {
     return axios.put(
       API_URL + "lecture",
-      { name, description, startDate, eventId },
+      { name, description, startDate, lectureId },
       {
         headers: { defaultHeaders, ...authHeader() },
       }
     );
   }
 
-  deleteLecture(lectureId) {
+  deleteLecture(lectureId, eventId) {
     if (!lectureId || typeof lectureId !== "number") throw "wrong input args";
-    return axios.get(
-      API_URL + "lecture/getLectureFromEvent?lectureId=" + lectureId
+    return axios.delete(
+      API_URL + "lecture?lectureId=" + lectureId + "&eventId=" + eventId
     );
   }
 }

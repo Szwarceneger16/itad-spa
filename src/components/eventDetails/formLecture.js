@@ -1,4 +1,4 @@
-import { Formik, Field, Form } from "formik";
+import { Formik, Field, Form, useFormikContext } from "formik";
 import React, { Suspense, useEffect, useState, useContext } from "react";
 import * as Yup from "yup";
 import {
@@ -37,27 +37,63 @@ const labelStyle = {
 };
 
 function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
-  const { t, i18n } = useTranslation(["common", "formLecture"]);
+  const { t, i18n } = useTranslation(["common", "event"]);
   const [submitError, setSubmitError] = useState();
   const history = useHistory();
   const dispatch = useDispatch();
 
   const submitFrom = (values, actions) => {
-    const _values = { ...values };
-    if (_values.lectureId === null) delete _values.lectureId;
-    //console.log(_values);
-    lectureService
-      .addLecture(eventId, _values.name, _values.description, _values.startDate)
-      .then((response) => {
-        dispatch(setMessage(t("events:lecture.input.succesmessage"), "succes"));
-        dispatchClose();
-      })
-      .catch((error) => {
-        dispatch(setMessage(t("events:lecture.input.errorMessage"), "error"));
-      });
+    if (values.lectureId === null) {
+      lectureService
+        .addLecture(eventId, values.name, values.description, values.startDate)
+        .then((response) => {
+          dispatch(setMessage(t("event:lecture.add.succesmessage"), "succes"));
+          dispatchClose();
+          actions.resetForm();
+        })
+        .catch((error) => {
+          dispatch(setMessage(t("event:lecture.add.errorMessage"), "error"));
+        })
+        .finally(() => {
+          actions.setSubmitting(false);
+        });
+    } else {
+      lectureService
+        .modifyLecture(
+          values.lectureId,
+          eventId,
+          values.name,
+          values.description,
+          values.startDate
+        )
+        .then((response) => {
+          dispatch(
+            setMessage(t("event:lecture.modify.succesmessage"), "succes")
+          );
+          dispatchClose();
+          actions.resetForm();
+        })
+        .catch((error) => {
+          dispatch(setMessage(t("event:lecture.modify.errorMessage"), "error"));
+        })
+        .finally(() => {
+          actions.setSubmitting(false);
+        });
+    }
   };
 
-  const deleteForm = () => {};
+  const deleteEvent = (eventId, lectureId, resetFormHandler) => {
+    lectureService
+      .deleteLecture(lectureId, eventId)
+      .then((response) => {
+        dispatch(setMessage(t("event:lecture.delete.succesmessage"), "succes"));
+        dispatchClose();
+        resetFormHandler();
+      })
+      .catch((error) => {
+        dispatch(setMessage(t("event:lecture.delete.errorMessage"), "error"));
+      });
+  };
 
   let _initialValues = initialValues ?? {
     lectureId: null,
@@ -69,8 +105,6 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
     //   (initialValues && initialValues.endTime) ||
     //   new Date(Date.now() + 3600000),
   };
-
-  console.log(initialValues);
 
   return (
     <Stack spacing={4}>
@@ -120,8 +154,11 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
                   {initialValues && !!initialValues.lectureId && (
                     <DeleteIconButton
                       onClick={() => {
-                        dispatchClose();
-                        deleteForm();
+                        deleteEvent(
+                          eventId,
+                          props.values.lectureId,
+                          props.resetForm
+                        );
                       }}
                     />
                   )}

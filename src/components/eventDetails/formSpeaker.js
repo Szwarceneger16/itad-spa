@@ -8,7 +8,6 @@ import {
   Flex,
   Stack,
   Spacer,
-  DividerWithText,
   IconButton,
 } from "@chakra-ui/react";
 import {
@@ -19,6 +18,10 @@ import {
 import { useTranslation } from "react-i18next";
 import { InputFile, InputText, InputTextArea } from "../forms/InputElements";
 import { ErrorMessage } from "../forms/elements";
+import speakerService from "src/services/speaker.service";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setMessage } from "src/actions/message";
 
 const labelStyle = {
   fontFamily: "sans-serif",
@@ -26,17 +29,68 @@ const labelStyle = {
   fontSize: [14, 16, 18],
 };
 
-function FormLecturer({ firstFieldRef, onCancel, initialValues }) {
-  const { t, i18n } = useTranslation(["common", "formLecturer"]);
+function FormLecturer({
+  firstFieldRef,
+  dispatchClose,
+  initialValues,
+  eventId,
+}) {
+  const { t, i18n } = useTranslation(["common", "speaker"]);
   const [submitError, setSubmitError] = useState();
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   const submitFrom = async (values, actions) => {
-    console.log(values);
-    console.log(values.file[0].name);
-    actions.setSubmitting(false);
+    if (values.speakerId === null) {
+      speakerService
+        .addSpeaker(eventId, values.name, values.surname, values.description)
+        .then((response) => {
+          dispatch(setMessage(t("event:speaker.add.succesmessage"), "succes"));
+          dispatchClose();
+          actions.resetForm();
+        })
+        .catch((error) => {
+          dispatch(setMessage(t("event:speaker.add.errorMessage"), "error"));
+        })
+        .finally(() => {
+          actions.setSubmitting(false);
+        });
+    } else {
+      speakerService
+        .modifySpeaker(
+          values.speakerId,
+          values.name,
+          values.surname,
+          values.description
+        )
+        .then((response) => {
+          dispatch(
+            setMessage(t("event:speaker.modify.succesmessage"), "succes")
+          );
+          dispatchClose();
+          actions.resetForm();
+        })
+        .catch((error) => {
+          dispatch(setMessage(t("event:speaker.modify.errorMessage"), "error"));
+        })
+        .finally(() => {
+          actions.setSubmitting(false);
+        });
+    }
   };
 
-  const deleteForm = () => {};
+  const deleteSpeaker = (eventId, speakerId, resetFormHandler) => {
+    speakerService
+      .deleteSpeaker(speakerId, eventId)
+      .then((response) => {
+        dispatch(setMessage(t("event:speaker.delete.succesmessage"), "succes"));
+        dispatchClose();
+        resetFormHandler();
+      })
+      .catch((error) => {
+        dispatch(setMessage(t("event:speaker.delete.errorMessage"), "error"));
+      });
+  };
 
   let _initialValues = initialValues ?? {
     speakerId: null,
@@ -61,7 +115,7 @@ function FormLecturer({ firstFieldRef, onCancel, initialValues }) {
               labelStyle={labelStyle}
               innerRef={firstFieldRef}
               fieldName="name"
-              labels={{ inputTitle: t("formLecturer:input.name.title") }}
+              labels={{ inputTitle: t("speaker:input.name.title") }}
             />
             <InputText
               labelStyle={labelStyle}
@@ -95,12 +149,15 @@ function FormLecturer({ firstFieldRef, onCancel, initialValues }) {
                   {initialValues && !!initialValues.speakerId && (
                     <DeleteIconButton
                       onClick={() => {
-                        onCancel();
-                        deleteForm();
+                        deleteSpeaker(
+                          eventId,
+                          props.values.speakerId,
+                          props.resetForm
+                        );
                       }}
                     />
                   )}
-                  <CloseIconButton onClick={onCancel} />
+                  <CloseIconButton onClick={dispatchClose} />
                 </ButtonGroup>
               </Box>
             </Flex>

@@ -32,17 +32,10 @@ import { useLecturesData } from "src/hooks/useLectureData";
 const cellWidths = [["25%"], ["25%"], ["40%"], ["10%"]];
 export default function ({ eventId }) {
   const { t, i18n } = useTranslation(["common", "eventDetails"]);
-  const [initialFormValues, setInitialFormvalues] = useState(null);
-  const lecturesData = useLecturesData(eventId);
+  const [initialFormValues, setInitialFormvalues] = useState(undefined);
+  const lecturesData = useLecturesData(eventId, initialFormValues);
 
   const initEditPopover = (rowIndex) => {
-    // const values = {
-    //   id: el,
-    //   lectureName: "asdsd",
-    //   description: "nazwisko",
-    //   startTime: undefined,
-    //   endTime: undefined,
-    // };
     setInitialFormvalues(lecturesData[rowIndex]);
   };
 
@@ -69,7 +62,6 @@ export default function ({ eventId }) {
         defaultIsOpen={!!initialFormValues}
         //OnOpen={() => setOpenPopover(true)}
         OnClose={() => {
-          console.log("set null");
           setInitialFormvalues(null);
         }}
         label={
@@ -79,7 +71,7 @@ export default function ({ eventId }) {
         }
         component={FormLecture}
         componentProps={{
-          initialFormValues,
+          initialValues: initialFormValues,
           eventId,
         }}
       />

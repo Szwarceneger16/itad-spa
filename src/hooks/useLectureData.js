@@ -6,10 +6,9 @@ import { setEventsOwner } from "src/actions/events";
 import { GetUserId } from "src/selectors";
 import lectureService from "src/services/lecture.service";
 
-export function useLecturesData(eventId) {
+export function useLecturesData(eventId, ...optimize) {
   let fetchSpeakersData = lectureService.getLecturesByEventID(eventId);
   const [lecturesData, setLecturesData] = useState(null);
-  // const dispatch = useDispatch();
 
   useEffect(() => {
     if (eventId >= 0) {
@@ -22,12 +21,12 @@ export function useLecturesData(eventId) {
         setLecturesData(data);
       });
     }
-  });
+  }, optimize ?? []);
 
   return lecturesData;
 }
 
-export function useLectureData(lectureId) {
+export function useLectureData(lectureId, ...optimize) {
   let fetchSpeakersData = lectureService.getLectureByLectureID(lectureId);
   const [lectureData, setLectureData] = useState(null);
   // const dispatch = useDispatch();
@@ -43,7 +42,7 @@ export function useLectureData(lectureId) {
         setLectureData(data);
       });
     }
-  });
+  }, optimize ?? []);
 
   return lectureData;
 }
