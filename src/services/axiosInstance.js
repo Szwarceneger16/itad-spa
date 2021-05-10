@@ -35,6 +35,7 @@ function createAxiosResponseInterceptor() {
        * token refresh causes the 404 response
        */
       if (!localStorage.getItem("user")) {
+        console.log("not user");
         return Promise.reject(error);
       }
       axios.interceptors.response.eject(interceptor);

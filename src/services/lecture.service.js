@@ -21,13 +21,30 @@ class LectureService {
     );
   }
 
-  addLecture(name, description, startDate, eventId) {
+  addLecture(eventId, name, description, startDate) {
     return axios.post(
       API_URL + "lecture",
       { name, description, startDate, eventId },
       {
         headers: { defaultHeaders, ...authHeader() },
       }
+    );
+  }
+
+  modifyLecture(lectureId, name, description, startDate, eventId) {
+    return axios.put(
+      API_URL + "lecture",
+      { name, description, startDate, eventId },
+      {
+        headers: { defaultHeaders, ...authHeader() },
+      }
+    );
+  }
+
+  deleteLecture(lectureId) {
+    if (!lectureId || typeof lectureId !== "number") throw "wrong input args";
+    return axios.get(
+      API_URL + "lecture/getLectureFromEvent?lectureId=" + lectureId
     );
   }
 }

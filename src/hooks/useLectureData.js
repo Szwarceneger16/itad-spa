@@ -22,7 +22,7 @@ export function useLecturesData(eventId) {
         setLecturesData(data);
       });
     }
-  }, []);
+  });
 
   return lecturesData;
 }
@@ -43,7 +43,7 @@ export function useLectureData(lectureId) {
         setLectureData(data);
       });
     }
-  }, []);
+  });
 
   return lectureData;
 }

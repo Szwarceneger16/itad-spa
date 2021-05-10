@@ -69,6 +69,7 @@ export default function ({ eventId }) {
         defaultIsOpen={!!initialFormValues}
         //OnOpen={() => setOpenPopover(true)}
         OnClose={() => {
+          console.log("set null");
           setInitialFormvalues(null);
         }}
         label={
@@ -77,7 +78,10 @@ export default function ({ eventId }) {
             : t("eventDetails:main.addLecture")
         }
         component={FormLecture}
-        initialValues={initialFormValues}
+        componentProps={{
+          initialFormValues,
+          eventId,
+        }}
       />
 
       <Divider size="40px"></Divider>

@@ -25,6 +25,10 @@ import {
   DeleteIconButton,
   SubmitButton,
 } from "../forms/buttons";
+import lectureService from "src/services/lecture.service";
+import { setMessage } from "src/actions/message";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const labelStyle = {
   fontFamily: "sans-serif",
@@ -32,13 +36,25 @@ const labelStyle = {
   fontSize: [14, 16, 18],
 };
 
-function FormLecture({ firstFieldRef, onCancel, initialValues }) {
+function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
   const { t, i18n } = useTranslation(["common", "formLecture"]);
   const [submitError, setSubmitError] = useState();
+  const history = useHistory();
+  const dispatch = useDispatch();
 
-  const submitFrom = async (values, actions) => {
-    alert("");
-    actions.setSubmitting(false);
+  const submitFrom = (values, actions) => {
+    const _values = { ...values };
+    if (_values.lectureId === null) delete _values.lectureId;
+    //console.log(_values);
+    lectureService
+      .addLecture(eventId, _values.name, _values.description, _values.startDate)
+      .then((response) => {
+        dispatch(setMessage(t("events:lecture.input.succesmessage"), "succes"));
+        dispatchClose();
+      })
+      .catch((error) => {
+        dispatch(setMessage(t("events:lecture.input.errorMessage"), "error"));
+      });
   };
 
   const deleteForm = () => {};
@@ -77,7 +93,7 @@ function FormLecture({ firstFieldRef, onCancel, initialValues }) {
               fieldName="description"
               labels={{ inputTitle: t("formLecture:input.description.title") }}
             />
-            <InputTime
+            <InputDate
               labelStyle={labelStyle}
               fieldName="startDate"
               labels={{ inputTitle: t("formLecture:input.startTime.title") }}
@@ -104,12 +120,12 @@ function FormLecture({ firstFieldRef, onCancel, initialValues }) {
                   {initialValues && !!initialValues.lectureId && (
                     <DeleteIconButton
                       onClick={() => {
-                        onCancel();
+                        dispatchClose();
                         deleteForm();
                       }}
                     />
                   )}
-                  <CloseIconButton onClick={onCancel} />
+                  <CloseIconButton onClick={dispatchClose} />
                 </ButtonGroup>
               </Box>
             </Flex>

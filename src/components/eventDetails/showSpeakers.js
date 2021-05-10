@@ -69,7 +69,10 @@ export default function ({ eventId }) {
             : t("eventDetails:main.addLecturer")
         }
         component={FormSpeaker}
-        initialValues={initialFormValues}
+        componentProps={{
+          initialFormValues,
+          eventId,
+        }}
       />
 
       <Divider size="40px"></Divider>
