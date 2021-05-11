@@ -19,7 +19,8 @@
             "min": "Min {{number}} characters",
             "max": " Max {{number}} characters",
             "required": "This field are required",
-            "submit400": "Wrong creditalias"
+            "submit400": "Wrong creditalias",
+            "email": "Wrong E-mail"
         }
     },
     "routes": {
@@ -37,5 +38,16 @@
     },
     "footer": {
         "title": "Author {{author}}"
+    },
+    "language":{
+        "popover":{
+            "country": "Country",
+            "selectLanguage": "Select Language",
+            "search": "Search",
+            "orSelectFromList": "or select from list"
+        }
+    },
+    "TopNavBar":{
+        "logout": "Logout"
     }
 }

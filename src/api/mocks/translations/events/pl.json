@@ -13,49 +13,20 @@
         }
     },
     "event":{
-        "eventDetails": {
-            "heading": "Wydarzenie",
-            "eventName": "Nazwa Wydarzenia",
-            "accordion": {
-                "details": "Detale",
-                "statistic": "Statystyki",
-                "lecture": "Prelekcja",
-                "lecturers": "Prelegenci"
-                
-            },
-            "Description": "Opis"
-        },
-        "input": {
-            "name": "Nazwa",
-            "description": "Opis",
-            "startDate": "Czas Rozpoczęcia",
-            "endDate": "Czas Zakończenia",
-            "availableTickets": "Dostępne Bilety",
-            "ticketPrice": "Cena Biletu",
-            "startTime": "Czas rozpoczęcia",
-            "succesmessage": "Udało się",
-            "errorMessage": "Błąd"
-        },
         "summary": {
             "name": "Nazwa",
             "description": "Opis",
             "date": "Data"
         }, 
         "main": {
-            "showEvents": "Pokaż Wydarzenia"
-        }
-    },
-    "showLecture": {
-        "lecture": {
-            "name": "Nazwa",
-            "description": "Opis",
-            "startTime": "Czas Rozpoczęcia",
-            "endTime": "Czas Zakończenia"           
+            "showEvents": "Wydarzenia",
+            "button":{
+                "addEvent": "Dodaj Wydarzenia"
+            }
         },
-        "main": {
-            "showLecture": "Prelekcje",
-            "editLecture": "Edytuj Prelekcję",
-            "addLecture": "Dodaj Prelekcje"
+        "eventsList":{
+            "heading": "Wydarzenia",
+            "eventsListName": "Lista Wydarzeń"
         }
     },
     "formLecturer": {
@@ -74,22 +45,90 @@
             "name": "Nazwa",
             "description": "Opis",
             "startTime": "Czas Rozpoczęcia",
-            "endTime": "Czas Zakończenia"
+            "endTime": "Czas Zakończenia",
+            "name2":{
+                "title": "Nazwa"
+            },
+            "description2":{
+                "title": "Opis"
+            },
+            "startTime2":{
+                "title": "Czas Rozpoczęcia"
+            },
+            "availableSeats":{
+                "title": "Dostępne Siedzenia"
+            }
+        }, 
+        "lecture":{
+            "add":{
+                "succesmessage": "Poprawne dodanie wykładu",
+                "errorMessage": "Niepoprawne dodanie wykładu"
+            },
+            "modify":{
+                "succesmessage": "Poprawna modyfikacja wykładu",
+                "errorMessage": "Niepoprawna modyfikacja wykładu"
+            },
+            "delete":{
+                "succesmessage": "Poprawne usunięcie wykładu",
+                "errorMessage": "Niepoprawne usunięcie wykładu"
+            }
         }
     },
-    "eventDetails": {
-        "lecturer": {
-            "tableheading":{
-                "firstname": "Imię",
-                "secondName": "Nazwisko",
-                "description": "Opis",
-                "photo": "Zdjęcie"
-            }
+    "showLectures": {
+        "lecture": {
+            "name": "Nazwa",
+            "description": "Opis",
+            "startTime": "Czas Rozpoczęcia",
+            "availableSeats": "Dostępne siedzenia"
         },
         "main": {
-            "showLecturer": "Prelegenci",
-            "editLecturer": "Edytuj Prelegenta",
-            "addLecturer": "Dodaj Prelegenta"
+            "showLecture": "Wykłady",
+            "editLecture": "Edytuj Wykład",
+            "addLecture": "Dodaj Wykład"
+        }
+    },
+    "formSpeaker":{
+        "add":{
+            "succesmessage": "Poprawne dodanie prelegenta",
+            "errorMessage": "Niepoprawne dodanie prelegenta"
+        },
+        "modify":{
+            "succesmessage": "Poprawna modyfikacja prelegenta",
+            "errorMessage": "Niepoprawna modyfikacja prelegenta"
+        },
+        "delete":{
+            "succesmessage": "Poprawne usunięcie prelegenta",
+            "errorMessage": "Niepoprawne usunięcie prelegenta"
+        },
+        "input":{
+            "name": "Imię",
+            "surname": "Nazwisko",
+            "description": "Opis"
+        }
+    },
+    "showSpeaker":{
+        "tableheading":{
+            "firstname": "Imię",
+            "secondName":"Nazwisko",
+            "description": "Opis",
+            "photo": "Zdjęcie"
+        },
+        "main":{
+            "showSpeakers": "Prelegenci",
+            "editSpeaker": "Edytuj Prelegenta",
+            "addSpeaker": "Dodaj Prelegenta"
+        }
+    },
+    "eventDetails":{
+        "heading": "Wydarzenie",
+        "eventName": "Nazwa Wydarzenia",
+        "Description": "Opis",
+        "accordion":{
+            "details": "Detale",
+            "statistic": "Statystyki",
+            "attendance": "Frekwencja",
+            "lecture": "Prelekcja",
+            "speakers": "Prelegenci"
         }
     }
 }

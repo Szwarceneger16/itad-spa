@@ -13,48 +13,20 @@
         }
     },
     "event":{
-        "eventDetails": {
-            "heading": "Event",
-            "eventName": "Event Name",
-            "accordion": {
-                "details": "Details",
-                "statistic": "Statistic",
-                "lecture": "Lecture",
-                "lecturers": "Lecturers"
-            },
-            "Description": "Description"
-        },
-        "input": {
-            "name": "Name",
-            "description": "Description",
-            "startDate": "Start Date",
-            "endDate": "End Date",
-            "availableTickets": "Available Tickets",
-            "ticketPrice": "Ticket Price",
-            "startTime": "Start Time",
-            "succesmessage": "Succes",
-            "errorMessage": "Error"
-        },
         "summary": {
             "name": "Name",
             "description": "Description",
             "date": "Date"
         }, 
         "main": {
-            "showEvents": "Show Events"
-        }
-    },
-    "showLecture": {
-        "lecture": {
-            "name": "Name",
-            "description": "Description",
-            "startTime": "Start Time",
-            "endTime": "End Time"           
+            "showEvents": "Events",
+            "button":{
+                "addEvent": "Add Event"
+            }
         },
-        "main": {
-            "showLecture": "Lectures",
-            "editLecture": "Edit Lecture",
-            "addLecture": "Add Lecture"
+        "eventsList":{
+            "heading": "Events",
+            "eventsListName": "Events List"
         }
     },
     "formLecturer": {
@@ -73,22 +45,90 @@
             "name": "Name",
             "description": "Description",
             "startTime": "Start Time",
-            "endTime": "End Time"
+            "endTime": "End Time",
+            "name2":{
+                "title": "Name"
+            },
+            "description2":{
+                "title": "Description"
+            },
+            "startTime2":{
+                "title": "Start Time"
+            },
+            "availableSeats":{
+                "title": "Available Seats"
+            }
+        }, 
+        "lecture":{
+            "add":{
+                "succesmessage": "Correct addition lecture",
+                "errorMessage": "Incorrect addition lecture"
+            },
+            "modify":{
+                "succesmessage": "Correct modify lecture",
+                "errorMessage": "Incorrect modify lecture"
+            },
+            "delete":{
+                "succesmessage": "Correct delete lecture",
+                "errorMessage": "Incorrect delete lecture"
+            }
         }
     },
-    "eventDetails": {
-        "lecturer": {
-            "tableheading":{
-                "firstname": "First Name",
-                "secondName": "Second Name",
-                "description": "Description",
-                "photo": "Photo"
-            }
+    "showLectures": {
+        "lecture": {
+            "name": "Name",
+            "description": "Description",
+            "startTime": "Start Time",
+            "availableSeats": "Available Seats"
         },
         "main": {
-            "showLecturer": "Lecturers",
-            "editLecturer": "Edit Lecturer",
-            "addLecturer": "Add Lecturer"
+            "showLecture": "Lectures",
+            "editLecture": "Edit Lecture",
+            "addLecture": "Add Lecture"
+        }
+    },
+    "formSpeaker":{
+        "add":{
+            "succesmessage": "Correct addition speaker",
+            "errorMessage": "Incorrect addition speaker"
+        },
+        "modify":{
+            "succesmessage": "Correct modify speaker",
+            "errorMessage": "Incorrect modify speaker"
+        },
+        "delete":{
+            "succesmessage": "Correct delete speaker",
+            "errorMessage": "Incorrect delete speaker"
+        },
+        "input":{
+            "name": "Name",
+            "surname": "Surname",
+            "description": "Description"
+        }
+    },
+    "showSpeaker":{
+        "tableheading":{
+            "firstname": "First Name",
+            "secondName":"Second Name",
+            "description": "Description",
+            "photo": "Photo"
+        },
+        "main":{
+            "showSpeakers": "Speakers",
+            "editSpeaker": "Edit Speaker",
+            "addSpeaker": "Add Speaker"
+        }
+    },
+    "eventDetails":{
+        "heading": "Event",
+        "eventName": "Event Name",
+        "Description": "Description",
+        "accordion":{
+            "details": "Details",
+            "statistic": "Statistic",
+            "attendance": "Attendance",
+            "lecture": "Lecture",
+            "speakers": "Speakers"
         }
     }
 }

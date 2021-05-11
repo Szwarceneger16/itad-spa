@@ -4,7 +4,7 @@ const login = (t) =>
   Yup.string()
     .min(5, t("common:forms.errors.min", { number: 5 }))
     .max(15, t("common:forms.errors.max", { number: 15 }))
-    .required();
+    .required(t("common:forms.errors.required"));
 const password = (t) =>
   Yup.string()
     .min(6, t("common:forms.errors.min", { number: 6 }))
@@ -13,11 +13,11 @@ const password = (t) =>
     .matches(/([A-Z]+)/, t("common:forms.errors.password.upperLetter"))
     //.matches(/(\W+)/, t("common:forms.errors.password.special"))
     .matches(/(\d+)/, t("common:forms.errors.password.digit"))
-    .required(t("common:forms.errors.reqired"));
+    .required(t("common:forms.errors.required"));
 const email = (t) =>
   Yup.string()
     .email(t("common:forms.errors.email"))
-    .required(t("common:forms.errors.reqired"));
+    .required(t("common:forms.errors.required"));
 
 const eventId = Yup.number();
 const eventName = (t) =>

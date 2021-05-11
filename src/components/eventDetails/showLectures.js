@@ -31,7 +31,7 @@ import { useLecturesData } from "src/hooks/useLectureData";
 
 const cellWidths = [["25%"], ["25%"], ["40%"], ["10%"]];
 export default function ({ eventId }) {
-  const { t, i18n } = useTranslation(["common", "eventDetails"]);
+  const { t, i18n } = useTranslation(["common", "events"]);
   const [initialFormValues, setInitialFormvalues] = useState(undefined);
   const lecturesData = useLecturesData(eventId, initialFormValues);
 
@@ -40,11 +40,11 @@ export default function ({ eventId }) {
   };
 
   const headers = [
-    t("eventDetails:lecture.name"),
-    t("eventDetails:lecture.description"),
-    t("eventDetails:lecture.startTime"),
-    // t("eventDetails:lecture.endTime"),
-    t("eventDetails:lecture.availableSeats"),
+    t("events:showLectures.lecture.name"),
+    t("events:showLectures.lecture.description"),
+    t("events:showLectures.lecture.startTime"),
+    // t("events:showLectures.lecture.endTime"),
+    t("events:showLectures.lecture.availableSeats"),
   ];
   const loadingData = [
     [
@@ -57,7 +57,7 @@ export default function ({ eventId }) {
 
   return (
     <>
-      <Heading {...styles.text}>{t("eventDetails:main.showLecture")}</Heading>
+      <Heading {...styles.text}>{t("events:showLectures.main.showLecture")}</Heading>
       <InputPopover
         defaultIsOpen={!!initialFormValues}
         //OnOpen={() => setOpenPopover(true)}
@@ -66,8 +66,8 @@ export default function ({ eventId }) {
         }}
         label={
           initialFormValues
-            ? t("eventDetails:main.editLecture")
-            : t("eventDetails:main.addLecture")
+            ? t("events:showLectures.main.editLecture")
+            : t("events:showLectures.main.addLecture")
         }
         component={FormLecture}
         componentProps={{

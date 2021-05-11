@@ -35,7 +35,7 @@ function FormLecturer({
   initialValues,
   eventId,
 }) {
-  const { t, i18n } = useTranslation(["common", "speaker"]);
+  const { t, i18n } = useTranslation(["common", "events"]);
   const [submitError, setSubmitError] = useState();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -45,12 +45,12 @@ function FormLecturer({
       speakerService
         .addSpeaker(eventId, values.name, values.surname, values.description)
         .then((response) => {
-          dispatch(setMessage(t("event:speaker.add.succesmessage"), "succes"));
+          dispatch(setMessage(t("events:formSpeaker.add.succesmessage"), "succes"));
           dispatchClose();
           actions.resetForm();
         })
         .catch((error) => {
-          dispatch(setMessage(t("event:speaker.add.errorMessage"), "error"));
+          dispatch(setMessage(t("events:formSpeaker.add.errorMessage"), "error"));
         })
         .finally(() => {
           actions.setSubmitting(false);
@@ -65,13 +65,13 @@ function FormLecturer({
         )
         .then((response) => {
           dispatch(
-            setMessage(t("event:speaker.modify.succesmessage"), "succes")
+            setMessage(t("events:formSpeaker.modify.succesmessage"), "succes")
           );
           dispatchClose();
           actions.resetForm();
         })
         .catch((error) => {
-          dispatch(setMessage(t("event:speaker.modify.errorMessage"), "error"));
+          dispatch(setMessage(t("events:formSpeaker.modify.errorMessage"), "error"));
         })
         .finally(() => {
           actions.setSubmitting(false);
@@ -83,12 +83,12 @@ function FormLecturer({
     speakerService
       .deleteSpeaker(speakerId, eventId)
       .then((response) => {
-        dispatch(setMessage(t("event:speaker.delete.succesmessage"), "succes"));
+        dispatch(setMessage(t("events:formSpeaker.delete.succesmessage"), "succes"));
         dispatchClose();
         resetFormHandler();
       })
       .catch((error) => {
-        dispatch(setMessage(t("event:speaker.delete.errorMessage"), "error"));
+        dispatch(setMessage(t("events:formSpeaker.delete.errorMessage"), "error"));
       });
   };
 
@@ -115,21 +115,21 @@ function FormLecturer({
               labelStyle={labelStyle}
               innerRef={firstFieldRef}
               fieldName="name"
-              labels={{ inputTitle: t("speaker:input.name.title") }}
+              labels={{ inputTitle: t("events:formSpeaker.input.name") }}
             />
             <InputText
               labelStyle={labelStyle}
               innerRef={firstFieldRef}
               fieldName="surname"
               labels={{
-                inputTitle: t("formLecturer:input.surname.title"),
+                inputTitle: t("events:formSpeaker.input.surname"),
               }}
             />
             <InputTextArea
               labelStyle={labelStyle}
               fieldName="description"
               labels={{
-                inputTitle: t("formLecturer:input.description.title"),
+                inputTitle: t("events:formSpeaker.input.description"),
               }}
             />
             {/* <InputFile

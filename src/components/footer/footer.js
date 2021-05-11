@@ -52,9 +52,7 @@ function Footer(params) {
     
     return (
         <FooterContainer>
-            <Box {...flexChildreenStyle}>
-                <Text >{t('common:footer.title', { author: ".NET"})}</Text>
-            </Box>
+            
             <Box {...flexChildreenStyle}>
                 <LanguageSelector supportedLanguage={supportedLanguage} />
             </Box>
@@ -64,3 +62,9 @@ function Footer(params) {
 }
 
 export default Footer;
+
+/*
+<Box {...flexChildreenStyle}>
+    <Text >{t('common:footer.title', { author: ".NET"})}</Text>
+</Box>
+*/

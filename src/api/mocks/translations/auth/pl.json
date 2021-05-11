@@ -29,5 +29,19 @@
         "header": "Nagłówek",
         "body": "Treść",
         "redirect": "Przeadresować"
+    },
+    "switch": {
+        "rememberMe": "Pamiętaj"
+    },
+    "edit":{
+        "drawer":{
+            "firstName": "Imię",
+            "surname": "Nazwisko",
+            "email": "E-mail"
+        },
+        "leftDrawer":{
+            "account": "Konto",
+            "cancel": "Anuluj"
+        }
     }
 }

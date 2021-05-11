@@ -24,7 +24,7 @@ const eventData = {
 };
 
 export function EventDetails() {
-  const { t, i18n } = useTranslation(["common", "event"]);
+  const { t, i18n } = useTranslation(["common", "events"]);
   const params = useParams();
   const eventId = Number(params.eventId);
   const eventData = useEventData(eventId);
@@ -39,12 +39,12 @@ export function EventDetails() {
     <VStack spacing={8} mx="auto" w="100%" py={12} px={0} p={0} m={0}>
       <Skeleton isLoaded={!!eventData}>
         <Heading fontSize="3xl" textAlign="center">
-          {t("event:eventDetails.heading") + ` ${eventId} `}
+          {t("events:eventDetails.heading") + ` ${eventId} `}
         </Heading>
         <Flex {...styles.flexContainer}>
           <Box {...styles.flexItem}>
             <Heading {...styles.text}>
-              {t("event:eventDetails.eventName")}
+              {t("events:eventDetails.eventName")}
             </Heading>
             <Text {...styles.text}>{eventData && eventData.name}</Text>
             <Divider size="40px"></Divider>
@@ -53,11 +53,11 @@ export function EventDetails() {
           <Box {...styles.flexItem} {...styles.flexItemTable}>
             <MyAccordion
               labels={[
-                t("event:eventDetails.accordion.details"),
-                t("event:eventDetails.accordion.statistic"),
-                t("event:eventDetails.accordion.attendance"),
-                t("event:eventDetails.accordion.lecture"),
-                t("event:eventDetails.accordion.lecturers"),
+                t("events:eventDetails.accordion.details"),
+                t("events:eventDetails.accordion.statistic"),
+                t("events:eventDetails.accordion.attendance"),
+                t("events:eventDetails.accordion.lecture"),
+                t("events:eventDetails.accordion.speakers"),
               ]}
             >
               <Box>
@@ -70,7 +70,7 @@ export function EventDetails() {
                 </Box>
                 <Divider size="40px"></Divider>
                 <Heading {...styles.text}>
-                  {t("event:eventDetails.Description")}
+                  {t("events:eventDetails.Description")}
                 </Heading>
                 <Text {...styles.text}>
                   {eventData && eventData.description}

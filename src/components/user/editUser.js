@@ -19,7 +19,7 @@ const labelStyle = {
 // })
 
 export default function EditUser(firstFieldRef) {
-const { t, i18n } = useTranslation(['common','userDashboard']);
+const { t, i18n } = useTranslation(['common','auth']);
 const submitFrom = async (values, actions) => {    
         alert("")
         actions.setSubmitting(false);
@@ -45,13 +45,13 @@ const submitFrom = async (values, actions) => {
                   labelStyle={labelStyle}
                   innerRef={firstFieldRef}
                   fieldName='firstName' 
-                  labels={{inputTitle: t('userDashboard:input.firstName')}}   
+                  labels={{inputTitle: t('auth:edit.drawer.firstName')}}   
                 />
                 <InputText 
                   labelStyle={labelStyle}
                   innerRef={firstFieldRef}
                   fieldName='surname' 
-                  labels={{inputTitle: t('userDashboard:input.surname')}}   
+                  labels={{inputTitle: t('auth:edit.drawer.surname')}}   
                 />
                 <InputPassword
                   labelStyle={labelStyle}
@@ -65,7 +65,7 @@ const submitFrom = async (values, actions) => {
                   <InputEmail
                     labelStyle={labelStyle}
                     fieldName="email"
-                    labels={{ inputTitle: t('userDashboard:input.email')}}
+                    labels={{ inputTitle: t('auth:edit.drawer.email')}}
                   />
                 <SubmitButton isSubmitting={props.isSubmitting} />
               </Form>

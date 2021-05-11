@@ -16,10 +16,13 @@ import {
   } from "@chakra-ui/react"
 import React from 'react';
 import UserDashboard from '../user/dashboard';
+import { useTranslation } from "react-i18next";
 
 export function UserAvatar() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef()
+    const { t, i18n } = useTranslation(["common", "auth"]);
+
     return (
         
         <>
@@ -37,14 +40,20 @@ export function UserAvatar() {
           <DrawerOverlay>
             <DrawerContent>
               <DrawerCloseButton />
-              <DrawerHeader>Account</DrawerHeader>
+              <DrawerHeader>
+                {
+                  t("auth:edit.leftDrawer.account")
+                }     
+              </DrawerHeader>
   
               <DrawerBody>
                 <UserDashboard />
               </DrawerBody>
               <DrawerFooter>
                 <Button variant="outline" mr={3} onClick={onClose}>
-                  Cancel
+                  {
+                    t("auth:edit.leftDrawer.cancel")
+                  }                  
                 </Button>
                 {/*<Button color="blue">Save</Button>*/}
               </DrawerFooter>

@@ -33,7 +33,7 @@ const cellWidths = [
   ["5%", "4%"],
 ];
 export function Events() {
-  const { t, i18n } = useTranslation(["common", "eventsList"]);
+  const { t, i18n } = useTranslation(["common", "events"]);
   let eventsData = useEventsData();
   let history = useHistory();
 
@@ -50,9 +50,9 @@ export function Events() {
     ],
   ];
   const headers = [
-    t("event:summary.name"),
-    t("event:summary.description"),
-    t("event:summary.date"),
+    t("events:event.summary.name"),
+    t("events:event.summary.description"),
+    t("events:event.summary.date"),
     infoIcon,
     editIcon,
   ];
@@ -75,11 +75,11 @@ export function Events() {
   return (
     <VStack {...styles.vStack}>
       <Heading fontSize="3xl" textAlign="center">
-        {t("eventsList:main.heading")}
+        {t("events:event.eventsList.heading")}
       </Heading>
       <Flex {...styles.flexContainerForTable}>
         <Box {...styles.flexItem}>
-          <Heading {...styles.text}>{t("eventsList:main.eventsList")}</Heading>
+          <Heading {...styles.text}>{t("events:event.eventsList.eventsListName")}</Heading>
           <Text {...styles.text}>
             aaaaaaaaaaaaaaaaaaa{/* {eventData.eventName} */}
           </Text>
@@ -92,12 +92,12 @@ export function Events() {
               history.push("/event/modify");
             }}
           >
-            {t("event:main.button.addEvent")}
+            {t("events:event.main.button.addEvent")}
           </Button>
         </Box>
 
         <Box {...styles.flexItem}>
-          <Heading {...styles.text}>{t("event:main.showEvents")}</Heading>
+          <Heading {...styles.text}>{t("events:event.main.showEvents")}</Heading>
 
           <Divider size="40px"></Divider>
 

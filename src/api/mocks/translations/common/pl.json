@@ -19,7 +19,8 @@
             "min": "Minimum {{number}} znaków",
             "max": "Maksimum {{number}} znaków",
             "required": "To pole jest wymagane",
-            "submit400": "Błędne creditalia"
+            "submit400": "Błędne creditalia",
+            "email": "Błędny E-mail"
         }
     },
     "routes": {
@@ -37,5 +38,16 @@
     },
     "footer": {
         "title": "Autor {{author}}"
+    },
+    "language":{
+        "popover":{
+            "country": "Kraj",
+            "selectLanguage": "Wybierz Język",
+            "search": "Szukaj",
+            "orSelectFromList": "albo wybierz z listy"
+        }
+    },
+    "TopNavBar":{
+        "logout": "Wyloguj"
     }
 }
