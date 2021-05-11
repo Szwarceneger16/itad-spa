@@ -47,6 +47,30 @@ class LectureService {
       API_URL + "lecture?lectureId=" + lectureId + "&eventId=" + eventId
     );
   }
+
+  bindSpeaker(lectureId, speakerId) {
+    return axios.post(
+      API_URL +
+        "lecture/addSpeaker?speakerId=" +
+        speakerId +
+        "&lectureId=" +
+        lectureId,
+      {
+        headers: { defaultHeaders, ...authHeader() },
+      }
+    );
+  }
+
+  unbindSpeaker(lectureId, speakerId) {
+    if (!lectureId || typeof lectureId !== "number") throw "wrong input args";
+    return axios.delete(
+      API_URL +
+        "lecture/removeSpeaker?lectureId=" +
+        lectureId +
+        "&speakerId=" +
+        speakerId
+    );
+  }
 }
 
 export default new LectureService();

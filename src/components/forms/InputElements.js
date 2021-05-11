@@ -12,6 +12,7 @@ import {
   Button,
   Switch as ChakraSwitch,
   Checkbox,
+  Select,
   color,
 } from "@chakra-ui/react";
 import { Field } from "formik";
@@ -116,6 +117,83 @@ export function InputText({
               id={fieldName}
               placeholder={placeholder}
             />
+
+            <FormErrorMessage d="block">
+              {form.errors[fieldName]}
+            </FormErrorMessage>
+          </FormControl>
+        );
+      }}
+    </Field>
+  );
+}
+
+export function InputSelect({
+  fieldName,
+  labelStyle,
+  labels,
+  values,
+  valueIsNumber,
+  isDisabled,
+  innerRef = undefined,
+  placeholder = undefined,
+}) {
+  const multiple = undefined;
+  values =
+    values ??
+    [
+      /* {value: "",label:""} */
+    ];
+  return (
+    <Field innerRef={innerRef} name={fieldName}>
+      {({ field, form }) => {
+        //let { value, ...field } = field;
+        return (
+          <FormControl
+            pd={4}
+            isInvalid={form.errors[fieldName] && form.touched[fieldName]}
+          >
+            <FormLabel htmlFor={fieldName} {...labelStyle}>
+              {/* {label ? label : fieldName} */ labels.inputTitle}
+            </FormLabel>
+            <Select
+              name={fieldName}
+              onBlur={field.onBlur}
+              variant="filled"
+              multiple={multiple}
+              isDisabled={isDisabled}
+              placeholder={placeholder}
+              onChange={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                if (multiple) {
+                  const selected = Array.from(
+                    event.currentTarget.selectedOptions
+                  ).map((option) =>
+                    valueIsNumber ? Number(option.value) : option.value
+                  );
+                  form.setFieldValue(field.name, selected, false);
+                } else {
+                  form.setFieldValue(
+                    field.name,
+                    valueIsNumber
+                      ? Number(event.currentTarget.value)
+                      : event.currentTarget.value,
+                    false
+                  );
+                }
+              }}
+            >
+              {values.map((el, index) => (
+                <option
+                  key={el.value ?? "null" + index}
+                  disabled={!el.value}
+                  value={el.value}
+                >
+                  {el.label}
+                </option>
+              ))}
+            </Select>
 
             <FormErrorMessage d="block">
               {form.errors[fieldName]}

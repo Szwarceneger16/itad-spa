@@ -14,10 +14,10 @@ export function DeleteIconButton({ onClick }) {
   );
 }
 
-export function SubmitButton({ isSubmitting }) {
+export function SubmitButton({ isDisabled, isSubmitting }) {
   const { t } = useTranslation();
   return (
-    <Button isLoading={isSubmitting} type="submit">
+    <Button isLoading={isSubmitting} isDisabled={isDisabled} type="submit">
       {t("common:buttons.submit.title")}
     </Button>
   );

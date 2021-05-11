@@ -34,18 +34,24 @@ export function useEventsData(...optimize) {
 }
 
 export function useEventData(eventId, ...optimize) {
-  let fetchEventsData = EventService.getEventByID(eventId);
+  let fetchEventsData;
+  if (eventId) {
+    fetchEventsData = EventService.getEventByID(eventId);
+  }
+
   const [eventsData, setEventsData] = useState(null);
 
   useEffect(() => {
-    fetchEventsData
-      .then((response) => {
-        const myEventsId = [];
-        let event = response.data;
-        event.startDate = DateFns.parseISO(event.startDate);
-        setEventsData(event);
-      })
-      .catch((error) => {});
+    if (eventId) {
+      fetchEventsData
+        .then((response) => {
+          const myEventsId = [];
+          let event = response.data;
+          event.startDate = DateFns.parseISO(event.startDate);
+          setEventsData(event);
+        })
+        .catch((error) => {});
+    }
   }, optimize ?? []);
 
   return eventsData;
