@@ -16,6 +16,8 @@ import { useHistory, useParams } from "react-router-dom";
 import styles from "./styles/EventDetails";
 import MyAccordion from "src/components/accordion";
 import { useEventData } from "src/hooks/useEventData";
+import { useDispatch } from "react-redux";
+import { clearLectureData, clearSpeakersData } from "src/actions/events";
 
 const eventData = {
   eventName: "tytul",
@@ -29,6 +31,14 @@ export function EventDetails() {
   const eventId = Number(params.eventId);
   const eventData = useEventData(eventId);
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearLectureData());
+      dispatch(clearSpeakersData());
+    };
+  }, []);
 
   if (Number.isNaN(eventId)) {
     // ERORR PAGE

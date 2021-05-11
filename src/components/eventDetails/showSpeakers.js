@@ -19,7 +19,7 @@ import {
   Td,
   Skeleton,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import FormSpeaker from "./formSpeaker";
 import InputPopover from "../forms/InputPopover";
@@ -27,12 +27,18 @@ import * as Yup from "yup";
 import styles from "./style";
 import MyTable from "../table";
 import { useSpeakersData } from "src/hooks/useSpeakerData";
+import { useDispatch } from "react-redux";
+import { setSpeakersData } from "src/actions/events";
 
 const cellWidths = [["25%"], ["25%"], ["40%"], ["10%"]];
 export default function ({ eventId }) {
   const { t, i18n } = useTranslation(["common", "events"]);
   const [initialFormValues, setInitialFormvalues] = useState(undefined);
   const speakersData = useSpeakersData(eventId, initialFormValues);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (speakersData) dispatch(setSpeakersData(speakersData));
+  }, [speakersData]);
 
   const initEditPopover = (rowIndex) => {
     setInitialFormvalues(speakersData[rowIndex]);

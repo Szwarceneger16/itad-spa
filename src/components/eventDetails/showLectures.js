@@ -23,17 +23,27 @@ import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import InputPopover from "../forms/InputPopover";
 import FormLecture from "./formLecture";
-import * as Yup from "yup";
+import BindSpeakers from "src/components/eventDetails/bindSpeaker";
 import styles from "./style";
 import MyTable from "../table";
 import * as DateFns from "date-fns";
 import { useLecturesData } from "src/hooks/useLectureData";
+import { useDispatch } from "react-redux";
+import { setLectureData } from "src/actions/events";
 
 const cellWidths = [["25%"], ["25%"], ["40%"], ["10%"]];
 export default function ({ eventId }) {
   const { t, i18n } = useTranslation(["common", "events"]);
+export default function ({ eventId, lectureData }) {
+  const { t, i18n } = useTranslation(["common", "event"]);
   const [initialFormValues, setInitialFormvalues] = useState(undefined);
   const lecturesData = useLecturesData(eventId, initialFormValues);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (!!lecturesData) {
+      dispatch(setLectureData(lecturesData));
+    }
+  }, [lecturesData]);
 
   const initEditPopover = (rowIndex) => {
     setInitialFormvalues(lecturesData[rowIndex]);
@@ -70,6 +80,23 @@ export default function ({ eventId }) {
             : t("events:showLectures.main.addLecture")
         }
         component={FormLecture}
+        componentProps={{
+          initialValues: initialFormValues,
+          eventId,
+        }}
+      />
+      <InputPopover
+        defaultIsOpen={!!initialFormValues}
+        //OnOpen={() => setOpenPopover(true)}
+        OnClose={() => {
+          setInitialFormvalues(null);
+        }}
+        label={
+          initialFormValues
+            ? t("eventDetails:main.bindSpeaker")
+            : t("eventDetails:main.reBindSpeaker")
+        }
+        component={BindSpeakers}
         componentProps={{
           initialValues: initialFormValues,
           eventId,

@@ -44,28 +44,61 @@ function FormEvent({ firstFieldRef, onCancel, eventId }) {
   const dispatch = useDispatch();
 
   const submitFrom = (values, actions) => {
-    const _values = { ...values };
-    if (_values.eventId === null) delete _values.eventId;
-    //console.log(_values);
-    EventService.addEvent(_values.name, _values.description, _values.startTime)
+    if (Number.isNaN(eventId)) {
+      EventService.addEvent(values.name, values.description, values.startDate)
+        .then((response) => {
+          dispatch(setMessage(t("events:event.add.succesmessage"), "succes"));
+          history.push("/eventsAll");
+        })
+        .catch((error) => {
+          dispatch(setMessage(t("events:event.add.errorMessage"), "error"));
+        });
+    } else {
+      EventService.modifyEvent(
+        eventId,
+        values.name,
+        values.description,
+        values.startDate,
+        values.availableTickets,
+        values.ticketPrice
+      )
+        .then((response) => {
+          dispatch(setMessage(t("event:event.modify.succesmessage"), "succes"));
+          history.push("/eventsAll");
+        })
+        .catch((error) => {
+          dispatch(setMessage(t("event:event.modify.errorMessage"), "error"));
+        });
+    }
+  };
+
+  const deleteEvent = () => {
+    EventService.deleteEvent(eventId)
       .then((response) => {
-        dispatch(setMessage(t("events:event.input.succesmessage"), "succes"));
-        history.push("/eventAll");
+        dispatch(setMessage(t("event:event.delete.succesmessage"), "succes"));
+        history.push("/eventsAll");
       })
       .catch((error) => {
-        dispatch(setMessage(t("events:event.input.errorMessage"), "error"));
+        dispatch(setMessage(t("event:event.delete.errorMessage"), "error"));
+        history.push("/eventsAll");
       });
   };
 
-  const deleteEvent = (eventId) => {};
+  if (eventData) {
+    for (const [key, value] of Object.entries(eventData)) {
+      if (value === null || value === undefined) {
+        eventData[key] = 0;
+      }
+    }
+  }
 
   let _initialValues = eventData ?? {
     name: "",
     description: "",
-    startTime: new Date(),
+    startDate: new Date(),
     // endDate: new Date(),
-    // availableTickets: 0,
-    // ticketPrice: 0,
+    availableTickets: 0,
+    ticketPrice: 0,
     // owner: 0,
     //file:(initialValues &&  initialValues.file) || '',
   };
@@ -74,15 +107,15 @@ function FormEvent({ firstFieldRef, onCancel, eventId }) {
     <>
       {/* {submitError && <ErrorMessage>{submitError}</ErrorMessage>} */}
       <Formik
-        // enableReinitialize
+        enableReinitialize
         initialValues={_initialValues}
-        validationSchema={eventModifyValidaitonSchema(t)}
+        //validationSchema={eventModifyValidaitonSchema(t)}
         //initialErrors={true}
 
         onSubmit={submitFrom}
-        initialTouched={{
-          eventId: true,
-        }}
+        // initialTouched={{
+        //   eventId: true,
+        // }}
       >
         {(props) => (
           <Form>
@@ -101,10 +134,10 @@ function FormEvent({ firstFieldRef, onCancel, eventId }) {
             />
             <InputDate
               labelStyle={labelStyle}
-              fieldName="startTime"
+              fieldName="startDate"
               disablePast
               labels={{
-                inputTitle: t("events:event.input.startTime"),
+                inputTitle: t("events:event.input.startDate"),
               }}
             ></InputDate>
             {/* <InputDate
@@ -114,7 +147,7 @@ function FormEvent({ firstFieldRef, onCancel, eventId }) {
               labels={{
                 inputTitle: t("events:event.input.endDate"),
               }}
-            ></InputDate>
+            ></InputDate> */}
             <InputNumber
               labelStyle={labelStyle}
               innerRef={firstFieldRef}
@@ -126,16 +159,15 @@ function FormEvent({ firstFieldRef, onCancel, eventId }) {
               innerRef={firstFieldRef}
               fieldName="ticketPrice"
               labels={{ inputTitle: t("events:event.input.ticketPrice") }}
-            /> */}
+            />
 
             <Flex align="center" mt={4}>
               <Box>
                 <ButtonGroup>
                   <SubmitButton isSubmitting={props.isSubmitting} />
-                  {eventData && !!eventData.id && (
+                  {eventData && !!eventData.eventId && (
                     <DeleteIconButton
                       onClick={() => {
-                        onCancel();
                         deleteEvent();
                       }}
                     />
