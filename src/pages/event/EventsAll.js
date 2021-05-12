@@ -108,7 +108,8 @@ export function Events() {
                 ? eventsData.map((eventData, index) => [
                     eventData.name,
                     eventData.description,
-                    DateFns.format(eventData.startDate, "MM-dd-yyyy"),
+                    eventData.startDate &&
+                      DateFns.format(eventData.startDate, "MM-dd-yyyy"),
                     infoIcon,
                     editIcon,
                   ])
