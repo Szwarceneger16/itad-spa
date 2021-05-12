@@ -27,6 +27,25 @@
         "eventsList":{
             "heading": "Wydarzenia",
             "eventsListName": "Lista Wydarzeń"
+        },
+        "input":{
+            "name": "Nazwa",
+            "description": "Opis",
+            "startDate": "Czas Rozpoczęcia",
+            "availableTickets": "Dostępne Bilety",
+            "ticketPrice": "Cena Biletu"
+        },
+        "add":{
+            "succesmessage": "Poprawne dodanie wydarzenia",
+            "errorMessage": "Niepoprawne dodanie wydarzenia"
+        },
+        "modify":{
+            "succesmessage": "Poprawna modyfikacja wydarzenia",
+            "errorMessage": "Niepoprawna modyfikacja wydarzenia"
+        },
+        "delete":{
+            "succesmessage": "Poprawne usunięcie wydarzenia",
+            "errorMessage": "Niepoprawne usunięcie wydarzenia"
         }
     },
     "formLecturer": {

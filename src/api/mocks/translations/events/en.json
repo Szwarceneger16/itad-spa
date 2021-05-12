@@ -27,6 +27,25 @@
         "eventsList":{
             "heading": "Events",
             "eventsListName": "Events List"
+        },
+        "input":{
+            "name": "Name",
+            "description": "Description",
+            "startDate": "Start Date",
+            "availableTickets": "Available Tickets",
+            "ticketPrice": "Ticket Price"
+        },
+        "add":{
+            "succesmessage": "Correct addition event",
+            "errorMessage": "Incorrect addition event"
+        },
+        "modify":{
+            "succesmessage": "Correct modify event",
+            "errorMessage": "Incorrect modify event"
+        },
+        "delete":{
+            "succesmessage": "Correct delete event",
+            "errorMessage": "Incorrect delete event"
         }
     },
     "formLecturer": {

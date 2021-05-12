@@ -32,10 +32,9 @@ import { useDispatch } from "react-redux";
 import { setLectureData } from "src/actions/events";
 
 const cellWidths = [["25%"], ["25%"], ["40%"], ["10%"]];
-export default function ({ eventId }) {
-  const { t, i18n } = useTranslation(["common", "events"]);
+
 export default function ({ eventId, lectureData }) {
-  const { t, i18n } = useTranslation(["common", "event"]);
+  const { t, i18n } = useTranslation(["common", "events"]);
   const [initialFormValues, setInitialFormvalues] = useState(undefined);
   const lecturesData = useLecturesData(eventId, initialFormValues);
   const dispatch = useDispatch();

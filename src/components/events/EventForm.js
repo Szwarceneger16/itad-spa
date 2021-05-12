@@ -63,11 +63,11 @@ function FormEvent({ firstFieldRef, onCancel, eventId }) {
         values.ticketPrice
       )
         .then((response) => {
-          dispatch(setMessage(t("event:event.modify.succesmessage"), "succes"));
+          dispatch(setMessage(t("events:event.modify.succesmessage"), "succes"));
           history.push("/eventsAll");
         })
         .catch((error) => {
-          dispatch(setMessage(t("event:event.modify.errorMessage"), "error"));
+          dispatch(setMessage(t("events:event.modify.errorMessage"), "error"));
         });
     }
   };
@@ -75,11 +75,11 @@ function FormEvent({ firstFieldRef, onCancel, eventId }) {
   const deleteEvent = () => {
     EventService.deleteEvent(eventId)
       .then((response) => {
-        dispatch(setMessage(t("event:event.delete.succesmessage"), "succes"));
+        dispatch(setMessage(t("events:vent.edelete.succesmessage"), "succes"));
         history.push("/eventsAll");
       })
       .catch((error) => {
-        dispatch(setMessage(t("event:event.delete.errorMessage"), "error"));
+        dispatch(setMessage(t("events:event.delete.errorMessage"), "error"));
         history.push("/eventsAll");
       });
   };
