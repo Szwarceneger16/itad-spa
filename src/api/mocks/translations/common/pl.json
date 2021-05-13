@@ -6,6 +6,9 @@
         },
         "submit": {
             "title": "Prześlij"
+        },
+        "remove":{
+            "title": "Usuń"
         }
     },
     "forms": {

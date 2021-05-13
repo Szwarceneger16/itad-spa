@@ -92,8 +92,8 @@ export default function ({ eventId, lectureData }) {
         }}
         label={
           initialFormValues
-            ? t("eventDetails:main.bindSpeaker")
-            : t("eventDetails:main.reBindSpeaker")
+            ? t("events:speakerBind.main.bindSpeaker")
+            : t("events:speakerBind.main.reBindSpeaker")
         }
         component={BindSpeakers}
         componentProps={{

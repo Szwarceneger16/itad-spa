@@ -149,5 +149,24 @@
             "lecture": "Lecture",
             "speakers": "Speakers"
         }
+    },
+    "speakerBind":{
+        "message":{
+            "selectLectureFirst": "Select Lecture",
+            "selectSpeaker": "Select Speaker"
+        },
+        "selectLecture":{
+            "title": "Lecture title"
+        },
+        "selectSpeakerToAdd":{
+            "title": "Select Speaker To Add"
+        },
+        "selectSpeakerToRemove":{
+            "title": "Select Speaker To Remove"
+        },
+        "main":{
+            "bindSpeaker": "Change Speaker",
+            "reBindSpeaker": "Choose Speaker"
+        }
     }
 }

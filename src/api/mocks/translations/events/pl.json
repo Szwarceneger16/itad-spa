@@ -149,5 +149,24 @@
             "lecture": "Prelekcja",
             "speakers": "Prelegenci"
         }
+    },
+    "speakerBind":{
+        "message":{
+            "selectLectureFirst": "Wybierz wykład",
+            "selectSpeaker": "Wybierz Prelegenta"
+        },
+        "selectLecture":{
+            "title": "Tytuł wykładu"
+        },
+        "selectSpeakerToAdd":{
+            "title": "Wybierz Prelegenta do dodania"
+        },
+        "selectSpeakerToRemove":{
+            "title": "Wybierz Prelegenta do usunięcia"
+        },
+        "main":{
+            "bindSpeaker": "Zmień Prelegenta",
+            "reBindSpeaker": "Wybierz Prelegenta"
+        }
     }
 }
