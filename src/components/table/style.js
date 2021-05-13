@@ -11,10 +11,11 @@ export default {
     // overflow: "hidden",
     overflowY: "auto",
   },
-  td: function (width) {
+  td: function (width, pointer) {
     return {
       p: 1,
       width: width,
+      cursor: pointer ? "pointer" : "auto",
     };
   },
   th: function (width) {

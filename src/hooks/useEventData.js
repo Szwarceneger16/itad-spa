@@ -18,7 +18,8 @@ export function useEventsData(...optimize) {
         const myEventsId = [];
         let data = response.data;
         data = data.map((event) => {
-          event.startDate = DateFns.parseISO(event.startDate);
+          event.startDate =
+            event.startDate && DateFns.parseISO(event.startDate);
           if (event.owner.id === userId) {
             myEventsId.push(event.eventId);
           }
@@ -34,18 +35,25 @@ export function useEventsData(...optimize) {
 }
 
 export function useEventData(eventId, ...optimize) {
-  let fetchEventsData = EventService.getEventByID(eventId);
+  let fetchEventsData;
+  if (eventId) {
+    fetchEventsData = EventService.getEventByID(eventId);
+  }
+
   const [eventsData, setEventsData] = useState(null);
 
   useEffect(() => {
-    fetchEventsData
-      .then((response) => {
-        const myEventsId = [];
-        let event = response.data;
-        event.startDate = DateFns.parseISO(event.startDate);
-        setEventsData(event);
-      })
-      .catch((error) => {});
+    if (eventId) {
+      fetchEventsData
+        .then((response) => {
+          const myEventsId = [];
+          let event = response.data;
+
+          event.startDate = DateFns.parseISO(event.startDate);
+          setEventsData(event);
+        })
+        .catch((error) => {});
+    }
   }, optimize ?? []);
 
   return eventsData;
