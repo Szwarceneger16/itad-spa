@@ -1,17 +1,28 @@
 import {
   SET_EVENTS_OWNER,
-  CLEAR_EVENTS,
   CLEAR_EVENTS_OWNER,
-  SET_EVENTS,
+  CLEAR_LECTURE_DATA,
+  SET_LECTURE_DATA,
+  SET_SPEAKER_DATA,
+  CLEAR_SPEAKER_DATA,
 } from "../actions/types";
 
-export const setEvents = (events) => ({
-  type: SET_EVENTS,
-  payload: { events },
+export const setSpeakersData = (speakersData) => ({
+  type: SET_SPEAKER_DATA,
+  payload: { speakersData },
 });
 
-export const clearEvents = () => ({
-  type: CLEAR_EVENTS,
+export const clearSpeakersData = () => ({
+  type: CLEAR_SPEAKER_DATA,
+});
+
+export const setLectureData = (lecturesData) => ({
+  type: SET_LECTURE_DATA,
+  payload: { lecturesData },
+});
+
+export const clearLectureData = () => ({
+  type: CLEAR_LECTURE_DATA,
 });
 
 export const setEventsOwner = (owner) => ({

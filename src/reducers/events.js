@@ -1,13 +1,13 @@
 import {
   SET_EVENTS_OWNER,
-  CLEAR_EVENTS,
   CLEAR_EVENTS_OWNER,
-  SET_EVENTS,
+  CLEAR_LECTURE_DATA,
+  SET_LECTURE_DATA,
+  SET_SPEAKER_DATA,
+  CLEAR_SPEAKER_DATA,
 } from "../actions/types";
 
-let events = JSON.parse(localStorage.getItem("events"));
-
-const initialState = events ? { events } : { events: [] };
+const initialState = {};
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
@@ -16,19 +16,22 @@ export default function (state = initialState, action) {
   switch (type) {
     case SET_EVENTS_OWNER:
       newState = { ...state, owner: payload.owner };
-      localStorage.setItem("events", JSON.stringify(newState));
       return newState;
     case CLEAR_EVENTS_OWNER:
       newState = { ...state, owner: null };
-      localStorage.setItem("events", JSON.stringify(newState));
       return newState;
-    case SET_EVENTS:
-      newState = { ...state, events: payload.events };
-      localStorage.setItem("events", JSON.stringify(newState));
+    case SET_LECTURE_DATA:
+      newState = { ...state, lecturesData: payload.lecturesData };
       return newState;
-    case CLEAR_EVENTS:
-      newState = { ...state, events: null };
-      localStorage.setItem("events", JSON.stringify(newState));
+    case CLEAR_LECTURE_DATA:
+      newState = { ...state, lecturesData: null };
+      return newState;
+    case SET_SPEAKER_DATA:
+      newState = { ...state, speakersData: payload.speakersData };
+      return newState;
+    case CLEAR_SPEAKER_DATA:
+      newState = { ...state, speakersData: null };
+
       return newState;
     // case EVENTS_CLEAR:
     //   localStorage.clear("events");

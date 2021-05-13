@@ -19,7 +19,13 @@
       "webRoot": "${workspaceFolder}",
       "sourceMapPathOverrides": {
         "webpack:///src/*": "${webRoot}/*"
-      }
+      },
+      "pathMappings": [
+        {
+          "url": "file:///C:/Users/GSzwa/source/WEB/React_projects/itad-spa/src/components",
+          "path": "${workspaceFolder}/src/components"
+        }
+      ]
     }
   ]
 }
