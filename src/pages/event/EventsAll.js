@@ -13,11 +13,13 @@ import React, { Suspense, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styles from "./styles/EventsAll";
 import { useEventsData } from "src/hooks/useEventData.js";
-import { InfoIcon, EditIcon } from "@chakra-ui/icons";
+import { InfoIcon, EditIcon, CheckCircleIcon } from "@chakra-ui/icons";
 import { useHistory } from "react-router-dom";
 import MyTable from "src/components/table";
 import * as DateFns from "date-fns";
 import { Button } from "@material-ui/core";
+import { GetUserId } from "src/selectors";
+import eventService from "src/services/event.service";
 
 // const eventData = {
 //   eventName: "tytul",
@@ -25,20 +27,29 @@ import { Button } from "@material-ui/core";
 //   eventImage: "",
 // };
 
-const cellWidths = [
+const ownsEventTableCellWidths = [
   ["25%", "25%"],
   ["30%", "40%"],
   ["25%", "15%"],
   ["5%", "4%"],
   ["5%", "4%"],
 ];
+const otherEventTableCellWidths = [
+  ["25%", "25%"],
+  ["35%", "40%"],
+  ["25%", "15%"],
+  ["5%", "4%"],
+];
+
 export function Events() {
   const { t, i18n } = useTranslation(["common", "eventsList"]);
   let eventsData = useEventsData();
   let history = useHistory();
+  const userID = GetUserId();
 
   const infoIcon = <InfoIcon />;
   const editIcon = <EditIcon />;
+  const checkCircleIcon = <CheckCircleIcon />;
 
   const loadingData = [
     [
@@ -49,15 +60,21 @@ export function Events() {
       "",
     ],
   ];
-  const headers = [
-    t("event:summary.name"),
-    t("event:summary.description"),
-    t("event:summary.date"),
+  const ownsEventTableHeaders = [
+    t("events:event.summary.name"),
+    t("events:event.summary.description"),
+    t("events:event.summary.date"),
     infoIcon,
     editIcon,
   ];
+  const otherEventTableHeaders = [
+    t("events:event.summary.name"),
+    t("events:event.summary.description"),
+    t("events:event.summary.date"),
+    infoIcon,
+  ];
 
-  const callbacks = [
+  const ownsEventTableCallbacks = [
     {
       cellNumber: 4,
       callback: (dataRowNumber) => {
@@ -72,6 +89,20 @@ export function Events() {
     },
   ];
 
+  const otherEventTableCallbacks = [
+    {
+      cellNumber: 3,
+      callback: (dataRowNumber) => {
+        // history.push("/event/detail/" + eventsData[dataRowNumber].eventId);
+        eventService.registerOnEvent(eventsData[dataRowNumber].eventId).catch();
+      },
+    },
+  ];
+  const otherEventTableCallback = (dataRowNumber) => {
+    // history.push("/event/detail/" + eventsData[dataRowNumber].eventId);
+    history.push("/event/detail/" + eventsData[dataRowNumber].eventId);
+  };
+
   return (
     <VStack {...styles.vStack}>
       <Heading fontSize="3xl" textAlign="center">
@@ -79,7 +110,9 @@ export function Events() {
       </Heading>
       <Flex {...styles.flexContainerForTable}>
         <Box {...styles.flexItem}>
-          <Heading {...styles.text}>{t("eventsList:main.eventsList")}</Heading>
+          <Heading {...styles.text}>
+            {t("events:event.eventsList.eventsListName")}
+          </Heading>
           <Text {...styles.text}>
             aaaaaaaaaaaaaaaaaaa{/* {eventData.eventName} */}
           </Text>
@@ -95,28 +128,56 @@ export function Events() {
             {t("event:main.button.addEvent")}
           </Button>
         </Box>
+        <Box {...styles.flexItem}>
+          <Heading {...styles.text}>
+            {t("events:event.main.yourEvents")}
+          </Heading>
 
+          <Divider size="40px"></Divider>
+
+          <MyTable
+            columnsWidth={ownsEventTableCellWidths}
+            data={
+              eventsData
+                ? eventsData
+                    .filter((eventData) => eventData.owner.userId === userID)
+                    .map((eventData) => [
+                      eventData.name,
+                      eventData.description,
+                      eventData.startDate &&
+                        DateFns.format(eventData.startDate, "MM-dd-yyyy"),
+                      infoIcon,
+                      editIcon,
+                    ])
+                : loadingData
+            }
+            labels={ownsEventTableHeaders}
+            onCellsClick={ownsEventTableCallbacks}
+          />
+        </Box>
         <Box {...styles.flexItem}>
           <Heading {...styles.text}>{t("event:main.showEvents")}</Heading>
 
           <Divider size="40px"></Divider>
 
           <MyTable
-            columnsWidth={cellWidths}
+            columnsWidth={otherEventTableCellWidths}
             data={
               eventsData
-                ? eventsData.map((eventData, index) => [
-                    eventData.name,
-                    eventData.description,
-                    eventData.startDate &&
-                      DateFns.format(eventData.startDate, "MM-dd-yyyy"),
-                    infoIcon,
-                    editIcon,
-                  ])
+                ? eventsData
+                    .filter((eventData) => eventData.owner.userId !== userID)
+                    .map((eventData, index) => [
+                      eventData.name,
+                      eventData.description,
+                      eventData.startDate &&
+                        DateFns.format(eventData.startDate, "MM-dd-yyyy"),
+                      checkCircleIcon,
+                    ])
                 : loadingData
             }
-            labels={headers}
-            onCellsClick={callbacks}
+            labels={otherEventTableHeaders}
+            onCellsClick={otherEventTableCallbacks}
+            onRowClick={otherEventTableCallback}
           />
         </Box>
       </Flex>
