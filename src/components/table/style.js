@@ -24,6 +24,11 @@ export default {
       width: width,
     };
   },
+  tr: function (pointer) {
+    return {
+      cursor: pointer ? "pointer" : "auto",
+    };
+  },
   text: {
     fontSize: ["12px", "12px", "16px", "18px"],
     textAlign: "center",

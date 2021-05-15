@@ -7,14 +7,13 @@ import { setEventsOwner } from "src/actions/events";
 import { GetUserId } from "src/selectors";
 
 export function useEventsData(optimize) {
-  let fetchEventsData = EventService.getEventsAll();
   const [eventsData, setEventsData] = useState(null);
   const dispatch = useDispatch();
   const userId = GetUserId();
 
   // debugger;
   useEffect(() => {
-    fetchEventsData
+    EventService.getEventsAll()
       .then((response) => {
         const myEventsId = [];
         let data = response.data;
@@ -37,16 +36,11 @@ export function useEventsData(optimize) {
 }
 
 export function useEventData(eventId, optimize) {
-  let fetchEventsData;
-  if (eventId) {
-    fetchEventsData = EventService.getEventByID(eventId);
-  }
-
   const [eventsData, setEventsData] = useState(null);
 
   useEffect(() => {
     if (eventId) {
-      fetchEventsData
+      EventService.getEventByID(eventId)
         .then((response) => {
           const myEventsId = [];
           let event = response.data;

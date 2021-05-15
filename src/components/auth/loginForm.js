@@ -33,9 +33,7 @@ function LoginForm() {
 
   const submitFrom = (values, actions) => {
     try {
-      const result = dispatch(
-        login(values.login, values.password, values.rememberMe)
-      );
+      dispatch(login(values.login, values.password, values.rememberMe));
       dispatch(setMessage(t("auth:alert.login.succes"), "succes"));
       actions.setSubmitting(false);
       history.push("/");
