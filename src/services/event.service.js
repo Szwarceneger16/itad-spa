@@ -40,6 +40,16 @@ class EventService {
     );
   }
 
+  registerOnEvent(eventId) {
+    return axios.post(
+      API_URL + "event/registerOnEvent",
+      { eventId },
+      {
+        headers: { defaultHeaders, ...authHeader() },
+      }
+    );
+  }
+
   modifyEvent(
     eventId,
     name,

@@ -14,8 +14,10 @@ export const STATUS_MESSAGE = ["success", "error", "warning", "info"];
 // export const SET_EVENTS = "EVENTS_SET";
 // export const CLEAR_EVENTS = "EVENTS_CLEAR";
 export const SET_EVENTS_OWNER = "SET_EVENTS_OWNER";
+// export const APPEND_EVENTS_OWNER = "APPEND_EVENTS_OWNER";
 export const CLEAR_EVENTS_OWNER = "CLEAR_EVENTS_OWNER";
 export const SET_LECTURE_DATA = "SET_LECTURE_DATA";
 export const CLEAR_LECTURE_DATA = "CLEAR_LECTURE_DATA";
 export const SET_SPEAKER_DATA = "SET_SPEAKER_DATA";
+
 export const CLEAR_SPEAKER_DATA = "CLEAR_SPEAKER_DATA";

@@ -1,5 +1,6 @@
 import {
   SET_EVENTS_OWNER,
+  // APPEND_EVENTS_OWNER,
   CLEAR_EVENTS_OWNER,
   CLEAR_LECTURE_DATA,
   SET_LECTURE_DATA,
@@ -29,6 +30,11 @@ export const setEventsOwner = (owner) => ({
   type: SET_EVENTS_OWNER,
   payload: { owner },
 });
+
+// export const appendEventsOwner = (owner) => ({
+//   type: APPEND_EVENTS_OWNER,
+//   payload: { owner },
+// });
 
 export const clearEventsOwner = () => ({
   type: CLEAR_EVENTS_OWNER,

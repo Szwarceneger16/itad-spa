@@ -1,5 +1,6 @@
 import {
   SET_EVENTS_OWNER,
+  APPEND_EVENTS_OWNER,
   CLEAR_EVENTS_OWNER,
   CLEAR_LECTURE_DATA,
   SET_LECTURE_DATA,
@@ -17,6 +18,9 @@ export default function (state = initialState, action) {
     case SET_EVENTS_OWNER:
       newState = { ...state, owner: payload.owner };
       return newState;
+    // case APPEND_EVENTS_OWNER:
+    //   newState = { ...state, owner: [...state.owner, payload.owner] };
+    //   return newState;
     case CLEAR_EVENTS_OWNER:
       newState = { ...state, owner: null };
       return newState;
