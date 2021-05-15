@@ -44,7 +44,6 @@ function FormEvent({ firstFieldRef, onCancel, eventId }) {
   const dispatch = useDispatch();
 
   const submitFrom = (values, actions) => {
-    debugger;
     if (Number.isNaN(eventId)) {
       EventService.addEvent(values.name, values.description, values.startDate)
         .then((response) => {
