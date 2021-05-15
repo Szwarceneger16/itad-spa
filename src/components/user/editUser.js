@@ -6,12 +6,16 @@ import React, { useEffect, useRef, useState } from "react";
 import { Formik,Field, Form } from 'formik';
 import { InputDate, InputText, InputPassword, InputEmail} from '../forms/InputElements';
 import { CloseIconButton, DeleteIconButton, SubmitButton } from "../forms/buttons";
-import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { editUserFormValidationSchema } from "../auth/yupSchemas";
 import ReactDOM from "react-dom";
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+import { GetUserId } from "src/selectors";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import  userService from "../../services/user.service";
+import { setMessage } from "src/actions/message";
 
 const labelStyle = {
     fontFamily:'sans-serif',
@@ -27,18 +31,37 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-export default function EditUser(firstFieldRef) {
+export default function EditUser(firstFieldRef, dispatchClose) {
 const { t, i18n } = useTranslation(['common','userDashboard']);
 const [toggle, setToggle] = React.useState(true);
-const firstName = "Jan"
-const surname = "Kowalski"
-const password = "12#fA34"
-const email = "jan@gmail.com"
-    const submitFrom = async (values, actions) => {    
-        alert("")
-        actions.setSubmitting(false);
+const userId = GetUserId();
 
-    }
+const userData = {
+  userID: { userId },
+  firstName: "Jan",
+  surname: "Kowalski",
+  password: "12#fA34",
+  email: "jan@gmail.com"
+};
+
+const dispatch = useDispatch();
+const history = useHistory();
+
+    const submitFrom = async (values, actions) => {    
+        userService.modifyUser(values.email, values.firstName, values.surname)
+        .then((response) => {
+          dispatch(
+            setMessage(t("userDashboard:modify.succesmessage"), "succes")
+          );
+          //dispatchClose();
+        })
+        .catch((error) => {
+          dispatch(setMessage(t("userDashboard:modify.errorMessage"), "error"));
+        })
+        .finally(() => {
+          actions.setSubmitting(false);
+        });
+  };
     function toggleInput() {
       setToggle(false);
     }
@@ -46,10 +69,11 @@ const email = "jan@gmail.com"
       <div>
       <Formik
             initialValues={{ 
-              firstName: firstName,
-              surname: surname,
-              password: password,
-              email: email
+              userID: userData.userID,
+              firstName: userData.firstName,
+              surname: userData.surname,
+              password: userData.password,
+              email: userData.email
             }}
             validationSchema={editUserFormValidationSchema(t)}
             onSubmit={submitFrom}
@@ -60,8 +84,8 @@ const email = "jan@gmail.com"
                   <p onDoubleClick={toggleInput}>
                     <TextField
                       id="firstName"
-                      label="First name"
-                      defaultValue = {firstName}
+                      label={t('userDashboard:input.firstName')}
+                      defaultValue = {userData.firstName}
                       InputProps={{
                         readOnly: true,
                       }}
@@ -79,8 +103,8 @@ const email = "jan@gmail.com"
                   <p onDoubleClick={toggleInput}>
                     <TextField
                       id="surname"
-                      label="Surname"
-                      defaultValue = {surname}
+                      label={t('userDashboard:input.surname')}
+                      defaultValue = {userData.surname}
                       InputProps={{
                         readOnly: true,
                       }}
@@ -94,12 +118,12 @@ const email = "jan@gmail.com"
                   labels={{inputTitle: t('userDashboard:input.surname')}}   
                 />
                 )}
-                
+                {/*
                 {toggle ? (
                   <p onDoubleClick={toggleInput}>
                   </p>
                 ) : (
-                 <InputPassword
+                 {/<InputPassword
                   labelStyle={labelStyle}
                   fieldName="password"
                   labels={{
@@ -107,15 +131,15 @@ const email = "jan@gmail.com"
                     buttonHide: t("common:buttons.passwordVisibilityToggle.hide"),
                     buttonShow: t("common:buttons.passwordVisibilityToggle.show"),
                   }}
-                /> 
-                )}
+                /> }
+                )}*/}
                 
                 {toggle ? (
                   <p onDoubleClick={toggleInput}>
                     <TextField
                       id="email"
-                      label="E-mail"
-                      defaultValue = {email}
+                      label={t('userDashboard:input.email')}
+                      defaultValue = {userData.email}
                       InputProps={{
                         readOnly: true,
                       }}
@@ -133,10 +157,11 @@ const email = "jan@gmail.com"
                   </p>
                 ) : (
                   <SubmitButton isSubmitting={props.isSubmitting} />
-                )}           
+                )}        
               </Form>
             )}
         </Formik>  
+        
       </div>  
     )
   }
