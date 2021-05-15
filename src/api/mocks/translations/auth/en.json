@@ -26,9 +26,9 @@
         }
     }, 
     "emailregistration": {
-        "header": "Header",
-        "body": "Body",
-        "redirect": "Redirect"
+        "header": "E-mail Registration",
+        "body": "Thanks for signing up. A confirmation email will be sent to your mailbox. Please check your email and confirm it.",
+        "redirect": "Sending"
     },
     "switch": {
         "rememberMe": "Remember Me"

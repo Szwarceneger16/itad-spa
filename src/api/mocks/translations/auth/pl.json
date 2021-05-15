@@ -26,9 +26,9 @@
         }
     }, 
     "emailregistration": {
-        "header": "Nagłówek",
-        "body": "Treść",
-        "redirect": "Przeadresować"
+        "header": "Rejestracja E-maila",
+        "body": "Dziękujemy za zarejestrowanie się. E-mail z potwierdzeniem zostanie wysłany na twoją skrzynkę pocztową. Sprawdź swój e-mail i potwierdź go.",
+        "redirect": "Wysyłanie"
     },
     "switch": {
         "rememberMe": "Pamiętaj"
