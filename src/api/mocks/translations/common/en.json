@@ -52,5 +52,11 @@
     },
     "TopNavBar":{
         "logout": "Logout"
+    },
+    "login":{
+        "title": "Login"
+    },
+    "register": {
+        "title": "Register"
     }
 }
