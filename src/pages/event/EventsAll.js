@@ -29,9 +29,8 @@ import eventService from "src/services/event.service";
 
 const ownsEventTableCellWidths = [
   ["25%", "25%"],
-  ["30%", "40%"],
+  ["35%", "40%"],
   ["25%", "15%"],
-  ["5%", "4%"],
   ["5%", "4%"],
 ];
 const otherEventTableCellWidths = [
@@ -57,51 +56,57 @@ export function Events() {
       t("common:message.waitingForData"),
       t("common:message.waitingForData"),
       "",
-      "",
     ],
   ];
-  const headers = [
+
+  const onwerEventsData =
+    eventsData &&
+    eventsData.filter((eventData) => eventData.owner.userId === userID);
+  const ownEventTableHeaders = [
     t("events:event.summary.name"),
     t("events:event.summary.description"),
     t("events:event.summary.date"),
-    infoIcon,
     editIcon,
   ];
-  const otherEventTableHeaders = [
-    t("events:event.summary.name"),
-    t("events:event.summary.description"),
-    t("events:event.summary.date"),
-    infoIcon,
-  ];
-
-  const ownsEventTableCallbacks = [
+  const ownEventTableCallback = (dataRowNumber) => {
+    history.push("/event/detail/" + onwerEventsData[dataRowNumber].eventId);
+  };
+  const ownEventTableCallbacks = [
     {
       cellNumber: 4,
       callback: (dataRowNumber) => {
-        history.push("/event/modify/" + eventsData[dataRowNumber].eventId);
+        history.push("/event/modify/" + onwerEventsData[dataRowNumber].eventId);
       },
     },
-    {
-      cellNumber: 3,
-      callback: (dataRowNumber) => {
-        history.push("/event/detail/" + eventsData[dataRowNumber].eventId);
-      },
-    },
+    // {
+    //   cellNumber: 3,
+    //   callback: (dataRowNumber) => {
+    //     history.push("/event/detail/" + onwerEventsData[dataRowNumber].eventId);
+    //   },
+    // },
   ];
 
-  const otherEventTableCallbacks = [
-    {
-      cellNumber: 3,
-      callback: (dataRowNumber) => {
-        // history.push("/event/detail/" + eventsData[dataRowNumber].eventId);
-        eventService.registerOnEvent(eventsData[dataRowNumber].eventId).catch();
-      },
-    },
+  const notOwnEventTableHeaders = [
+    t("events:event.summary.name"),
+    t("events:event.summary.description"),
+    t("events:event.summary.date"),
   ];
-  const otherEventTableCallback = (dataRowNumber) => {
-    // history.push("/event/detail/" + eventsData[dataRowNumber].eventId);
-    history.push("/event/detail/" + eventsData[dataRowNumber].eventId);
+  const notOwnEventData =
+    eventsData &&
+    eventsData.filter((eventData) => eventData.owner.userId !== userID);
+  const notOwnEventTableCallback = (dataRowNumber) => {
+    history.push("/event/detail/" + notOwnEventData[dataRowNumber].eventId);
   };
+  // const otherEventTableCallbacks = [
+  //   {
+  //     cellNumber: 3,
+  //     callback: (dataRowNumber) => {
+  //       eventService
+  //         .registerOnEvent(notOwnEventData[dataRowNumber].eventId)
+  //         .catch();
+  //     },
+  //   },
+  // ];
 
   return (
     <VStack {...styles.vStack}>
@@ -136,21 +141,19 @@ export function Events() {
           <MyTable
             columnsWidth={ownsEventTableCellWidths}
             data={
-              eventsData
-                ? eventsData
-                    .filter((eventData) => eventData.owner.userId === userID)
-                    .map((eventData) => [
-                      eventData.name,
-                      eventData.description,
-                      eventData.startDate &&
-                        DateFns.format(eventData.startDate, "MM-dd-yyyy"),
-                      infoIcon,
-                      editIcon,
-                    ])
+              onwerEventsData
+                ? onwerEventsData.map((eventData) => [
+                    eventData.name,
+                    eventData.description,
+                    eventData.startDate &&
+                      DateFns.format(eventData.startDate, "MM-dd-yyyy"),
+                    editIcon,
+                  ])
                 : loadingData
             }
-            labels={otherEventTableHeaders}
-            onCellsClick={ownsEventTableCallbacks}
+            labels={ownEventTableHeaders}
+            onCellsClick={ownEventTableCallbacks}
+            onRowClick={ownEventTableCallback}
           />
         </Box>
         <Box {...styles.flexItem}>
@@ -161,21 +164,17 @@ export function Events() {
           <MyTable
             columnsWidth={otherEventTableCellWidths}
             data={
-              eventsData
-                ? eventsData
-                    .filter((eventData) => eventData.owner.userId !== userID)
-                    .map((eventData, index) => [
-                      eventData.name,
-                      eventData.description,
-                      eventData.startDate &&
-                        DateFns.format(eventData.startDate, "MM-dd-yyyy"),
-                      checkCircleIcon,
-                    ])
+              notOwnEventData
+                ? notOwnEventData.map((eventData, index) => [
+                    eventData.name,
+                    eventData.description,
+                    eventData.startDate &&
+                      DateFns.format(eventData.startDate, "MM-dd-yyyy"),
+                  ])
                 : loadingData
             }
-            labels={otherEventTableHeaders}
-            onCellsClick={otherEventTableCallbacks}
-            onRowClick={otherEventTableCallback}
+            labels={notOwnEventTableHeaders}
+            onRowClick={notOwnEventTableCallback}
           />
         </Box>
       </Flex>

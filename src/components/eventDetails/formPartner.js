@@ -1,5 +1,5 @@
 import { Formik, Field, Form } from "formik";
-import React, { Suspense, useEffect, useState, useContext } from "react";
+import React from "react";
 import * as Yup from "yup";
 import {
   Box,
@@ -17,11 +17,9 @@ import {
 } from "../forms/buttons";
 import { useTranslation } from "react-i18next";
 import { InputFile, InputText, InputTextArea } from "../forms/InputElements";
-import { ErrorMessage } from "../forms/elements";
-import speakerService from "src/services/speaker.service";
-import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setMessage } from "src/actions/message";
+import eventPartnerService from "src/services/eventPartner.service";
 
 const labelStyle = {
   fontFamily: "sans-serif",
@@ -29,47 +27,47 @@ const labelStyle = {
   fontSize: [14, 16, 18],
 };
 
-function FormLecturer({
-  firstFieldRef,
-  dispatchClose,
-  initialValues,
-  eventId,
-}) {
-  const { t, i18n } = useTranslation(["common", "events"]);
+function FormPartner({ firstFieldRef, dispatchClose, initialValues, eventId }) {
+  const { t, i18n } = useTranslation(["common", "event"]);
   const dispatch = useDispatch();
 
   const submitFrom = async (values, actions) => {
-    if (values.speakerId === null) {
-      speakerService
-        .addSpeaker(eventId, values.name, values.surname, values.description)
-        .then((response) => {
-          dispatch(setMessage(t("events:formSpeaker.add.succesmessage"), "succes"));
-          dispatchClose();
-          actions.resetForm();
-        })
-        .catch((error) => {
-          dispatch(setMessage(t("events:formSpeaker.add.errorMessage"), "error"));
-        })
-        .finally(() => {
-          actions.setSubmitting(false);
-        });
-    } else {
-      speakerService
-        .modifySpeaker(
-          values.speakerId,
-          values.name,
-          values.surname,
-          values.description
-        )
+    if (values.eventPartnerId === null) {
+      eventPartnerService
+        .addEventPartner(eventId, values.name, values.description)
         .then((response) => {
           dispatch(
-            setMessage(t("events:formSpeaker.modify.succesmessage"), "succes")
+            setMessage(t("event:eventPartner.add.succesmessage"), "succes")
           );
           dispatchClose();
           actions.resetForm();
         })
         .catch((error) => {
-          dispatch(setMessage(t("events:formSpeaker.modify.errorMessage"), "error"));
+          dispatch(
+            setMessage(t("event:eventPartner.add.errorMessage"), "error")
+          );
+        })
+        .finally(() => {
+          actions.setSubmitting(false);
+        });
+    } else {
+      eventPartnerService
+        .modifyEventPartner(
+          values.eventPartnerId,
+          values.name,
+          values.description
+        )
+        .then((response) => {
+          dispatch(
+            setMessage(t("event:eventPartner.modify.succesmessage"), "succes")
+          );
+          dispatchClose();
+          actions.resetForm();
+        })
+        .catch((error) => {
+          dispatch(
+            setMessage(t("event:eventPartner.modify.errorMessage"), "error")
+          );
         })
         .finally(() => {
           actions.setSubmitting(false);
@@ -77,23 +75,26 @@ function FormLecturer({
     }
   };
 
-  const deleteSpeaker = (eventId, speakerId, resetFormHandler) => {
-    speakerService
-      .deleteSpeaker(speakerId, eventId)
+  const deleteEventPartner = (eventPartnerId, resetFormHandler) => {
+    eventPartnerService
+      .deleteEventPartner(eventPartnerId)
       .then((response) => {
-        dispatch(setMessage(t("events:formSpeaker.delete.succesmessage"), "succes"));
+        dispatch(
+          setMessage(t("event:eventPartner.delete.succesmessage"), "succes")
+        );
         dispatchClose();
         resetFormHandler();
       })
       .catch((error) => {
-        dispatch(setMessage(t("events:formSpeaker.delete.errorMessage"), "error"));
+        dispatch(
+          setMessage(t("event:eventPartner.delete.errorMessage"), "error")
+        );
       });
   };
 
   let _initialValues = initialValues ?? {
-    speakerId: null,
+    eventPartnerId: null,
     name: "",
-    surname: "",
     description: "",
   };
 
@@ -113,32 +114,15 @@ function FormLecturer({
               labelStyle={labelStyle}
               innerRef={firstFieldRef}
               fieldName="name"
-              labels={{ inputTitle: t("events:formSpeaker.input.name") }}
-            />
-            <InputText
-              labelStyle={labelStyle}
-              innerRef={firstFieldRef}
-              fieldName="surname"
-              labels={{
-                inputTitle: t("events:formSpeaker.input.surname"),
-              }}
+              labels={{ inputTitle: t("event:input.name.title") }}
             />
             <InputTextArea
               labelStyle={labelStyle}
               fieldName="description"
               labels={{
-                inputTitle: t("events:formSpeaker.input.description"),
+                inputTitle: t("event:input.description.title"),
               }}
             />
-            {/* <InputFile
-                labelStyle={labelStyle}
-                fieldName="file"
-                accept="image/png, image/jpeg"
-                labels={{
-                  inputTitle: t("formLecturer:input.file.title"),
-                  buttonTitle: t("formLecturer:input.file.Button"),
-                }}
-              /> */}
 
             <Flex align="center" mt={4}>
               <Box>
@@ -147,9 +131,8 @@ function FormLecturer({
                   {initialValues && !!initialValues.speakerId && (
                     <DeleteIconButton
                       onClick={() => {
-                        deleteSpeaker(
-                          eventId,
-                          props.values.speakerId,
+                        deleteEventPartner(
+                          props.values.eventPartnerId,
                           props.resetForm
                         );
                       }}
@@ -165,4 +148,4 @@ function FormLecturer({
     </Stack>
   );
 }
-export default FormLecturer;
+export default FormPartner;

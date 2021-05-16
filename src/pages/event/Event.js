@@ -7,17 +7,22 @@ import {
   Text,
   Divider,
   Skeleton,
+  Button,
 } from "@chakra-ui/react";
 import ShowSpeakers from "src/components/eventDetails/showSpeakers";
 import ShowLectures from "src/components/eventDetails/showLectures";
+import ShowPartners from "src/components/eventDetails/showPartners";
 import React, { Suspense, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory, useParams } from "react-router-dom";
+import { Redirect, useHistory, useParams } from "react-router-dom";
 import styles from "./styles/EventDetails";
 import MyAccordion from "src/components/accordion";
 import { useEventData } from "src/hooks/useEventData";
-import { useDispatch } from "react-redux";
-import { clearLectureData, clearSpeakersData } from "src/actions/events";
+import { GetLogginStatus, GetUserId } from "src/selectors";
+import eventService from "src/services/event.service";
+import { useLecturesData } from "src/hooks/useLectureData";
+import { useSpeakersData } from "src/hooks/useSpeakerData";
+import { useEventPartnerData } from "src/hooks/useEventPartnerData";
 
 const eventData = {
   eventName: "tytul",
@@ -27,23 +32,30 @@ const eventData = {
 
 export function EventDetails() {
   const { t, i18n } = useTranslation(["common", "events"]);
+  const [isModified, setIsModified] = useState();
+  const changeIsModified = () => setIsModified(!isModified);
   const params = useParams();
   const eventId = Number(params.eventId);
-  const eventData = useEventData(eventId);
-  const history = useHistory();
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    return () => {
-      dispatch(clearLectureData());
-      dispatch(clearSpeakersData());
-    };
-  }, []);
+  const eventData = useEventData(eventId, [isModified]);
+  const lecturesData = useLecturesData(eventId, [isModified]);
+  const speakersData = useSpeakersData(eventId, [isModified]);
+  const eventPartnerData = useEventPartnerData(eventId, [isModified]);
+
+  const userId = GetUserId();
+  const isLogged = GetLogginStatus();
+  const isOwner =
+    !!eventData && !!isLogged && userId === eventData.owner.userId;
+  const currentUserRegistered = eventData?.currentUserRegistered;
+  // -----------------------------------
 
   if (Number.isNaN(eventId)) {
-    // ERORR PAGE
-    history.push("/eventsAll");
+    return <Redirect push to="/eventsAll" />;
   }
+
+  const registerHandler = () => {
+    eventService.registerOnEvent(eventId).catch((e) => console.error(e));
+  };
 
   return (
     <VStack spacing={8} mx="auto" w="100%" py={12} px={0} p={0} m={0}>
@@ -58,6 +70,13 @@ export function EventDetails() {
             </Heading>
             <Text {...styles.text}>{eventData && eventData.name}</Text>
             <Divider size="40px"></Divider>
+            <Box textAlign="center">
+              {!currentUserRegistered && !isOwner && (
+                <Button variant="outline" m="4" onClick={registerHandler}>
+                  {t("event:eventDetails.registerButton.title")}
+                </Button>
+              )}
+            </Box>
           </Box>
 
           <Box {...styles.flexItem} {...styles.flexItemTable}>
@@ -88,10 +107,24 @@ export function EventDetails() {
               </Box>
 
               <Box>Statistics</Box>
-              <Box>Obecnosci</Box>
 
-              <ShowLectures eventId={eventId} />
-              <ShowSpeakers eventId={eventId} />
+              <ShowPartners
+                modifyHandler={changeIsModified}
+                isOwner={isOwner}
+                eventId={eventId}
+              />
+
+              <ShowLectures
+                modifyHandler={changeIsModified}
+                isOwner={isOwner}
+                eventId={eventId}
+              />
+
+              <ShowSpeakers
+                modifyHandler={changeIsModified}
+                isOwner={isOwner}
+                eventId={eventId}
+              />
             </MyAccordion>
           </Box>
         </Flex>
