@@ -17,11 +17,25 @@ export default [
     component: Pages.About,
   },
   {
-    name: "myEvents",
-    path: "/myEvents",
+    name: "ScanQR",
+    path: "/scannQR",
     secure: ["user", "admin"],
-    navbarDisplay: false,
-    component: Pages.MyEvents,
+    navbarDisplay: true,
+    component: Pages.ScanQR,
+  },
+  {
+    name: "MyQR",
+    path: "/myQR",
+    secure: ["user", "admin"],
+    navbarDisplay: true,
+    component: Pages.MyQR,
+  },
+  {
+    name: "MyTickets",
+    path: "/myTickets",
+    secure: ["user", "admin"],
+    navbarDisplay: true,
+    component: Pages.MyTickets,
   },
   {
     name: "login",
@@ -29,6 +43,7 @@ export default [
     navbarDisplay: true,
     component: Pages.Login,
   },
+
   {
     name: "register",
     path: "/register",

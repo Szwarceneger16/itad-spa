@@ -57,7 +57,7 @@ function MyTable({
                     key={index_cell}
                     {...styles.td(
                       columnsWidth[index_cell],
-                      !!clickEventToThisCell
+                      !!clickEventToThisCell || !!onRowClick
                     )}
                     onClick={
                       clickEventToThisCell

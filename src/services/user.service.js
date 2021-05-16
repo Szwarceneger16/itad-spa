@@ -1,25 +1,35 @@
 import axios from "axios";
 import authHeader from "./auth-header";
+import { API_URL } from "./config";
 
-//const API_URL = "http://localhost:3100/api/";
-// import {API_URL} from './axiosInstance'
-const API_URL = process.env.REACT_APP_API_URL;
+const defaultHeaders = {
+  "Content-Type": "application/json",
+};
 
 class UserService {
-  getPublicContent() {
-    return axios.get(API_URL + "all");
+  getUserUUID() {
+    return axios.get(API_URL + "user/getUUID", {
+      headers: { defaultHeaders, ...authHeader() },
+    });
   }
 
-  getUserBoard() {
-    return axios.get(API_URL + "user", { headers: authHeader() });
+  getAllUserTickets() {
+    return axios.get(API_URL + "user/tickets", {
+      headers: { defaultHeaders, ...authHeader() },
+    });
   }
 
-  getModeratorBoard() {
-    return axios.get(API_URL + "mod", { headers: authHeader() });
+  verificateTicket(uuid) {
+    return axios.get(API_URL + "api/ticket/ticketVerification/" + uuid, {
+      headers: { defaultHeaders, ...authHeader() },
+    });
   }
 
-  getAdminBoard() {
-    return axios.get(API_URL + "admin", { headers: authHeader() });
+  getLecturesByEventID(eventId) {
+    if (!eventId || typeof eventId !== "number") throw "wrong input args";
+    return axios.get(
+      API_URL + "lecture/getLectureFromEvent?eventId=" + eventId
+    );
   }
 }
 

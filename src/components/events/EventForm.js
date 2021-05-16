@@ -44,9 +44,14 @@ function FormEvent({ firstFieldRef, onCancel, eventId }) {
   const dispatch = useDispatch();
 
   const submitFrom = (values, actions) => {
-    debugger;
     if (Number.isNaN(eventId)) {
-      EventService.addEvent(values.name, values.description, values.startDate)
+      EventService.addEvent(
+        values.name,
+        values.description,
+        values.startDate.toISOString(),
+        values.availableTickets,
+        values.ticketPrice
+      )
         .then((response) => {
           dispatch(setMessage(t("events:event.add.succesmessage"), "succes"));
           history.push("/eventsAll");

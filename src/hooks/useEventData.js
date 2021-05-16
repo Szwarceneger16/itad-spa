@@ -6,25 +6,26 @@ import { useDispatch } from "react-redux";
 import { setEventsOwner } from "src/actions/events";
 import { GetUserId } from "src/selectors";
 
-export function useEventsData(...optimize) {
-  let fetchEventsData = EventService.getEventsAll();
+export function useEventsData(optimize) {
   const [eventsData, setEventsData] = useState(null);
   const dispatch = useDispatch();
   const userId = GetUserId();
 
+  // debugger;
   useEffect(() => {
-    fetchEventsData
+    EventService.getEventsAll()
       .then((response) => {
         const myEventsId = [];
         let data = response.data;
         data = data.map((event) => {
           event.startDate =
             event.startDate && DateFns.parseISO(event.startDate);
-          if (event.owner.id === userId) {
+          if (event.owner.userId === userId) {
             myEventsId.push(event.eventId);
           }
           return event;
         });
+
         dispatch(setEventsOwner(myEventsId));
         setEventsData(data);
       })
@@ -34,17 +35,12 @@ export function useEventsData(...optimize) {
   return eventsData;
 }
 
-export function useEventData(eventId, ...optimize) {
-  let fetchEventsData;
-  if (eventId) {
-    fetchEventsData = EventService.getEventByID(eventId);
-  }
-
+export function useEventData(eventId, optimize) {
   const [eventsData, setEventsData] = useState(null);
 
   useEffect(() => {
     if (eventId) {
-      fetchEventsData
+      EventService.getEventByID(eventId)
         .then((response) => {
           const myEventsId = [];
           let event = response.data;

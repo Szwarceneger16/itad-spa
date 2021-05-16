@@ -19,6 +19,19 @@ export const GetEvents = () => {
   return useSelector((state) => state.events.events);
 };
 
+export const GetUserUUID = () => {
+  return useSelector((state) => state.auth.user.uuid);
+};
+
+export const GetLectureData = () =>
+  useSelector((state) => state.events.lecturesData);
+
+export const GetSpeakersData = () =>
+  useSelector((state) => state.events.speakersData);
+
+export const GetEventPartnerData = () =>
+  useSelector((state) => state.events.eventPartnerData);
+
 export const GetUserRoles = () => {
   const isLogged = GetLogginStatus();
   let userRoles = useSelector(

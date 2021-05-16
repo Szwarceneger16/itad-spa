@@ -27,7 +27,7 @@ function createAxiosResponseInterceptor() {
       if (
         error &&
         typeof error.response !== undefined &&
-        error.response.status === 401
+        error.response.status !== 401
       ) {
         return Promise.reject(error);
       }
