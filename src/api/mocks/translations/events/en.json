@@ -169,5 +169,32 @@
             "bindSpeaker": "Change Speaker",
             "reBindSpeaker": "Choose Speaker"
         }
+    },
+    "eventPartner":{
+        "add":{
+            "succesmessage": "Correct addition partner",
+            "errorMessage": "Incorrect addition partner"
+        },
+        "modify":{
+            "succesmessage": "Correct modify partner",
+            "errorMessage": "Incorrect modify partner"
+        },
+        "delete":{
+            "succesmessage": "Correct delete partner",
+            "errorMessage": "Incorrect delete partner"
+        },
+        "input":{
+            "name":{
+                "title": "Name"
+            },
+            "description": {
+                "title": "Description"
+            }
+        },
+        "main":{
+            "showEventPartner": "Event Partner",
+            "editEventPartner": "Edit Event Partner",
+            "addEventPartner": "Add Event Partner"
+        }
     }
 }

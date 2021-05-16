@@ -28,7 +28,7 @@ const labelStyle = {
 };
 
 function FormPartner({ firstFieldRef, dispatchClose, initialValues, eventId }) {
-  const { t, i18n } = useTranslation(["common", "event"]);
+  const { t, i18n } = useTranslation(["common", "events"]);
   const dispatch = useDispatch();
 
   const submitFrom = async (values, actions) => {
@@ -37,14 +37,14 @@ function FormPartner({ firstFieldRef, dispatchClose, initialValues, eventId }) {
         .addEventPartner(eventId, values.name, values.description)
         .then((response) => {
           dispatch(
-            setMessage(t("event:eventPartner.add.succesmessage"), "succes")
+            setMessage(t("events:eventPartner.add.succesmessage"), "succes")
           );
           dispatchClose();
           actions.resetForm();
         })
         .catch((error) => {
           dispatch(
-            setMessage(t("event:eventPartner.add.errorMessage"), "error")
+            setMessage(t("events:eventPartner.add.errorMessage"), "error")
           );
         })
         .finally(() => {
@@ -59,14 +59,14 @@ function FormPartner({ firstFieldRef, dispatchClose, initialValues, eventId }) {
         )
         .then((response) => {
           dispatch(
-            setMessage(t("event:eventPartner.modify.succesmessage"), "succes")
+            setMessage(t("events:eventPartner.modify.succesmessage"), "succes")
           );
           dispatchClose();
           actions.resetForm();
         })
         .catch((error) => {
           dispatch(
-            setMessage(t("event:eventPartner.modify.errorMessage"), "error")
+            setMessage(t("events:eventPartner.modify.errorMessage"), "error")
           );
         })
         .finally(() => {
@@ -80,14 +80,14 @@ function FormPartner({ firstFieldRef, dispatchClose, initialValues, eventId }) {
       .deleteEventPartner(eventPartnerId)
       .then((response) => {
         dispatch(
-          setMessage(t("event:eventPartner.delete.succesmessage"), "succes")
+          setMessage(t("events:eventPartner.delete.succesmessage"), "succes")
         );
         dispatchClose();
         resetFormHandler();
       })
       .catch((error) => {
         dispatch(
-          setMessage(t("event:eventPartner.delete.errorMessage"), "error")
+          setMessage(t("events:eventPartner.delete.errorMessage"), "error")
         );
       });
   };
@@ -114,13 +114,13 @@ function FormPartner({ firstFieldRef, dispatchClose, initialValues, eventId }) {
               labelStyle={labelStyle}
               innerRef={firstFieldRef}
               fieldName="name"
-              labels={{ inputTitle: t("event:input.name.title") }}
+              labels={{ inputTitle: t("events:eventPartner.input.name.title") }}
             />
             <InputTextArea
               labelStyle={labelStyle}
               fieldName="description"
               labels={{
-                inputTitle: t("event:input.description.title"),
+                inputTitle: t("events:eventPartner.input.description.title"),
               }}
             />
 

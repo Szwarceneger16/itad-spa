@@ -1,0 +1,25 @@
+{
+    "scanner":{
+        "message":{
+            "ticketError": "Błąd biletu",
+            "scanNextMessage": "Skanuj następną wiadomość",
+            "waitForVerification": "Czekaj na weryfikacje",
+            "ticketPayed": "Bilet Opłacony",
+            "ticketNotPayed": "Bilet Nieopłacony",
+            "scannerError": "Błąd skanera"        
+        }
+    },
+    "payedMessage":{
+        "payed": "Zapłacono",
+        "notPayed": "Niezapłacono"
+    },
+    "main":{
+        "heading": "Bilety"
+    },
+    "qr":{
+        "viewer":{
+            "title": "Kod QR",
+            "heading": "Skan kodu QR"
+        }
+    }
+}

@@ -31,7 +31,10 @@
         "login": "Zaloguj",
         "about": " O nas",
         "register": "Zarejestruj",
-        "events": "Wydarzenia"
+        "events": "Wydarzenia",
+        "ScanQR": "Skan QR",
+        "MyQR": "Moje QR",
+        "MyTickets": "Moje Bilety"
     },
     "button": {
         "cancel": "Anuluj"

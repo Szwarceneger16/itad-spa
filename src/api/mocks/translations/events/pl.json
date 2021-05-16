@@ -169,5 +169,32 @@
             "bindSpeaker": "Zmień Prelegenta",
             "reBindSpeaker": "Wybierz Prelegenta"
         }
+    },
+    "eventPartner":{
+        "add":{
+            "succesmessage": "Poprawne dodanie partnera",
+            "errorMessage": "Niepoprawne dodanie partnera"
+        },
+        "modify":{
+            "succesmessage": "Poprawna modyfikacja partnera",
+            "errorMessage": "Niepoprawna modyfikacja partnera"
+        },
+        "delete":{
+            "succesmessage": "Poprawne usunięcie partnera",
+            "errorMessage": "Niepoprawne usunięcie partnera"
+        },
+        "input":{
+            "name":{
+                "title": "Imię"
+            },
+            "description": {
+                "title": "Opis"
+            }
+        },
+        "main":{
+            "showEventPartner": "Partner Wydarzenia",
+            "editEventPartner": "Edytuj Partnera Wydarzenia",
+            "addEventPartner": "Dodaj Partnera Wydarzenia"
+        }
     }
 }

@@ -31,7 +31,10 @@
         "login": "SIGN IN",
         "about": " About Us",
         "register": "SIGN UP",
-        "events": "Events"
+        "events": "Events",
+        "ScanQR": "Scan QR",
+        "MyQR": "My QR",
+        "MyTickets": "My Tickets"
     },
     "button": {
         "cancel": "Cancel"

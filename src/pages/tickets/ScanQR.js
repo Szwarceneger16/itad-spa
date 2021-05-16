@@ -5,7 +5,7 @@ import React, { Suspense } from "react";
 import { useTranslation } from "react-i18next";
 
 export function ScanQR() {
-  const { t, i18n } = useTranslation(["common", "qr"]);
+  const { t, i18n } = useTranslation(["common", "tickets"]);
 
   return (
     <Stack
@@ -17,7 +17,7 @@ export function ScanQR() {
       px={[1, 2, 6]}
     >
       <Heading fontSize="3xl" textAlign="center">
-        {t("qr:viewer.title")}
+        {t("tickets:qr.viewer.heading")}
       </Heading>
       <Box rounded="lg" bg="white" boxShadow="lg" p={[2, 4, 6]}>
         <Stack direction={"column"} spacing="6px" align="center">
