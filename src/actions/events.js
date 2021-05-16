@@ -6,6 +6,8 @@ import {
   SET_LECTURE_DATA,
   SET_SPEAKER_DATA,
   CLEAR_SPEAKER_DATA,
+  SET_EVENTPARTNER_DATA,
+  CLEAR_EVENTPARTNER_DATA,
 } from "../actions/types";
 
 export const setSpeakersData = (speakersData) => ({
@@ -15,6 +17,15 @@ export const setSpeakersData = (speakersData) => ({
 
 export const clearSpeakersData = () => ({
   type: CLEAR_SPEAKER_DATA,
+});
+
+export const setEventPartnerData = (eventPartnerData) => ({
+  type: SET_EVENTPARTNER_DATA,
+  payload: { eventPartnerData },
+});
+
+export const clearEventPartnerData = () => ({
+  type: CLEAR_EVENTPARTNER_DATA,
 });
 
 export const setLectureData = (lecturesData) => ({

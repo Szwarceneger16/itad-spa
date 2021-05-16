@@ -30,10 +30,10 @@ class EventService {
     return axios.get(API_URL + "event/getRegisteredUsers?eventId=" + eventId);
   }
 
-  addEvent(name, description, startDate) {
+  addEvent(name, description, startDate, availableTickets, ticketPrice) {
     return axios.post(
       API_URL + "event",
-      { name, description, startDate },
+      { name, description, startDate, availableTickets, ticketPrice },
       {
         headers: { defaultHeaders, ...authHeader() },
       }
@@ -42,8 +42,8 @@ class EventService {
 
   registerOnEvent(eventId) {
     return axios.post(
-      API_URL + "event/registerOnEvent",
-      { eventId },
+      API_URL + "event/registerOnEvent?eventId=" + eventId,
+      {},
       {
         headers: { defaultHeaders, ...authHeader() },
       }

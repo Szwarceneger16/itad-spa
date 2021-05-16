@@ -134,7 +134,6 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
             />
             <InputNumber
               labelStyle={labelStyle}
-              innerRef={firstFieldRef}
               fieldName="availableSeats"
               labels={{
                 inputTitle: t("formLecture:input.availableSeats.title"),
