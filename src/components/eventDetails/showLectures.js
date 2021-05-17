@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 import { GetLectureData } from "src/selectors";
 
 const cellWidths = [["25%"], ["25%"], ["40%"], ["10%"]];
-export default function ({ modifyHandler, isOwner, eventId }) {
+export default function ({ isOwner, eventId }) {
   const { t, i18n } = useTranslation(["common", "event"]);
   const [initialFormValues, setInitialFormvalues] = useState(undefined);
   const lectureData = GetLectureData();
@@ -45,7 +45,6 @@ export default function ({ modifyHandler, isOwner, eventId }) {
           //OnOpen={() => setOpenPopover(true)}
           OnClose={() => {
             setInitialFormvalues(null);
-            modifyHandler();
           }}
           label={
             initialFormValues

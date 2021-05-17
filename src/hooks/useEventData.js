@@ -36,7 +36,7 @@ export function useEventsData(optimize) {
 }
 
 export function useEventData(eventId, optimize) {
-  const [eventsData, setEventsData] = useState(null);
+  const [eventData, setEventData] = useState(null);
 
   useEffect(() => {
     if (eventId) {
@@ -46,11 +46,11 @@ export function useEventData(eventId, optimize) {
           let event = response.data;
 
           event.startDate = DateFns.parseISO(event.startDate);
-          setEventsData(event);
+          setEventData(event);
         })
         .catch((error) => {});
     }
   }, optimize ?? []);
 
-  return eventsData;
+  return eventData;
 }

@@ -19,11 +19,11 @@ class UserService {
     });
   }
 
-  verificateTicket(uuid) {
-    return axios.get(API_URL + "api/ticket/ticketVerification/" + uuid, {
-      headers: { defaultHeaders, ...authHeader() },
-    });
-  }
+  // verificateTicket(uuid) {
+  //   return axios.get(API_URL + "api/ticket/ticketVerification/" + uuid, {
+  //     headers: { defaultHeaders, ...authHeader() },
+  //   });
+  // }
 
   getLecturesByEventID(eventId) {
     if (!eventId || typeof eventId !== "number") throw "wrong input args";

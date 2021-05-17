@@ -7,61 +7,42 @@ import {
   Box,
   CloseButton,
   Flex,
+  FormControl,
+  FormLabel,
+  Spinner,
   StackDivider,
   Text,
   VStack,
 } from "@chakra-ui/react";
-import React, { useEffect, useState, Component } from "react";
+import { MenuItem, Select } from "@material-ui/core";
+import React, { useEffect, useState, Component, useRef } from "react";
 import { useTranslation, withTranslation } from "react-i18next";
 import QrReader from "react-qr-scanner";
-import userService from "src/services/user.service";
+import style from "./style/scanner";
+import { useEventsData } from "src/hooks/useEventData";
+import eventService from "src/services/event.service";
 
-// class ErrorBoundary extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = { hasError: false };
-//   }
-
-//   static getDerivedStateFromError(error) {
-//     return { hasError: true };
-//   }
-
-//   componentDidCatch(error, errorInfo) {
-//     console.error(error, errorInfo);
-//   }
-
-//   render() {
-//     const { t } = this.props;
-
-//     if (this.state.hasError) {
-
-//     }
-//     return this.props.children;
-//   }
-// }
-
-// const DeviceNotSupported = withTranslation()(ErrorBoundary);
 const timeout = 3000;
 
 export function QRScanner(params) {
   const { t, i18n } = useTranslation(["common", "tickets"]);
   const [infoMessage, setInfoMessage] = useState({});
   const [scannerError, setScannerError] = useState(false);
+  const [selectedEventId, setSelectedEventId] = useState(0);
+
+  const eventData = useEventsData();
 
   const handleScan = (scanedData) => {
-    if (scanedData && scanedData.text !== infoMessage.uuid) {
+    if (selectedEventId && scanedData && scanedData.text !== infoMessage.uuid) {
       setInfoMessage({ uuid: scanedData.text, waitForResposnse: true });
-      userService
-        .verificateTicket()
+      eventService
+        .markUserAttendanceOnEvent(selectedEventId, scanedData.uuid)
         .then((res) => {
           setInfoMessage({
             ...infoMessage,
             waitForResposnse: false,
             isPayed: true,
           });
-          setTimeout(() => {
-            setInfoMessage({ ...infoMessage, uuid: undefined });
-          }, timeout);
         })
         .catch((err) => {
           if (err.response.status === 402) {
@@ -73,6 +54,8 @@ export function QRScanner(params) {
           } else {
             setInfoMessage({ errorMessage: err.response.data.message });
           }
+        })
+        .finally(() => {
           setTimeout(() => {
             setInfoMessage({ ...infoMessage, uuid: undefined });
           }, timeout);
@@ -80,7 +63,7 @@ export function QRScanner(params) {
     }
   };
   const handleError = (err) => {
-    setScannerError(true);
+    // setScannerError(true);
   };
 
   let infoDisplay;
@@ -135,7 +118,32 @@ export function QRScanner(params) {
   }
 
   return (
-    <VStack divider={<StackDivider borderColor="gray.200" />} spacing={4}>
+    <VStack divider={<StackDivider borderColor="gray.200" />} {...style.Vstack}>
+      <FormControl id="eventId" isRequired>
+        <FormLabel>Wybierz event</FormLabel>
+        <Select
+          {...style.select}
+          placeholder="....."
+          fullWidth
+          value={selectedEventId}
+          onChange={(e) => setSelectedEventId(e.target.value)}
+        >
+          {eventData ? (
+            eventData.map((event) => (
+              <MenuItem
+                key={event.eventId}
+                style={style.option}
+                value={event.eventId}
+              >
+                {event.name}
+              </MenuItem>
+            ))
+          ) : (
+            <Spinner />
+          )}
+        </Select>
+      </FormControl>
+
       <QrReader
         delay={500}
         onError={handleError}
@@ -143,12 +151,43 @@ export function QRScanner(params) {
         // facingMode={"user"}
         // showViewFinder={true}
         constraints={{ video: { facingMode: { exact: "environment" } } }}
-        style={{ width: "100%" }}
+        style={style.scannerWindow}
         resolution={600}
       />
-      <Box borderRadius="15px" p={4} backgroundColor="#fff1cc">
+      <Box
+        borderRadius="15px"
+        p={4}
+        backgroundColor="#fff1cc"
+        {...style.infoDisplay}
+      >
         {infoDisplay}
       </Box>
     </VStack>
   );
 }
+
+// class ErrorBoundary extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = { hasError: false };
+//   }
+
+//   static getDerivedStateFromError(error) {
+//     return { hasError: true };
+//   }
+
+//   componentDidCatch(error, errorInfo) {
+//     console.error(error, errorInfo);
+//   }
+
+//   render() {
+//     const { t } = this.props;
+
+//     if (this.state.hasError) {
+
+//     }
+//     return this.props.children;
+//   }
+// }
+
+// const DeviceNotSupported = withTranslation()(ErrorBoundary);
