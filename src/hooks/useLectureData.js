@@ -18,9 +18,8 @@ export function useLecturesData(eventId) {
   const lastUpdatedType = GetLastUpdatedDataType();
 
   if (
-    lastUpdatedType.prev !== SET_LECTURE_DATA &&
     lastUpdatedType.last === SET_LECTURE_DATA &&
-    lastUpdatedType !== isLecturesUpdateOccurs
+    lastUpdatedType.isChange !== isLecturesUpdateOccurs?.isChange
   ) {
     setLecturesUpdateOccurs(lastUpdatedType);
   }

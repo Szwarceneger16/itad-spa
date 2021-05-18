@@ -139,13 +139,13 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
               fieldName="startDate"
               labels={{ inputTitle: t("formLecture:input.startTime.title") }}
             />
-            <InputNumber
+            {/* <InputNumber
               labelStyle={labelStyle}
               fieldName="availableSeats"
               labels={{
                 inputTitle: t("formLecture:input.availableSeats.title"),
               }}
-            />
+            /> */}
 
             {/* <InputTime
               labelStyle={labelStyle}

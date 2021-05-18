@@ -21,43 +21,70 @@ import QrReader from "react-qr-scanner";
 import style from "./style/scanner";
 import { useEventsData } from "src/hooks/useEventData";
 import eventService from "src/services/event.service";
+import lectureService from "src/services/lecture.service";
 
-const timeout = 3000;
+const timeout = 5000;
 
 export function QRScanner(params) {
   const { t, i18n } = useTranslation(["common", "tickets"]);
   const [infoMessage, setInfoMessage] = useState({});
   const [scannerError, setScannerError] = useState(false);
   const [selectedEventId, setSelectedEventId] = useState(0);
+  const [eventData, setEventData] = useState();
+  const [lecturesData, setLecturesData] = useState();
+  const [selectedLectureId, setSelectedLectureId] = useState(0);
 
-  const eventData = useEventsData();
+  useEffect(() => {
+    eventService.getEventCurrentUser().then((data) => setEventData(data.data));
+  }, []);
+
+  useEffect(() => {
+    if (selectedEventId > 0) {
+      lectureService
+        .getLecturesByEventID(selectedEventId)
+        .then((data) => setLecturesData(data.data));
+    }
+  }, [selectedEventId]);
 
   const handleScan = (scanedData) => {
+    // if (scanedData) console.log(scanedData.text);
+
     if (selectedEventId && scanedData && scanedData.text !== infoMessage.uuid) {
-      setInfoMessage({ uuid: scanedData.text, waitForResposnse: true });
-      eventService
-        .markUserAttendanceOnEvent(selectedEventId, scanedData.uuid)
+      Promise.all([
+        eventService.markUserAttendanceOnEvent(
+          selectedEventId,
+          scanedData.text
+        ),
+        lectureService.markUserAttendanceOnLecture(
+          selectedLectureId,
+          scanedData.text
+        ),
+      ])
         .then((res) => {
           setInfoMessage({
-            ...infoMessage,
-            waitForResposnse: false,
-            isPayed: true,
+            uuid: scanedData.text,
+            message: t("tickets:scanner.message.payed"),
           });
         })
         .catch((err) => {
           if (err.response.status === 402) {
             setInfoMessage({
-              ...infoMessage,
-              waitForResposnse: false,
-              isPayed: false,
+              uuid: scanedData.text,
+              message: t("tickets:scanner.message.notPayed"),
             });
           } else {
-            setInfoMessage({ errorMessage: err.response.data.message });
+            setInfoMessage({
+              uuid: scanedData.text,
+              message: t("tickets:scanner.message.notRezgonizedError"),
+            });
           }
         })
         .finally(() => {
           setTimeout(() => {
-            setInfoMessage({ ...infoMessage, uuid: undefined });
+            setInfoMessage({
+              uuid: "",
+              message: t("tickets:scanner.message.scanNext"),
+            });
           }, timeout);
         });
     }
@@ -65,44 +92,6 @@ export function QRScanner(params) {
   const handleError = (err) => {
     // setScannerError(true);
   };
-
-  let infoDisplay;
-
-  if (infoMessage.errorMessage) {
-    infoDisplay = (
-      <>
-        <Text>{t("tickets:scanner.message.ticketError")}</Text>
-        <Text>{infoMessage.errorMessage}</Text>
-      </>
-    );
-  } else {
-    let message;
-
-    if (!infoMessage.uuid) {
-      message = <Text>{t("tickets:scanner.message.scanNextMessage")}</Text>;
-    } else if (infoMessage.waitForResposnse) {
-      message = <Text>{t("tickets:scanner.message.waitForVerification")}</Text>;
-    } else if (infoMessage.isPayed) {
-      message = (
-        <Badge colorScheme="green">
-          {t("tickets:scanner.message.ticketPayed")}
-        </Badge>
-      );
-    } else {
-      message = (
-        <Badge colorScheme="red">
-          {t("tickets:scanner.message.ticketNotPayed")}
-        </Badge>
-      );
-    }
-
-    infoDisplay = (
-      <VStack>
-        <Text>{infoMessage.uuid}</Text>
-        {message}
-      </VStack>
-    );
-  }
 
   // cb99614f-d08c-475d-bbb6-63d61def98bd
   if (scannerError) {
@@ -143,6 +132,32 @@ export function QRScanner(params) {
           )}
         </Select>
       </FormControl>
+      {selectedEventId > 0 && (
+        <FormControl id="eventId" isRequired>
+          <FormLabel>Wybierz wykład</FormLabel>
+          <Select
+            {...style.select}
+            placeholder="....."
+            fullWidth
+            value={selectedLectureId}
+            onChange={(e) => setSelectedLectureId(e.target.value)}
+          >
+            {lecturesData ? (
+              lecturesData.map((lecture) => (
+                <MenuItem
+                  key={lecture.lectureId}
+                  style={style.option}
+                  value={lecture.lectureId}
+                >
+                  {lecture.name}
+                </MenuItem>
+              ))
+            ) : (
+              <Spinner />
+            )}
+          </Select>
+        </FormControl>
+      )}
 
       <QrReader
         delay={500}
@@ -160,7 +175,16 @@ export function QRScanner(params) {
         backgroundColor="#fff1cc"
         {...style.infoDisplay}
       >
-        {infoDisplay}
+        {infoMessage.uuid}
+      </Box>
+
+      <Box
+        borderRadius="15px"
+        p={4}
+        backgroundColor="#fff1cc"
+        {...style.infoDisplay}
+      >
+        {infoMessage.message}
       </Box>
     </VStack>
   );

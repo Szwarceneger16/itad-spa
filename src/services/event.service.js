@@ -52,7 +52,11 @@ class EventService {
 
   markUserAttendanceOnEvent(eventId, userUUID) {
     return axios.post(
-      API_URL + "event/MarkPresents?eventId=" + eventId + "&userId=" + userUUID,
+      API_URL +
+        "event/MarkPresents?eventId=" +
+        eventId +
+        "&userUUID=" +
+        userUUID,
       {},
       {
         headers: { defaultHeaders, ...authHeader() },

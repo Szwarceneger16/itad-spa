@@ -14,9 +14,8 @@ export function useEventPartnerData(eventId) {
   const lastUpdatedType = GetLastUpdatedDataType();
 
   if (
-    lastUpdatedType.prev !== SET_EVENTPARTNER_DATA &&
     lastUpdatedType.last === SET_EVENTPARTNER_DATA &&
-    lastUpdatedType !== isEventPartnerUpdateOccurs
+    lastUpdatedType.isChange !== isEventPartnerUpdateOccurs?.isChange
   ) {
     setEventPartnerUpdateOccurs(lastUpdatedType);
   }

@@ -66,7 +66,7 @@ export default function (state = initialState, action) {
       newState = {
         ...state,
         lastUpdatedType: {
-          prev: state.lastUpdatedType.last,
+          isChange: !state.lastUpdatedType.isChange,
           last: payload.type,
         },
       };

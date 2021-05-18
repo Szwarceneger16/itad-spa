@@ -21,11 +21,11 @@ export default function ({ openAttendance, attandanceData, eventId }) {
       <Button>Pobierz lsite obencosci PDF</Button>
       <Button>Pobierz lsite obencosci CSV</Button>
 
-      <AttandanceModal
+      {/* <AttandanceModal
         eventId={eventId}
         defaultIsOpen={openAttendance}
         attandanceData={attandanceData}
-      />
+      /> */}
       {/* </Skeleton> */}
     </>
   );

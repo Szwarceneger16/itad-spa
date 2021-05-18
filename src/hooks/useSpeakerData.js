@@ -12,9 +12,8 @@ export function useSpeakersData(eventId) {
   const lastUpdatedType = GetLastUpdatedDataType();
 
   if (
-    lastUpdatedType.prev !== SET_SPEAKER_DATA &&
     lastUpdatedType.last === SET_SPEAKER_DATA &&
-    lastUpdatedType !== isSpeakersUpdateOccurs
+    lastUpdatedType.isChange !== isSpeakersUpdateOccurs?.isChange
   ) {
     setSpeakersUpdateOccurs(lastUpdatedType);
   }

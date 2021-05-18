@@ -74,8 +74,9 @@ export function Events() {
   };
   const ownEventTableCallbacks = [
     {
-      cellNumber: 4,
+      cellNumber: 3,
       callback: (dataRowNumber) => {
+        debugger;
         history.push("/event/modify/" + onwerEventsData[dataRowNumber].eventId);
       },
     },

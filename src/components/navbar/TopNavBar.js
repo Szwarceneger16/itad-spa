@@ -19,8 +19,8 @@ function MenuLinks({ route, onClick, isLoggedIn, ...props }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const logoutHandler = async () => {
-    await dispatch(logout());
+  const logoutHandler = () => {
+    dispatch(logout());
     history.push("/home");
   };
 
