@@ -40,7 +40,7 @@ const userData = {
   userID: { userId },
   firstName: "Jan",
   surname: "Kowalski",
-  password: "12#fA34",
+  password: "",
   email: "jan@gmail.com"
 };
 
@@ -48,7 +48,7 @@ const dispatch = useDispatch();
 const history = useHistory();
 
     const submitFrom = async (values, actions) => {    
-        userService.modifyUser(values.email, values.firstName, values.surname)
+        userService.modifyUser(values.email, values.firstName,values.password, values.surname)
         .then((response) => {
           dispatch(
             setMessage(t("userDashboard:modify.succesmessage"), "succes")
@@ -118,21 +118,19 @@ const history = useHistory();
                   labels={{inputTitle: t('userDashboard:input.surname')}}   
                 />
                 )}
-                {/*
                 {toggle ? (
                   <p onDoubleClick={toggleInput}>
                   </p>
                 ) : (
-                 {/<InputPassword
+                <InputPassword
                   labelStyle={labelStyle}
                   fieldName="password"
                   labels={{
                     inputTitle: t("auth:input.password.title"),
                     buttonHide: t("common:buttons.passwordVisibilityToggle.hide"),
-                    buttonShow: t("common:buttons.passwordVisibilityToggle.show"),
-                  }}
-                /> }
-                )}*/}
+                    buttonShow: t("common:buttons.passwordVisibilityToggle.show"),}}   
+                />
+                )}
                 
                 {toggle ? (
                   <p onDoubleClick={toggleInput}>

@@ -31,10 +31,10 @@ class UserService {
     );
   }
 
-  modifyUser(email, name, surname) {
+  modifyUser(email, name, password, surname) {
     return axios.put(
       API_URL + "user",
-      { email, name, surname },
+      { email, name, password, surname },
       {
         headers: { defaultHeaders, ...authHeader() },
       }
