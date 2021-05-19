@@ -2,6 +2,11 @@ import {
   Text,
   Heading,
   Stack,
+  Flex, 
+  Spacer,
+  Center,
+  Box,
+  Square
 } from "@chakra-ui/react"
 import { Button } from "@chakra-ui/button";
 import { Spinner } from "@chakra-ui/spinner";
@@ -64,6 +69,12 @@ function fetchProfileData(userId) {
 
 const res = fetchProfileData(0);
 
+const labelStyle = {
+  fontFamily: "sans-serif",
+  color: "orange.600",
+  fontSize: [50, 16, 50],
+};
+
 export function About() {
   //let setter = useContext(userTokenContext);
   const [message, setMessage] = useState(res);
@@ -71,39 +82,29 @@ export function About() {
   //console.log('About',message)
   return (
     <div>
+      <Text 
+      fontSize="40px" 
+      textAlign="center" 
+      fontFamily= "sans-serif"
+      >CONNECT</Text>
       <Center>
-          <Stack spacing={3}>
-            <Heading as="h1" size="4xl" style={mystyle}>
-              Connect 
-            </Heading>     
-            <Text fontSize={{ 
-              base: "24px", 
-              md: "30px", 
-              lg: "40px" }}
-              fontFamily = "Arial, sans-serif" 
-              textAlign = "center">
-              Aplikacja do zarządzania wydarzeniami. 
-            </Text> 
-            <Text fontSize={{ 
-              base: "24px", 
-              md: "30px", 
-              lg: "40px" }}
-              fontFamily = "Arial, sans-serif"
-              textAlign = "center">
-              Dzieki niej będziesz mógł zroganizować wydarzenie.
-            </Text> 
-            <Text fontSize={{ 
-              base: "24px", 
-              md: "30px", 
-              lg: "40px" }}
-              fontFamily = "Arial, sans-serif"
-              textAlign = "center">
-              Dzieki niej będziesz mógł zroganizować wydarzenie.
-            </Text> 
-             
-            </Stack>
-            
-        </Center>
+        <Flex>
+          <Square size="300px">
+            <Text 
+            fontSize="40px" 
+            textAlign="right" 
+            fontFamily="sans-serif"
+            >PROSTE TWORZENIE <Text color="tomato">WYDARZEŃ</Text></Text>
+          </Square>
+          <Square w="300px">
+            <Text
+              fontSize="20px" 
+              textAlign="left" 
+              fontFamily="sans-serif"
+            >PROSTE TWORZENIE WYDARZEŃ PROSTE TWORZENIE WYDARZEŃ PROSTE TWORZENIE WYDARZEŃ PROSTE TWORZENIE WYDARZEŃ</Text>
+          </Square>
+        </Flex>
+      </Center>
     </div>
   );
 }
