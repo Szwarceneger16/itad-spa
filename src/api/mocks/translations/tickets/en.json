@@ -7,6 +7,10 @@
             "ticketPayed": "Ticket Payed",
             "ticketNotPayed": "Ticket Not Payed",
             "scannerError": "Scanner Error"        
+        },
+        "choose": {
+            "event": "Choose event",
+            "lecture": "Choose lecture"
         }
     },
     "payedMessage":{

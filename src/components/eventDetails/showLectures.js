@@ -164,7 +164,7 @@ export default function ({ isOwner, eventId }) {
                         <PopoverArrow />
                         <PopoverCloseButton onClick={close1} />
                         <PopoverBody>
-                          <Heading as="h2">PrelegenciTrans</Heading>
+                          <Heading as="h2">{t("events:comment.speakers.heading")}</Heading>
                           {element.speakers.map((speaker, index) => (
                             <Box key={index}>
                               <Text>
@@ -197,7 +197,7 @@ export default function ({ isOwner, eventId }) {
                             .then(() => {
                               dispatch(
                                 setMessage(
-                                  t("pozytywne.dodanie.komentarza"),
+                                  t("events:comment.add.succesmessage"),
                                   "succes"
                                 )
                               );
@@ -206,7 +206,7 @@ export default function ({ isOwner, eventId }) {
                             .catch(() =>
                               dispatch(
                                 setMessage(
-                                  t("negatywne.dodanie.komentarza"),
+                                  t("comment.add.errorMessage"),
                                   "error"
                                 )
                               )
@@ -223,13 +223,12 @@ export default function ({ isOwner, eventId }) {
                                   labelStyle={labelStyle}
                                   fieldName="question"
                                   labels={{
-                                    inputTitle: t(
-                                      "eventDetails:input.name.wymyslCos"
-                                    ),
+                                    inputTitle: 
+                                    t("events:question.heading"),
                                   }}
                                 />
                                 <Button onClick={props.handleSubmit}>
-                                  Submit
+                                  {t("events:question.button.submit")}
                                 </Button>
                               </Box>
                             </PopoverBody>

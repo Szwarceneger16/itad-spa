@@ -37,16 +37,16 @@
             "ticketPrice": "Ticket Price"
         },
         "add":{
-            "succesmessage": "Correct addition event",
-            "errorMessage": "Incorrect addition event"
+            "succesmessage": "Correct adding of the event",
+            "errorMessage": "Incorrect addition of an event"
         },
         "modify":{
-            "succesmessage": "Correct modify event",
-            "errorMessage": "Incorrect modify event"
+            "succesmessage": "Correct modification of the event",
+            "errorMessage": "Incorrect modification of an event"
         },
         "delete":{
-            "succesmessage": "Correct delete event",
-            "errorMessage": "Incorrect delete event"
+            "succesmessage": "Correct deletion of the event",
+            "errorMessage": "Incorrect deletion of an event"
         }
     },
     "formLecturer": {
@@ -81,16 +81,16 @@
         }, 
         "lecture":{
             "add":{
-                "succesmessage": "Correct addition lecture",
-                "errorMessage": "Incorrect addition lecture"
+                "succesmessage": "Correctly adding a lecture",
+                "errorMessage": "Incorrect adding of a lecture"
             },
             "modify":{
-                "succesmessage": "Correct modify lecture",
-                "errorMessage": "Incorrect modify lecture"
+                "succesmessage": "Correct modifying the lecture",
+                "errorMessage": "Incorrect modification of the lecture"
             },
             "delete":{
-                "succesmessage": "Correct delete lecture",
-                "errorMessage": "Incorrect delete lecture"
+                "succesmessage": "Correct deletion of the lecture",
+                "errorMessage": "Incorrect deletion of the lecture"
             }
         }
     },
@@ -109,16 +109,16 @@
     },
     "formSpeaker":{
         "add":{
-            "succesmessage": "Correct addition speaker",
-            "errorMessage": "Incorrect addition speaker"
+            "succesmessage": "Correct adding a speaker",
+            "errorMessage": "Inorrect adding a speaker"
         },
         "modify":{
-            "succesmessage": "Correct modify speaker",
-            "errorMessage": "Incorrect modify speaker"
+            "succesmessage": "Correct modification of the speaker",
+            "errorMessage": "Incorrect modification of the speaker"
         },
         "delete":{
-            "succesmessage": "Correct delete speaker",
-            "errorMessage": "Incorrect delete speaker"
+            "succesmessage": "Correct deletion of the speaker",
+            "errorMessage": "Incorrect deletion of the speaker"
         },
         "input":{
             "name": "Name",
@@ -143,12 +143,19 @@
         "heading": "Event",
         "eventName": "Event Name",
         "Description": "Description",
+        "registerButton": "Register for the event",
         "accordion":{
             "details": "Details",
             "statistic": "Statistic",
             "attendance": "Attendance",
+            "partners": "Partners",
             "lecture": "Lecture",
             "speakers": "Speakers"
+        },
+         "showAttendance":{
+            "attendanceListPDF": "Download attendance list PDF",
+            "attendanceListCSV": "Download attendance list CSV",
+            "showLecturer": "Attendance"
         }
     },
     "speakerBind":{
@@ -172,16 +179,16 @@
     },
     "eventPartner":{
         "add":{
-            "succesmessage": "Correct addition partner",
-            "errorMessage": "Incorrect addition partner"
+            "succesmessage": "Correct addition of a partner",
+            "errorMessage": "Incorrect addition of a partner"
         },
         "modify":{
-            "succesmessage": "Correct modify partner",
-            "errorMessage": "Incorrect modify partner"
+            "succesmessage": "Correct modification of the partner",
+            "errorMessage": "Incorrect modification of the partner"
         },
         "delete":{
-            "succesmessage": "Correct delete partner",
-            "errorMessage": "Incorrect delete partner"
+            "succesmessage": "Correct deletion of the partner",
+            "errorMessage": "Incorrect deletion of the partner"
         },
         "input":{
             "name":{
@@ -195,6 +202,33 @@
             "showEventPartner": "Event Partner",
             "editEventPartner": "Edit Event Partner",
             "addEventPartner": "Add Event Partner"
+        }
+    },
+    "attendance":{
+        "table":{
+            "eventName": "Event Name"
+        },
+        "button":{
+            "open": "Open",
+            "close": "Close"
+        },
+        "main":{
+            "heading" : "Attendance"
+        }
+    },
+    "comment":{
+        "add":{
+            "succesmessage": "Correct adding of a comment",
+            "errorMessage": "Incorrect adding of a comment"
+        },
+        "speakers":{
+           "heading": "Speakers" 
+        }
+    },
+    "question":{
+        "heading": "Question",
+        "button":{
+            "submit": "Submit"
         }
     }
 }

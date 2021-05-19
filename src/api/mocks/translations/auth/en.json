@@ -43,5 +43,8 @@
             "account": "Account",
             "cancel": "Cancel"
         }
+    },
+    "errorEmail":{
+        "heading": "Information"
     }
 }

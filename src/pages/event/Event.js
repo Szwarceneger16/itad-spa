@@ -71,7 +71,7 @@ export function EventDetails() {
             <Box textAlign="center">
               {isLogged && !currentUserRegistered && !isOwner && (
                 <Button variant="outline" m="4" onClick={registerHandler}>
-                  {t("event:eventDetails.registerButton.title")}
+                  {t("events:eventDetails.registerButton")}
                 </Button>
               )}
             </Box>
@@ -82,18 +82,18 @@ export function EventDetails() {
               labels={
                 isLogged
                   ? [
-                      t("event:eventDetails.accordion.details"),
-                      t("event:eventDetails.accordion.statistic"),
-                      t("event:eventDetails.accordion.attendance"),
-                      t("event:eventDetails.accordion.partners"),
-                      t("event:eventDetails.accordion.lecture"),
-                      t("event:eventDetails.accordion.speakers"),
+                      t("events:eventDetails.accordion.details"),
+                      t("events:eventDetails.accordion.statistic"),
+                      t("events:eventDetails.accordion.attendance"),
+                      t("events:eventDetails.accordion.partners"),
+                      t("events:eventDetails.accordion.lecture"),
+                      t("events:eventDetails.accordion.speakers"),
                     ]
                   : [
-                      t("event:eventDetails.accordion.details"),
-                      t("event:eventDetails.accordion.partners"),
-                      t("event:eventDetails.accordion.lecture"),
-                      t("event:eventDetails.accordion.speakers"),
+                      t("events:eventDetails.accordion.details"),
+                      t("events:eventDetails.accordion.partners"),
+                      t("events:eventDetails.accordion.lecture"),
+                      t("events:eventDetails.accordion.speakers"),
                     ]
               }
             >

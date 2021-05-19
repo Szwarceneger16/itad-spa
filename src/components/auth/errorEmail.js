@@ -1,11 +1,13 @@
 import { Flex, Stack, Box, Heading, Text, Image } from "@chakra-ui/react";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export function ErrorEmail({ label }) {
+  const { t, i18n } = useTranslation(["common", "auth"]);
   return (
     <Stack spacing={8} mx="auto" w="full" maxW="md" py={12} px={6}>
       <Heading fontSize="3xl" textAlign="center">
-        Information
+        {t("auth:errorEmail.heading")}
       </Heading>
       <Box rounded="lg" bg="white" boxShadow="lg" p={{ base: 4, md: 8 }}>
         <Stack direction={"column"} spacing="24px" align="center">

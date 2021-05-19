@@ -7,6 +7,10 @@
             "ticketPayed": "Bilet Opłacony",
             "ticketNotPayed": "Bilet Nieopłacony",
             "scannerError": "Błąd skanera"        
+        },
+        "choose": {
+            "event": "Wybierz wydarzenie",
+            "lecture": "Wybierz wykład"
         }
     },
     "payedMessage":{

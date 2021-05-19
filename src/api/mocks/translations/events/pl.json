@@ -143,12 +143,19 @@
         "heading": "Wydarzenie",
         "eventName": "Nazwa Wydarzenia",
         "Description": "Opis",
+        "registerButton": "Zarejestruj się na wydarzenie",
         "accordion":{
             "details": "Detale",
             "statistic": "Statystyki",
             "attendance": "Frekwencja",
+            "partners": "Partnerzy",
             "lecture": "Prelekcja",
             "speakers": "Prelegenci"
+        },
+         "showAttendance":{
+            "attendanceListPDF": "Pobierz listę obecności PDF",
+            "attendanceListCSV": "Pobierz listę obecności CSV",
+            "showLecturer": "Obecności"
         }
     },
     "speakerBind":{
@@ -195,6 +202,33 @@
             "showEventPartner": "Partner Wydarzenia",
             "editEventPartner": "Edytuj Partnera Wydarzenia",
             "addEventPartner": "Dodaj Partnera Wydarzenia"
+        }
+    },
+    "attendance":{
+        "table":{
+            "eventName": "Nazwa Wydarzenia"
+        },
+        "button":{
+            "open": "Otwórz",
+            "close": "Zamknij"
+        },
+        "main":{
+            "heading" : "Obecności"
+        }
+    },
+    "comment":{
+        "add":{
+            "succesmessage": "Poprawne dodanie komentarza",
+            "errorMessage": "Niepoprawne dodanie komentarza"
+        },
+        "speakers":{
+           "heading": "Prelegenci" 
+        }
+    },
+    "question":{
+        "heading": "Pytanie",
+        "button":{
+            "submit": "Potwierdź"
         }
     }
 }
