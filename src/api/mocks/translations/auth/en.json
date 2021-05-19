@@ -8,6 +8,15 @@
         },
         "password": {
             "title": "Password"
+        },
+        "accountVerification": {
+            "succes": "Succes",
+            "error": "Error",
+            "title": "Verification",
+            "errorDescription": {
+                "server": "Server",
+                "emptyToken": "Empty Token"
+            }
         }
     },
     "alert": {
@@ -17,8 +26,25 @@
         }
     }, 
     "emailregistration": {
-        "header": "Header",
-        "body": "Body",
-        "redirect": "Redirect"
+        "header": "E-mail Registration",
+        "body": "Thanks for signing up. A confirmation email will be sent to your mailbox. Please check your email and confirm it.",
+        "redirect": "Sending"
+    },
+    "switch": {
+        "rememberMe": "Remember Me"
+    },
+    "edit":{
+        "drawer":{
+            "firstName": "First Name",
+            "surname": "Surname",
+            "email": "E-mail"
+        },
+        "leftDrawer":{
+            "account": "Account",
+            "cancel": "Cancel"
+        }
+    },
+    "errorEmail":{
+        "heading": "Information"
     }
 }

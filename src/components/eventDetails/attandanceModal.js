@@ -42,7 +42,7 @@ import MyTable from "../table";
 import { GetLectureData } from "src/selectors";
 
 export default function ({ defaultIsOpen, attandanceData }) {
-  const { t, i18n } = useTranslation(["common", "event"]);
+  const { t, i18n } = useTranslation(["common", "events"]);
   const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen });
 
   const lectureData = GetLectureData();
@@ -52,7 +52,7 @@ export default function ({ defaultIsOpen, attandanceData }) {
   }
 
   const headers = [
-    t("event:attendance.table,eventName"),
+    t("events:attendance.table.eventName"),
     ...lectureData.map((lecture) => lecture.name),
   ];
   const loadingData = [
@@ -75,7 +75,7 @@ export default function ({ defaultIsOpen, attandanceData }) {
 
   return (
     <>
-      <Button onClick={onOpen}>Open popraw Modal</Button>
+      <Button onClick={onOpen}>{t("events:attendance.button.open")}</Button>
 
       <Modal
         closeOnOverlayClick={false}
@@ -85,7 +85,7 @@ export default function ({ defaultIsOpen, attandanceData }) {
       >
         <ModalOverlay />
         <ModalContent m={[4, 6, 8, 12]}>
-          <ModalHeader>obecnosci popraw</ModalHeader>
+          <ModalHeader>{t("events:attendance.main.heading")}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <MyTable
@@ -104,7 +104,7 @@ export default function ({ defaultIsOpen, attandanceData }) {
 
           <ModalFooter>
             <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close porpaw
+              {t("events:attendance.button.close")}
             </Button>
           </ModalFooter>
         </ModalContent>

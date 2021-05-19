@@ -39,7 +39,7 @@ const labelStyle = {
 };
 
 function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
-  const { t, i18n } = useTranslation(["common", "event"]);
+  const { t, i18n } = useTranslation(["common", "events"]);
   const [submitError, setSubmitError] = useState();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -49,13 +49,13 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
       lectureService
         .addLecture(eventId, values.name, values.description, values.startDate)
         .then((response) => {
-          dispatch(setMessage(t("event:lecture.add.succesmessage"), "succes"));
+          dispatch(setMessage(t("events:formLecture.lecture.add.succesmessage"), "succes"));
           dispatchClose();
           dispatch(setLastUpdatedDataType(SET_LECTURE_DATA));
           actions.resetForm();
         })
         .catch((error) => {
-          dispatch(setMessage(t("event:lecture.add.errorMessage"), "error"));
+          dispatch(setMessage(t("events:formLecture.lecture.add.errorMessage"), "error"));
         })
         .finally(() => {
           actions.setSubmitting(false);
@@ -71,7 +71,7 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
         )
         .then((response) => {
           dispatch(
-            setMessage(t("event:lecture.modify.succesmessage"), "succes")
+            setMessage(t("events:formLecture.lecture.modify.succesmessage"), "succes")
           );
           dispatchClose();
           dispatch(setLastUpdatedDataType(SET_LECTURE_DATA));
@@ -79,7 +79,7 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
           actions.resetForm();
         })
         .catch((error) => {
-          dispatch(setMessage(t("event:lecture.modify.errorMessage"), "error"));
+          dispatch(setMessage(t("events:formLecture.lecture.modify.errorMessage"), "error"));
         })
         .finally(() => {
           actions.setSubmitting(false);
@@ -91,14 +91,14 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
     lectureService
       .deleteLecture(lectureId, eventId)
       .then((response) => {
-        dispatch(setMessage(t("event:lecture.delete.succesmessage"), "succes"));
+        dispatch(setMessage(t("events:formLecture.lecture.delete.succesmessage"), "succes"));
         dispatchClose();
         dispatch(setLastUpdatedDataType(SET_LECTURE_DATA));
 
         resetFormHandler();
       })
       .catch((error) => {
-        dispatch(setMessage(t("event:lecture.delete.errorMessage"), "error"));
+        dispatch(setMessage(t("events:formLecture.lecture.delete.errorMessage"), "error"));
       });
   };
 
@@ -127,30 +127,30 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
               labelStyle={labelStyle}
               innerRef={firstFieldRef}
               fieldName="name"
-              labels={{ inputTitle: t("formLecture:input.name.title") }}
+              labels={{ inputTitle: t("events:formLecture.input.name2.title") }}
             />
             <InputTextArea
               labelStyle={labelStyle}
               fieldName="description"
-              labels={{ inputTitle: t("formLecture:input.description.title") }}
+              labels={{ inputTitle: t("events:formLecture.input.description2.title") }}
             />
             <InputDate
               labelStyle={labelStyle}
               fieldName="startDate"
-              labels={{ inputTitle: t("formLecture:input.startTime.title") }}
+              labels={{ inputTitle: t("events:formLecture.input.startTime2.title") }}
             />
             {/* <InputNumber
               labelStyle={labelStyle}
               fieldName="availableSeats"
               labels={{
-                inputTitle: t("formLecture:input.availableSeats.title"),
+                inputTitle: t("events:formLecture.input.availableSeats.title"),
               }}
             /> */}
 
             {/* <InputTime
               labelStyle={labelStyle}
               fieldName="endTime"
-              labels={{ inputTitle: t("formLecture:input.endTime.title") }}
+              labels={{ inputTitle: t("events:formLecture.input.endTime.title") }}
             /> */}
 
             <Flex align="center" mt={4}>

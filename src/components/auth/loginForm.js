@@ -76,7 +76,11 @@ function LoginForm() {
             <DividerWithText></DividerWithText>
             <Flex align="center" flexWrap="wrap" mt={4}>
               <Box>
-                <InputSwitch fieldName="rememberMe">Remember Me</InputSwitch>
+                <InputSwitch fieldName="rememberMe">
+                  {
+                    t('auth:switch.rememberMe')
+                  }
+                </InputSwitch>
               </Box>
               <Spacer />
               <Box>

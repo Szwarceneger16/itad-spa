@@ -17,7 +17,7 @@ import { GetEventPartnerData } from "src/selectors";
 
 const cellWidths = [["25%"], ["25%"], ["40%"], ["10%"]];
 export default function ({ isOwner, eventId }) {
-  const { t, i18n } = useTranslation(["common", "eventDetails"]);
+  const { t, i18n } = useTranslation(["common", "events"]);
   const [initialFormValues, setInitialFormvalues] = useState(undefined);
   const eventPartnerData = GetEventPartnerData();
 
@@ -28,7 +28,7 @@ export default function ({ isOwner, eventId }) {
   return (
     <>
       <Heading {...styles.text}>
-        {t("events:eventDetails.main.showEventPartner")}
+        {t("events:eventPartner.main.showEventPartner")}
       </Heading>
       {isOwner && (
         <InputPopover
@@ -39,8 +39,8 @@ export default function ({ isOwner, eventId }) {
           }}
           label={
             initialFormValues
-              ? t("eventDetails:main.editEventPartner")
-              : t("eventDetails:main.addEventPartner")
+              ? t("events:eventPartner.main.editEventPartner")
+              : t("events:eventPartner.main.addEventPartner")
           }
           component={FormPartner}
           componentProps={{

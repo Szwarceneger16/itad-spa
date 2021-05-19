@@ -13,48 +13,40 @@
         }
     },
     "event":{
-        "eventDetails": {
-            "heading": "Event",
-            "eventName": "Event Name",
-            "accordion": {
-                "details": "Details",
-                "statistic": "Statistic",
-                "lecture": "Lecture",
-                "lecturers": "Lecturers"
-            },
-            "Description": "Description"
-        },
-        "input": {
-            "name": "Name",
-            "description": "Description",
-            "startDate": "Start Date",
-            "endDate": "End Date",
-            "availableTickets": "Available Tickets",
-            "ticketPrice": "Ticket Price",
-            "startTime": "Start Time",
-            "succesmessage": "Succes",
-            "errorMessage": "Error"
-        },
         "summary": {
             "name": "Name",
             "description": "Description",
             "date": "Date"
         }, 
         "main": {
-            "showEvents": "Show Events"
-        }
-    },
-    "showLecture": {
-        "lecture": {
+            "showEvents": "Events",
+            "yourEvents": "Your Events",
+            "button":{
+                "addEvent": "Add Event"
+            }
+        },
+        "eventsList":{
+            "heading": "Events",
+            "eventsListName": "Events List"
+        },
+        "input":{
             "name": "Name",
             "description": "Description",
-            "startTime": "Start Time",
-            "endTime": "End Time"           
+            "startDate": "Start Date",
+            "availableTickets": "Available Tickets",
+            "ticketPrice": "Ticket Price"
         },
-        "main": {
-            "showLecture": "Lectures",
-            "editLecture": "Edit Lecture",
-            "addLecture": "Add Lecture"
+        "add":{
+            "succesmessage": "Correct adding of the event",
+            "errorMessage": "Incorrect addition of an event"
+        },
+        "modify":{
+            "succesmessage": "Correct modification of the event",
+            "errorMessage": "Incorrect modification of an event"
+        },
+        "delete":{
+            "succesmessage": "Correct deletion of the event",
+            "errorMessage": "Incorrect deletion of an event"
         }
     },
     "formLecturer": {
@@ -73,22 +65,170 @@
             "name": "Name",
             "description": "Description",
             "startTime": "Start Time",
-            "endTime": "End Time"
+            "endTime": "End Time",
+            "name2":{
+                "title": "Name"
+            },
+            "description2":{
+                "title": "Description"
+            },
+            "startTime2":{
+                "title": "Start Time"
+            },
+            "availableSeats":{
+                "title": "Available Seats"
+            }
+        }, 
+        "lecture":{
+            "add":{
+                "succesmessage": "Correctly adding a lecture",
+                "errorMessage": "Incorrect adding of a lecture"
+            },
+            "modify":{
+                "succesmessage": "Correct modifying the lecture",
+                "errorMessage": "Incorrect modification of the lecture"
+            },
+            "delete":{
+                "succesmessage": "Correct deletion of the lecture",
+                "errorMessage": "Incorrect deletion of the lecture"
+            }
         }
     },
-    "eventDetails": {
-        "lecturer": {
-            "tableheading":{
-                "firstname": "First Name",
-                "secondName": "Second Name",
-                "description": "Description",
-                "photo": "Photo"
-            }
+    "showLectures": {
+        "lecture": {
+            "name": "Name",
+            "description": "Description",
+            "startTime": "Start Time",
+            "availableSeats": "Available Seats"
         },
         "main": {
-            "showLecturer": "Lecturers",
-            "editLecturer": "Edit Lecturer",
-            "addLecturer": "Add Lecturer"
+            "showLecture": "Lectures",
+            "editLecture": "Edit Lecture",
+            "addLecture": "Add Lecture"
+        }
+    },
+    "formSpeaker":{
+        "add":{
+            "succesmessage": "Correct adding a speaker",
+            "errorMessage": "Inorrect adding a speaker"
+        },
+        "modify":{
+            "succesmessage": "Correct modification of the speaker",
+            "errorMessage": "Incorrect modification of the speaker"
+        },
+        "delete":{
+            "succesmessage": "Correct deletion of the speaker",
+            "errorMessage": "Incorrect deletion of the speaker"
+        },
+        "input":{
+            "name": "Name",
+            "surname": "Surname",
+            "description": "Description"
+        }
+    },
+    "showSpeaker":{
+        "tableheading":{
+            "firstname": "First Name",
+            "secondName":"Second Name",
+            "description": "Description",
+            "photo": "Photo"
+        },
+        "main":{
+            "showSpeakers": "Speakers",
+            "editSpeaker": "Edit Speaker",
+            "addSpeaker": "Add Speaker"
+        }
+    },
+    "eventDetails":{
+        "heading": "Event",
+        "eventName": "Event Name",
+        "Description": "Description",
+        "registerButton": "Register for the event",
+        "accordion":{
+            "details": "Details",
+            "statistic": "Statistic",
+            "attendance": "Attendance",
+            "partners": "Partners",
+            "lecture": "Lecture",
+            "speakers": "Speakers"
+        },
+         "showAttendance":{
+            "attendanceListPDF": "Download attendance list PDF",
+            "attendanceListCSV": "Download attendance list CSV",
+            "showLecturer": "Attendance"
+        }
+    },
+    "speakerBind":{
+        "message":{
+            "selectLectureFirst": "Select Lecture",
+            "selectSpeaker": "Select Speaker"
+        },
+        "selectLecture":{
+            "title": "Lecture title"
+        },
+        "selectSpeakerToAdd":{
+            "title": "Select Speaker To Add"
+        },
+        "selectSpeakerToRemove":{
+            "title": "Select Speaker To Remove"
+        },
+        "main":{
+            "bindSpeaker": "Change Speaker",
+            "reBindSpeaker": "Choose Speaker"
+        }
+    },
+    "eventPartner":{
+        "add":{
+            "succesmessage": "Correct addition of a partner",
+            "errorMessage": "Incorrect addition of a partner"
+        },
+        "modify":{
+            "succesmessage": "Correct modification of the partner",
+            "errorMessage": "Incorrect modification of the partner"
+        },
+        "delete":{
+            "succesmessage": "Correct deletion of the partner",
+            "errorMessage": "Incorrect deletion of the partner"
+        },
+        "input":{
+            "name":{
+                "title": "Name"
+            },
+            "description": {
+                "title": "Description"
+            }
+        },
+        "main":{
+            "showEventPartner": "Event Partner",
+            "editEventPartner": "Edit Event Partner",
+            "addEventPartner": "Add Event Partner"
+        }
+    },
+    "attendance":{
+        "table":{
+            "eventName": "Event Name"
+        },
+        "button":{
+            "open": "Open",
+            "close": "Close"
+        },
+        "main":{
+            "heading" : "Attendance"
+        }
+    },
+    "comment":{
+        "add":{
+            "succesmessage": "Correct adding of a comment",
+            "errorMessage": "Incorrect adding of a comment"
+        },
+        "speakers":{
+           "heading": "Speakers" 
+        }
+    },
+    "question":{
+        "heading": "Question",
+        "button":{
+            "submit": "Submit"
         }
     }
 }

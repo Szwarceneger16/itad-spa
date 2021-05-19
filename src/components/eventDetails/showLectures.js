@@ -41,7 +41,7 @@ const labelStyle = {
 
 const cellWidths = [["25%"], ["35%"], ["20%"], ["5%"], ["5%"]];
 export default function ({ isOwner, eventId }) {
-  const { t, i18n } = useTranslation(["common", "event"]);
+  const { t, i18n } = useTranslation(["common", "events"]);
   const [initialFormValues, setInitialFormvalues] = useState(undefined);
   const lectureData = GetLectureData();
   const dispatch = useDispatch();
@@ -61,10 +61,10 @@ export default function ({ isOwner, eventId }) {
   };
 
   const headers = [
-    t("eventDetails:lecture.name"),
-    t("eventDetails:lecture.description"),
-    t("eventDetails:lecture.startTime"),
-    // t("eventDetails:lecture.endTime"),
+    t("events:showLectures.lecture.name"),
+    t("events:showLectures.lecture.description"),
+    t("events:showLectures.lecture.startTime"),
+    // t("events:showLectures.lecture.endTime"),
     "",
     "",
   ];
@@ -97,7 +97,7 @@ export default function ({ isOwner, eventId }) {
 
   return (
     <>
-      <Heading {...styles.text}>{t("eventDetails:main.showLecture")}</Heading>
+      <Heading {...styles.text}>{t("events:showLectures.main.showLecture")}</Heading>
       {isOwner && (
         <InputPopover
           defaultIsOpen={!!initialFormValues}
@@ -107,8 +107,8 @@ export default function ({ isOwner, eventId }) {
           }}
           label={
             initialFormValues
-              ? t("eventDetails:main.editLecture")
-              : t("eventDetails:main.addLecture")
+              ? t("events:showLectures.main.editLecture")
+              : t("events:showLectures.main.addLecture")
           }
           component={FormLecture}
           componentProps={{
@@ -126,8 +126,8 @@ export default function ({ isOwner, eventId }) {
           }}
           label={
             initialFormValues
-              ? t("eventDetails:main.bindSpeaker")
-              : t("eventDetails:main.reBindSpeaker")
+              ? t("events:speakerBind.main.bindSpeaker")
+              : t("events:speakerBind.main.reBindSpeaker")
           }
           component={BindSpeakers}
           componentProps={{
@@ -164,7 +164,7 @@ export default function ({ isOwner, eventId }) {
                         <PopoverArrow />
                         <PopoverCloseButton onClick={close1} />
                         <PopoverBody>
-                          <Heading as="h2">PrelegenciTrans</Heading>
+                          <Heading as="h2">{t("events:comment.speakers.heading")}</Heading>
                           {element.speakers.map((speaker, index) => (
                             <Box key={index}>
                               <Text>
@@ -197,7 +197,7 @@ export default function ({ isOwner, eventId }) {
                             .then(() => {
                               dispatch(
                                 setMessage(
-                                  t("pozytywne.dodanie.komentarza"),
+                                  t("events:comment.add.succesmessage"),
                                   "succes"
                                 )
                               );
@@ -206,7 +206,7 @@ export default function ({ isOwner, eventId }) {
                             .catch(() =>
                               dispatch(
                                 setMessage(
-                                  t("negatywne.dodanie.komentarza"),
+                                  t("comment.add.errorMessage"),
                                   "error"
                                 )
                               )
@@ -223,13 +223,12 @@ export default function ({ isOwner, eventId }) {
                                   labelStyle={labelStyle}
                                   fieldName="question"
                                   labels={{
-                                    inputTitle: t(
-                                      "eventDetails:input.name.wymyslCos"
-                                    ),
+                                    inputTitle: 
+                                    t("events:question.heading"),
                                   }}
                                 />
                                 <Button onClick={props.handleSubmit}>
-                                  Submit
+                                  {t("events:question.button.submit")}
                                 </Button>
                               </Box>
                             </PopoverBody>
