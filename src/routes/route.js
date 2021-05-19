@@ -38,6 +38,31 @@ export default [
     component: Pages.MyTickets,
   },
   {
+    name: "accountVerification",
+    path: "/accountVerification/:token",
+    component: Pages.AccountVerification,
+  },
+  {
+    name: "events",
+    path: "/eventsAll",
+    // secure: ["user", "admin"],
+    navbarDisplay: true,
+    component: Pages.Events,
+  },
+  {
+    name: "list",
+    path: "/event/detail/:eventId/:attendance?",
+    // secure: ["user", "admin"],
+    component: Pages.EventDetails,
+  },
+  {
+    name: "event",
+    path: "/event/modify/:eventId?",
+    secure: ["user", "admin"],
+    navbarDisplay: false,
+    component: Pages.EventAddEdit,
+  },
+  {
     name: "login",
     path: "/login",
     navbarDisplay: true,
@@ -49,30 +74,5 @@ export default [
     path: "/register",
     navbarDisplay: true,
     component: Pages.Register,
-  },
-  {
-    name: "accountVerification",
-    path: "/accountVerification/:token",
-    component: Pages.AccountVerification,
-  },
-  {
-    name: "events",
-    path: "/eventsAll",
-    secure: ["user", "admin"],
-    navbarDisplay: true,
-    component: Pages.Events,
-  },
-  {
-    name: "list",
-    path: "/event/detail/:eventId",
-    secure: ["user", "admin"],
-    component: Pages.EventDetails,
-  },
-  {
-    name: "event",
-    path: "/event/modify/:eventId?",
-    secure: ["user", "admin"],
-    navbarDisplay: false,
-    component: Pages.EventAddEdit,
   },
 ];

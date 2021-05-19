@@ -8,6 +8,8 @@ import {
   CLEAR_SPEAKER_DATA,
   SET_EVENTPARTNER_DATA,
   CLEAR_EVENTPARTNER_DATA,
+  SET_LASTUPDATED_DATA,
+  CLEAR_LASTUPDATED_DATA,
 } from "../actions/types";
 
 export const setSpeakersData = (speakersData) => ({
@@ -17,6 +19,15 @@ export const setSpeakersData = (speakersData) => ({
 
 export const clearSpeakersData = () => ({
   type: CLEAR_SPEAKER_DATA,
+});
+
+export const setLastUpdatedDataType = (type) => ({
+  type: SET_LASTUPDATED_DATA,
+  payload: { type },
+});
+
+export const clearLastUpdatedDataType = () => ({
+  type: CLEAR_LASTUPDATED_DATA,
 });
 
 export const setEventPartnerData = (eventPartnerData) => ({
@@ -41,11 +52,6 @@ export const setEventsOwner = (owner) => ({
   type: SET_EVENTS_OWNER,
   payload: { owner },
 });
-
-// export const appendEventsOwner = (owner) => ({
-//   type: APPEND_EVENTS_OWNER,
-//   payload: { owner },
-// });
 
 export const clearEventsOwner = () => ({
   type: CLEAR_EVENTS_OWNER,
