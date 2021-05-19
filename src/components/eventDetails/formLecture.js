@@ -29,6 +29,8 @@ import lectureService from "src/services/lecture.service";
 import { setMessage } from "src/actions/message";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { SET_LECTURE_DATA } from "src/actions/types";
+import { setLastUpdatedDataType } from "src/actions/events";
 
 const labelStyle = {
   fontFamily: "sans-serif",
@@ -49,6 +51,7 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
         .then((response) => {
           dispatch(setMessage(t("events:formLecture.lecture.add.succesmessage"), "succes"));
           dispatchClose();
+          dispatch(setLastUpdatedDataType(SET_LECTURE_DATA));
           actions.resetForm();
         })
         .catch((error) => {
@@ -71,6 +74,8 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
             setMessage(t("events:formLecture.lecture.modify.succesmessage"), "succes")
           );
           dispatchClose();
+          dispatch(setLastUpdatedDataType(SET_LECTURE_DATA));
+
           actions.resetForm();
         })
         .catch((error) => {
@@ -88,6 +93,8 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
       .then((response) => {
         dispatch(setMessage(t("events:formLecture.lecture.delete.succesmessage"), "succes"));
         dispatchClose();
+        dispatch(setLastUpdatedDataType(SET_LECTURE_DATA));
+
         resetFormHandler();
       })
       .catch((error) => {
@@ -132,13 +139,13 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
               fieldName="startDate"
               labels={{ inputTitle: t("events:formLecture.input.startTime2.title") }}
             />
-            <InputNumber
+            {/* <InputNumber
               labelStyle={labelStyle}
               fieldName="availableSeats"
               labels={{
                 inputTitle: t("events:formLecture.input.availableSeats.title"),
               }}
-            />
+            /> */}
 
             {/* <InputTime
               labelStyle={labelStyle}

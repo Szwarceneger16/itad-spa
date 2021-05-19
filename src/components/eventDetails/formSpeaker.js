@@ -22,6 +22,8 @@ import speakerService from "src/services/speaker.service";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setMessage } from "src/actions/message";
+import { setLastUpdatedDataType } from "src/actions/events";
+import { SET_SPEAKER_DATA } from "src/actions/types";
 
 const labelStyle = {
   fontFamily: "sans-serif",
@@ -29,12 +31,7 @@ const labelStyle = {
   fontSize: [14, 16, 18],
 };
 
-function FormLecturer({
-  firstFieldRef,
-  dispatchClose,
-  initialValues,
-  eventId,
-}) {
+function FormSpeaker({ firstFieldRef, dispatchClose, initialValues, eventId }) {
   const { t, i18n } = useTranslation(["common", "events"]);
   const dispatch = useDispatch();
 
@@ -45,6 +42,7 @@ function FormLecturer({
         .then((response) => {
           dispatch(setMessage(t("events:formSpeaker.add.succesmessage"), "succes"));
           dispatchClose();
+          dispatch(setLastUpdatedDataType(SET_SPEAKER_DATA));
           actions.resetForm();
         })
         .catch((error) => {
@@ -66,6 +64,7 @@ function FormLecturer({
             setMessage(t("events:formSpeaker.modify.succesmessage"), "succes")
           );
           dispatchClose();
+          dispatch(setLastUpdatedDataType(SET_SPEAKER_DATA));
           actions.resetForm();
         })
         .catch((error) => {
@@ -83,6 +82,7 @@ function FormLecturer({
       .then((response) => {
         dispatch(setMessage(t("events:formSpeaker.delete.succesmessage"), "succes"));
         dispatchClose();
+        dispatch(setLastUpdatedDataType(SET_SPEAKER_DATA));
         resetFormHandler();
       })
       .catch((error) => {
@@ -165,4 +165,4 @@ function FormLecturer({
     </Stack>
   );
 }
-export default FormLecturer;
+export default FormSpeaker;

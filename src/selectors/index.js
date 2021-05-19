@@ -32,6 +32,9 @@ export const GetSpeakersData = () =>
 export const GetEventPartnerData = () =>
   useSelector((state) => state.events.eventPartnerData);
 
+export const GetLastUpdatedDataType = () =>
+  useSelector((state) => state.events.lastUpdatedType);
+
 export const GetUserRoles = () => {
   const isLogged = GetLogginStatus();
   let userRoles = useSelector(

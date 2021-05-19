@@ -16,7 +16,7 @@ import FormPartner from "./formPartner";
 import { GetEventPartnerData } from "src/selectors";
 
 const cellWidths = [["25%"], ["25%"], ["40%"], ["10%"]];
-export default function ({ modifyHandler, isOwner, eventId }) {
+export default function ({ isOwner, eventId }) {
   const { t, i18n } = useTranslation(["common", "events"]);
   const [initialFormValues, setInitialFormvalues] = useState(undefined);
   const eventPartnerData = GetEventPartnerData();
@@ -36,7 +36,6 @@ export default function ({ modifyHandler, isOwner, eventId }) {
           //OnOpen={() => setOpenPopover(true)}
           OnClose={() => {
             setInitialFormvalues(null);
-            modifyHandler();
           }}
           label={
             initialFormValues
