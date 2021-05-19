@@ -174,6 +174,7 @@ export function InputSelect({
                   );
                   form.setFieldValue(field.name, selected, false);
                 } else {
+                  if (event.currentTarget.value === "") return;
                   form.setFieldValue(
                     field.name,
                     valueIsNumber

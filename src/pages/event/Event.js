@@ -12,6 +12,7 @@ import {
 import ShowSpeakers from "src/components/eventDetails/showSpeakers";
 import ShowLectures from "src/components/eventDetails/showLectures";
 import ShowPartners from "src/components/eventDetails/showPartners";
+import ShowAttendance from "src/components/eventDetails/showAttendance";
 import React, { Suspense, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Redirect, useHistory, useParams } from "react-router-dom";
@@ -23,24 +24,21 @@ import eventService from "src/services/event.service";
 import { useLecturesData } from "src/hooks/useLectureData";
 import { useSpeakersData } from "src/hooks/useSpeakerData";
 import { useEventPartnerData } from "src/hooks/useEventPartnerData";
-
-const eventData = {
-  eventName: "tytul",
-  eventDescription: "opis 123",
-  eventImage: "",
-};
+import { useAttendanceData } from "src/hooks/useAttendanceData";
 
 export function EventDetails() {
   const { t, i18n } = useTranslation(["common", "event"]);
-  const [isModified, setIsModified] = useState();
-  const changeIsModified = () => setIsModified(!isModified);
+  // const [isModified, setIsModified] = useState();
+  // const changeIsModified = () => setIsModified(!isModified);
   const params = useParams();
   const eventId = Number(params.eventId);
+  const attendanceView = params.attendance === "attendance";
 
-  const eventData = useEventData(eventId, [isModified]);
-  const lecturesData = useLecturesData(eventId, [isModified]);
-  const speakersData = useSpeakersData(eventId, [isModified]);
-  const eventPartnerData = useEventPartnerData(eventId, [isModified]);
+  const eventData = useEventData(eventId);
+  const lecturesData = useLecturesData(eventId);
+  const speakersData = useSpeakersData(eventId);
+  const eventPartnerData = useEventPartnerData(eventId);
+  const attandanceData = useAttendanceData(eventId);
 
   const userId = GetUserId();
   const isLogged = GetLogginStatus();
@@ -71,7 +69,7 @@ export function EventDetails() {
             <Text {...styles.text}>{eventData && eventData.name}</Text>
             <Divider size="40px"></Divider>
             <Box textAlign="center">
-              {!currentUserRegistered && !isOwner && (
+              {isLogged && !currentUserRegistered && !isOwner && (
                 <Button variant="outline" m="4" onClick={registerHandler}>
                   {t("event:eventDetails.registerButton.title")}
                 </Button>
@@ -81,13 +79,23 @@ export function EventDetails() {
 
           <Box {...styles.flexItem} {...styles.flexItemTable}>
             <MyAccordion
-              labels={[
-                t("event:eventDetails.accordion.details"),
-                t("event:eventDetails.accordion.statistic"),
-                t("event:eventDetails.accordion.partners"),
-                t("event:eventDetails.accordion.lecture"),
-                t("event:eventDetails.accordion.lecturers"),
-              ]}
+              labels={
+                isLogged
+                  ? [
+                      t("event:eventDetails.accordion.details"),
+                      t("event:eventDetails.accordion.statistic"),
+                      t("event:eventDetails.accordion.attendance"),
+                      t("event:eventDetails.accordion.partners"),
+                      t("event:eventDetails.accordion.lecture"),
+                      t("event:eventDetails.accordion.lecturers"),
+                    ]
+                  : [
+                      t("event:eventDetails.accordion.details"),
+                      t("event:eventDetails.accordion.partners"),
+                      t("event:eventDetails.accordion.lecture"),
+                      t("event:eventDetails.accordion.lecturers"),
+                    ]
+              }
             >
               <Box>
                 <Box {...styles.flexItemImage}>
@@ -106,25 +114,21 @@ export function EventDetails() {
                 </Text>
               </Box>
 
-              <Box>Statistics</Box>
+              {isLogged && <Box>Statistics</Box>}
 
-              <ShowPartners
-                modifyHandler={changeIsModified}
-                isOwner={isOwner}
-                eventId={eventId}
-              />
+              {isLogged && (
+                <ShowAttendance
+                  attandanceData={attandanceData}
+                  openAttendance={attendanceView}
+                  eventId={eventId}
+                />
+              )}
 
-              <ShowLectures
-                modifyHandler={changeIsModified}
-                isOwner={isOwner}
-                eventId={eventId}
-              />
+              <ShowPartners isOwner={isOwner} eventId={eventId} />
 
-              <ShowSpeakers
-                modifyHandler={changeIsModified}
-                isOwner={isOwner}
-                eventId={eventId}
-              />
+              <ShowLectures isOwner={isOwner} eventId={eventId} />
+
+              <ShowSpeakers isOwner={isOwner} eventId={eventId} />
             </MyAccordion>
           </Box>
         </Flex>

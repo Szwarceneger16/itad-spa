@@ -7,12 +7,22 @@ import {
   setEventsOwner,
   setLectureData,
 } from "src/actions/events";
-import { GetUserId } from "src/selectors";
+import { GetLastUpdatedDataType, GetUserId } from "src/selectors";
 import lectureService from "src/services/lecture.service";
+import { SET_LECTURE_DATA } from "src/actions/types";
 
-export function useLecturesData(eventId, optimize) {
+export function useLecturesData(eventId) {
   const [lecturesData, setLecturesData] = useState(null);
+  const [isLecturesUpdateOccurs, setLecturesUpdateOccurs] = useState(null);
   const dispatch = useDispatch();
+  const lastUpdatedType = GetLastUpdatedDataType();
+
+  if (
+    lastUpdatedType.last === SET_LECTURE_DATA &&
+    lastUpdatedType.isChange !== isLecturesUpdateOccurs?.isChange
+  ) {
+    setLecturesUpdateOccurs(lastUpdatedType);
+  }
 
   useEffect(() => {
     if (eventId >= 0) {
@@ -32,7 +42,7 @@ export function useLecturesData(eventId, optimize) {
     return () => {
       dispatch(clearLectureData());
     };
-  }, optimize ?? []);
+  }, [isLecturesUpdateOccurs]);
 
   return lecturesData;
 }

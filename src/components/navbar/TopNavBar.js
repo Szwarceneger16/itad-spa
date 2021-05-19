@@ -19,12 +19,12 @@ function MenuLinks({ route, onClick, isLoggedIn, ...props }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const logoutHandler = async () => {
-    await dispatch(logout());
+  const logoutHandler = () => {
+    dispatch(logout());
     history.push("/home");
   };
 
-  useEffect(() => {}, [isLoggedIn]);
+  // useEffect(() => {}, [isLoggedIn]);
 
   // let route = Array.from(props.route);
 
@@ -53,15 +53,19 @@ function MenuLinks({ route, onClick, isLoggedIn, ...props }) {
     <Box
       display={{ base: props.isOpen ? "block" : "none", md: "block" }}
       flexBasis={{ base: "100%", md: "auto" }}
+      overflowX="auto"
+      overflowY="hidden"
     >
       <Stack
         spacing={6}
         align="center"
-        justify={["center", "space-around", "flex-end", "flex-end"]}
+        justify={["center", "space-around"]}
+        flexWrap="wrap"
         direction={["column", "row", "row", "row"]}
-        pt={[4, 4, 0, 0]}
-        pr={2}
-        mb={[4, 4, 0, 0]}
+        px={[2, 2, 4]}
+        py={2}
+        mx={[2, 2, 4]}
+        my={0}
       >
         {route}
         {isLoggedIn && <UserAvatar />}
@@ -91,7 +95,7 @@ const NavBarContainer = ({ children, ...props }) => {
       align="center"
       justify="space-between"
       wrap="wrap"
-      w="100%"
+      w="100vw"
       mb={2}
       p={2}
       bg={["green.500", "green.500", "orange.400", "orange.400"]}

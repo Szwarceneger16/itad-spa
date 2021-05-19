@@ -20,6 +20,8 @@ import { InputFile, InputText, InputTextArea } from "../forms/InputElements";
 import { useDispatch } from "react-redux";
 import { setMessage } from "src/actions/message";
 import eventPartnerService from "src/services/eventPartner.service";
+import { SET_EVENTPARTNER_DATA } from "src/actions/types";
+import { setLastUpdatedDataType } from "src/actions/events";
 
 const labelStyle = {
   fontFamily: "sans-serif",
@@ -40,6 +42,7 @@ function FormPartner({ firstFieldRef, dispatchClose, initialValues, eventId }) {
             setMessage(t("event:eventPartner.add.succesmessage"), "succes")
           );
           dispatchClose();
+          dispatch(setLastUpdatedDataType(SET_EVENTPARTNER_DATA));
           actions.resetForm();
         })
         .catch((error) => {
@@ -62,6 +65,7 @@ function FormPartner({ firstFieldRef, dispatchClose, initialValues, eventId }) {
             setMessage(t("event:eventPartner.modify.succesmessage"), "succes")
           );
           dispatchClose();
+          dispatch(setLastUpdatedDataType(SET_EVENTPARTNER_DATA));
           actions.resetForm();
         })
         .catch((error) => {
@@ -83,6 +87,7 @@ function FormPartner({ firstFieldRef, dispatchClose, initialValues, eventId }) {
           setMessage(t("event:eventPartner.delete.succesmessage"), "succes")
         );
         dispatchClose();
+        dispatch(setLastUpdatedDataType(SET_EVENTPARTNER_DATA));
         resetFormHandler();
       })
       .catch((error) => {

@@ -41,7 +41,8 @@ function AppRoutes({ route }) {
         >
           <Box
             className="page"
-            py="10vh"
+            pt={["4vh", "8vh", "12vh"]}
+            pb={["0vh", "0vh", "6vh"]}
             ref={transitionNodeRef}
             px="1vw"
             /* w='100%' minH='100vh' */ bg="gray.100"

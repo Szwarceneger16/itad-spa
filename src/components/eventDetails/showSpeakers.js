@@ -9,7 +9,7 @@ import MyTable from "../table";
 import { GetSpeakersData } from "src/selectors";
 
 const cellWidths = [["25%"], ["25%"], ["40%"], ["10%"]];
-export default function ({ modifyHandler, isOwner, eventId }) {
+export default function ({ isOwner, eventId }) {
   const { t, i18n } = useTranslation(["common", "eventDetails"]);
   const [initialFormValues, setInitialFormvalues] = useState(undefined);
   const speakersData = GetSpeakersData();
@@ -43,7 +43,6 @@ export default function ({ modifyHandler, isOwner, eventId }) {
           //OnOpen={() => setOpenPopover(true)}
           OnClose={() => {
             setInitialFormvalues(null);
-            modifyHandler();
           }}
           label={
             initialFormValues

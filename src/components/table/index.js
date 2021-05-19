@@ -9,6 +9,7 @@ import {
   Td,
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
+import React from "react";
 import styles from "./style";
 
 function MyTable({
@@ -61,11 +62,17 @@ function MyTable({
                     )}
                     onClick={
                       clickEventToThisCell
-                        ? () => clickEventToThisCell(index_row)
+                        ? (e) => {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            clickEventToThisCell(index_row);
+                          }
                         : undefined
                     }
                   >
-                    <Text {...styles.tdText}>{cell}</Text>
+                    <Text as="span" {...styles.tdText}>
+                      {cell}
+                    </Text>
                   </Td>
                 );
               })}

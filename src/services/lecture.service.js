@@ -71,6 +71,20 @@ class LectureService {
         speakerId
     );
   }
+
+  markUserAttendanceOnLecture(lectureId, userUUID) {
+    return axios.post(
+      API_URL +
+        "lecture/MarkPresents?lectureId=" +
+        lectureId +
+        "&userUUID=" +
+        userUUID,
+      {},
+      {
+        headers: { defaultHeaders, ...authHeader() },
+      }
+    );
+  }
 }
 
 export default new LectureService();

@@ -18,7 +18,7 @@ import { useHistory } from "react-router-dom";
 import MyTable from "src/components/table";
 import * as DateFns from "date-fns";
 import { Button } from "@material-ui/core";
-import { GetUserId } from "src/selectors";
+import { GetLogginStatus, GetUserId } from "src/selectors";
 import eventService from "src/services/event.service";
 
 // const eventData = {
@@ -45,6 +45,7 @@ export function Events() {
   let eventsData = useEventsData();
   let history = useHistory();
   const userID = GetUserId();
+  const isLoggedIn = GetLogginStatus();
 
   const infoIcon = <InfoIcon />;
   const editIcon = <EditIcon />;
@@ -73,8 +74,9 @@ export function Events() {
   };
   const ownEventTableCallbacks = [
     {
-      cellNumber: 4,
+      cellNumber: 3,
       callback: (dataRowNumber) => {
+        debugger;
         history.push("/event/modify/" + onwerEventsData[dataRowNumber].eventId);
       },
     },
@@ -123,41 +125,45 @@ export function Events() {
           </Text>
           <Divider size="40px"></Divider>
         </Box>
-        <Box>
-          <Button
-            variant="contained"
-            onClick={() => {
-              history.push("/event/modify");
-            }}
-          >
-            {t("event:main.button.addEvent")}
-          </Button>
-        </Box>
-        <Box {...styles.flexItem}>
-          <Heading {...styles.text}>
-            {t("events:event.main.yourEvents")}
-          </Heading>
+        {isLoggedIn && (
+          <Box>
+            <Button
+              variant="contained"
+              onClick={() => {
+                history.push("/event/modify");
+              }}
+            >
+              {t("event:main.button.addEvent")}
+            </Button>
+          </Box>
+        )}
+        {isLoggedIn && (
+          <Box {...styles.flexItem}>
+            <Heading {...styles.text}>
+              {t("events:event.main.yourEvents")}
+            </Heading>
 
-          <Divider size="40px"></Divider>
+            <Divider size="40px"></Divider>
 
-          <MyTable
-            columnsWidth={ownsEventTableCellWidths}
-            data={
-              onwerEventsData
-                ? onwerEventsData.map((eventData) => [
-                    eventData.name,
-                    eventData.description,
-                    eventData.startDate &&
-                      DateFns.format(eventData.startDate, "MM-dd-yyyy"),
-                    editIcon,
-                  ])
-                : loadingData
-            }
-            labels={ownEventTableHeaders}
-            onCellsClick={ownEventTableCallbacks}
-            onRowClick={ownEventTableCallback}
-          />
-        </Box>
+            <MyTable
+              columnsWidth={ownsEventTableCellWidths}
+              data={
+                onwerEventsData
+                  ? onwerEventsData.map((eventData) => [
+                      eventData.name,
+                      eventData.description,
+                      eventData.startDate &&
+                        DateFns.format(eventData.startDate, "MM-dd-yyyy"),
+                      editIcon,
+                    ])
+                  : loadingData
+              }
+              labels={ownEventTableHeaders}
+              onCellsClick={ownEventTableCallbacks}
+              onRowClick={ownEventTableCallback}
+            />
+          </Box>
+        )}
         <Box {...styles.flexItem}>
           <Heading {...styles.text}>{t("event:main.showEvents")}</Heading>
 
