@@ -61,7 +61,7 @@
     ]
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently --kill-others \"node server.js\" \"react-scripts start\"",
     "startHTTPS": "set HTTPS=true&&react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -86,6 +86,7 @@
     ]
   },
   "devDependencies": {
+    "concurrently": "^6.1.0",
     "msw": "^0.27.1",
     "redux-devtools-extension": "^2.13.9",
     "remote-redux-devtools": "^0.5.16"

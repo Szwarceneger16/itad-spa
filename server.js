@@ -14,7 +14,7 @@ var app = express();
 
 app.use(
   "/getTranslation",
-  serveStatic(path.join(__dirname, "api\\mocks\\translations"), {
+  serveStatic(path.join(__dirname, "i18next_data"), {
     redirect: false,
     index: false,
   })
