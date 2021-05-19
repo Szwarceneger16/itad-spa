@@ -6,6 +6,9 @@
         },
         "submit": {
             "title": "Prześlij"
+        },
+        "remove":{
+            "title": "Usuń"
         }
     },
     "forms": {
@@ -19,7 +22,8 @@
             "min": "Minimum {{number}} znaków",
             "max": "Maksimum {{number}} znaków",
             "required": "To pole jest wymagane",
-            "submit400": "Błędne creditalia"
+            "submit400": "Błędne creditalia",
+            "email": "Błędny E-mail"
         }
     },
     "routes": {
@@ -27,7 +31,10 @@
         "login": "Zaloguj",
         "about": " O nas",
         "register": "Zarejestruj",
-        "events": "Wydarzenia"
+        "events": "Wydarzenia",
+        "ScanQR": "Skan QR",
+        "MyQR": "Moje QR",
+        "MyTickets": "Moje Bilety"
     },
     "button": {
         "cancel": "Anuluj"
@@ -37,5 +44,22 @@
     },
     "footer": {
         "title": "Autor {{author}}"
+    },
+    "language":{
+        "popover":{
+            "country": "Kraj",
+            "selectLanguage": "Wybierz Język",
+            "search": "Szukaj",
+            "orSelectFromList": "albo wybierz z listy"
+        }
+    },
+    "TopNavBar":{
+        "logout": "Wyloguj"
+    },
+    "login":{
+        "title": "Logowanie"
+    },
+    "register": {
+        "title": "Rejestracja"
     }
 }

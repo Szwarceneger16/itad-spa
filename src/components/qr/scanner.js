@@ -109,7 +109,7 @@ export function QRScanner(params) {
   return (
     <VStack divider={<StackDivider borderColor="gray.200" />} {...style.Vstack}>
       <FormControl id="eventId" isRequired>
-        <FormLabel>Wybierz event</FormLabel>
+        <FormLabel>{t("tickets:scanner.choose.event")}</FormLabel>
         <Select
           {...style.select}
           placeholder="....."
@@ -134,7 +134,7 @@ export function QRScanner(params) {
       </FormControl>
       {selectedEventId > 0 && (
         <FormControl id="eventId" isRequired>
-          <FormLabel>Wybierz wykład</FormLabel>
+          <FormLabel>{t("tickets:scanner.choose.lecture")}</FormLabel>
           <Select
             {...style.select}
             placeholder="....."

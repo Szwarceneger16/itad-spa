@@ -39,7 +39,7 @@ const labelStyle = {
 };
 
 function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
-  const { t, i18n } = useTranslation(["common", "event"]);
+  const { t, i18n } = useTranslation(["common", "events"]);
   const [submitError, setSubmitError] = useState();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -52,12 +52,12 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
       lectureService
         .bindSpeaker(values.lectureId, values.speakersAddId)
         .then((response) => {
-          dispatch(setMessage(t("event:lecture.add.succesmessage"), "succes"));
+          dispatch(setMessage(t("events:lecture.add.succesmessage"), "succes"));
           dispatchClose();
           actions.resetForm();
         })
         .catch((error) => {
-          dispatch(setMessage(t("event:lecture.add.errorMessage"), "error"));
+          dispatch(setMessage(t("events:lecture.add.errorMessage"), "error"));
         })
         .finally(() => {
           actions.setSubmitting(false);
@@ -71,13 +71,13 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
         .unbindSpeaker(values.lectureId, values.speakersRemoveId)
         .then((response) => {
           dispatch(
-            setMessage(t("event:lecture.delete.succesmessage"), "succes")
+            setMessage(t("events:lecture.delete.succesmessage"), "succes")
           );
           dispatchClose();
           actions.resetForm();
         })
         .catch((error) => {
-          dispatch(setMessage(t("event:lecture.delete.errorMessage"), "error"));
+          dispatch(setMessage(t("events:lecture.delete.errorMessage"), "error"));
         });
     }
     //actions.setSubmitting(false);
@@ -129,13 +129,13 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
               labelStyle={labelStyle}
               innerRef={firstFieldRef}
               fieldName="name"
-              labels={{ inputTitle: t("event:input.name.title") }}
+              labels={{ inputTitle: t("events:input.name.title") }}
             /> */}
             <InputSelect
               labelStyle={labelStyle}
               innerRef={firstFieldRef}
               fieldName="lectureId"
-              placeholder={t("event:speakerBind.message.selectLectureFirst")}
+              placeholder={t("events:speakerBind.message.selectLectureFirst")}
               valueIsNumber={true}
               values={
                 (lectureData &&
@@ -148,7 +148,7 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
                 []
               }
               labels={{
-                inputTitle: t("event:speakerBind.selectLecture.title"),
+                inputTitle: t("events:speakerBind.selectLecture.title"),
               }}
             />
             <InputSelect
@@ -156,7 +156,7 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
               innerRef={firstFieldRef}
               fieldName="speakersAddId"
               isDisabled={!props.values.lectureId}
-              placeholder={t("event:speakerBind.message.selectLectureFirst")}
+              placeholder={t("events:speakerBind.message.selectSpeaker")}
               valueIsNumber={true}
               values={
                 (props.values.lectureId &&
@@ -165,7 +165,7 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
                 []
               }
               labels={{
-                inputTitle: t("event:speakerBind.selectSpeakerToAdd.title"),
+                inputTitle: t("events:speakerBind.selectSpeakerToAdd.title"),
               }}
             />
             <Flex align="center" mt={4}>
@@ -181,7 +181,7 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
               innerRef={firstFieldRef}
               fieldName="speakersRemoveId"
               isDisabled={!props.values.lectureId}
-              placeholder={t("event:speakerBind.message.selectLectureFirst")}
+              placeholder={t("events:speakerBind.message.selectSpeaker")}
               valueIsNumber={true}
               values={
                 (props.values.lectureId &&
@@ -190,7 +190,7 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
                 []
               }
               labels={{
-                inputTitle: t("event:speakerBind.selectSpeakerToRemove.title"),
+                inputTitle: t("events:speakerBind.selectSpeakerToRemove.title"),
               }}
             />
             {/* <InputTime

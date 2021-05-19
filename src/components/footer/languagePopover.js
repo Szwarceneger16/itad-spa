@@ -36,7 +36,7 @@ function PopoverWithScroll( { menuTitle,h,w,firstGroupTitle,secondGroupTitle,chi
     const [ searchValue , setSearchValue] = useState('');
     const popoverRef = useRef()
     const ref = useRef();
-
+    const { t, i18n } = useTranslation(["common"]);
     children = prepareChildreen(searchValue,children);
 
     function handleSearchChange(event) {
@@ -64,7 +64,7 @@ function PopoverWithScroll( { menuTitle,h,w,firstGroupTitle,secondGroupTitle,chi
                     value={searchValue} 
                     onChange={handleSearchChange} 
                     id='languagePopoverSearchInput' 
-                    placeholder="country" 
+                    placeholder={t("common:language.popover.country")} 
                 />
             </Box>
         </Portal>
@@ -134,13 +134,13 @@ function PopoverCountryButton( {languageCode,countryCode,countryTitle}) {
 }
 
 export default function LanguagePopover({supportedLanguage}) {
-    
+    const { t, i18n } = useTranslation(["common"]);
 
     return (
         <PopoverWithScroll
-            menuTitle="Select language"
-            firstGroupTitle="Search"
-            secondGroupTitle="or select from list"
+            menuTitle={t("common:language.popover.selectLanguage")}
+            firstGroupTitle={t("common:language.popover.search")}
+            secondGroupTitle={t("common:language.popover.orSelectFromList")}
         >
             {supportedLanguage.map( e => {
                 return <PopoverCountryButton 
