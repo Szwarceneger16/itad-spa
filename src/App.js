@@ -13,7 +13,7 @@ import TopNav from "./components/navbar/TopNavBar.js";
 import AppSwitch from "./components/router/appSwitch";
 import "./App.css";
 import routesConf from "./routes/route.js";
-import i18next from "./components/i18nextConfig.js";
+import i18next from "./i18nextConfig.js";
 import { userTokenContext } from "./components/contexts.js";
 import MenuDotNetCircle from "./components/spinBar";
 import Footer from "./components/footer";
