@@ -77,9 +77,7 @@ function MenuLinks({ route, onClick, isLoggedIn, ...props }) {
               logoutHandler();
             }}
           >
-            {
-              t("common:TopNavBar.logout")
-            }            
+            {t("common:TopNavBar.logout")}
           </Button>
         )}
       </Stack>

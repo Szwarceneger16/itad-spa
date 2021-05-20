@@ -25,6 +25,7 @@ export default function ({
   defaultIsOpen,
   /* initialFocusRef, */ component,
   componentProps,
+  customButton = undefined,
 }) {
   const { onOpen, onClose, isOpen } = useDisclosure({
     defaultIsOpen: defaultIsOpen,
@@ -57,15 +58,25 @@ export default function ({
       zIndex="1000"
     >
       <PopoverTrigger>
-        <Button
-          rightIcon={<AddIcon />}
-          size="md"
-          onClick={() => {
-            onOpen();
-          }}
-        >
-          {label}
-        </Button>
+        {customButton ? (
+          React.cloneElement(customButton, {
+            ...customButton.props,
+            onClick: () => {
+              onOpen();
+            },
+          })
+        ) : (
+          <Button
+            rightIcon={<AddIcon />}
+            size="md"
+            onClick={() => {
+              onOpen();
+            }}
+          >
+            {label}
+          </Button>
+        )}
+
         {/* <Button>asdas</Button> */}
       </PopoverTrigger>
       <PopoverContent p={1} w="min-content">

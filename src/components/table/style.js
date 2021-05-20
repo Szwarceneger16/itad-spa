@@ -16,6 +16,7 @@ export default {
       p: 1,
       width: width,
       cursor: pointer ? "pointer" : "auto",
+      textAlign: "center",
     };
   },
   th: function (width) {

@@ -44,7 +44,8 @@ export function EventDetails() {
   const isLogged = GetLogginStatus();
   const isOwner =
     !!eventData && !!isLogged && userId === eventData.owner.userId;
-  const currentUserRegistered = eventData?.currentUserRegistered;
+
+  const currentUserRegistered = eventData && eventData.currentUserRegistered;
   // -----------------------------------
 
   if (Number.isNaN(eventId)) {
