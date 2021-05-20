@@ -1,7 +1,5 @@
 import { Formik, Field, Form } from "formik";
 import React, { Suspense, useEffect, useState, useContext } from "react";
-import PropTypes from "prop-types";
-import ReactDOM from "react-dom";
 import { loginFormValidationSchema } from "../yupSchemas";
 import {
   InputPassword,
@@ -12,8 +10,6 @@ import { Box, Button, Flex, Spacer } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { DividerWithText, ErrorMessage } from "../forms/elements.js";
-//import { sessionManager } from '../sessionStore/sessionManager.js.bak';
-import api from "../../api/apiEntity";
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../../actions/auth";
 import { setMessage } from "../../actions/message";
@@ -77,9 +73,7 @@ function LoginForm() {
             <Flex align="center" flexWrap="wrap" mt={4}>
               <Box>
                 <InputSwitch fieldName="rememberMe">
-                  {
-                    t('auth:switch.rememberMe')
-                  }
+                  {t("auth:switch.rememberMe")}
                 </InputSwitch>
               </Box>
               <Spacer />
