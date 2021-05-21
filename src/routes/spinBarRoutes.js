@@ -13,19 +13,19 @@ export default function (params) {
       },
     },
     {
-      name: "MyTickets",
+      name: "myTickets",
       callback: () => {
         history.push("/myTickets");
       },
     },
     {
-      name: "ScanQR",
+      name: "scanQR",
       callback: () => {
         history.push("/scannQR");
       },
     },
     {
-      name: "MyQR",
+      name: "myQR",
       callback: () => {
         history.push("/myQR");
       },
