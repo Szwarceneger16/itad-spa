@@ -11,7 +11,7 @@ export const GetLogginStatus = () => {
 };
 
 export const GetUserId = () => {
-  const userId = useSelector((state) => state.auth.user.userId);
+  const userId = useSelector((state) => state.auth?.user.userId);
   return userId;
 };
 

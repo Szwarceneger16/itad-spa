@@ -76,7 +76,6 @@ export function Events() {
     {
       cellNumber: 3,
       callback: (dataRowNumber) => {
-        debugger;
         history.push("/event/modify/" + onwerEventsData[dataRowNumber].eventId);
       },
     },
@@ -117,7 +116,9 @@ export function Events() {
       </Heading>
       <Flex {...styles.flexContainerForTable}>
         <Box {...styles.flexItem}>
-          <Heading {...styles.text}>{t("events:event.eventsList.eventsListName")}</Heading>
+          <Heading {...styles.text}>
+            {t("events:event.eventsList.eventsListName")}
+          </Heading>
           <Text {...styles.text}>
             aaaaaaaaaaaaaaaaaaa{/* {eventData.eventName} */}
           </Text>
@@ -163,7 +164,9 @@ export function Events() {
           </Box>
         )}
         <Box {...styles.flexItem}>
-          <Heading {...styles.text}>{t("events:event.main.showEvents")}</Heading>
+          <Heading {...styles.text}>
+            {t("events:event.main.showEvents")}
+          </Heading>
 
           <Divider size="40px"></Divider>
 

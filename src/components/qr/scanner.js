@@ -35,14 +35,18 @@ export function QRScanner(params) {
   const [selectedLectureId, setSelectedLectureId] = useState(0);
 
   useEffect(() => {
-    eventService.getEventCurrentUser().then((data) => setEventData(data.data));
+    eventService
+      .getEventCurrentUser()
+      .then((data) => setEventData(data.data))
+      .catch(() => {});
   }, []);
 
   useEffect(() => {
     if (selectedEventId > 0) {
       lectureService
         .getLecturesByEventID(selectedEventId)
-        .then((data) => setLecturesData(data.data));
+        .then((data) => setLecturesData(data.data))
+        .catch(() => {});
     }
   }, [selectedEventId]);
 
