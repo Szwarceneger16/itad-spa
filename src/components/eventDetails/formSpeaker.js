@@ -24,6 +24,7 @@ import { useDispatch } from "react-redux";
 import { setMessage } from "src/actions/message";
 import { setLastUpdatedDataType } from "src/actions/events";
 import { SET_SPEAKER_DATA } from "src/actions/types";
+import { addSpeakerValidaitonSchema } from "../yupSchemas";
 
 const labelStyle = {
   fontFamily: "sans-serif",
@@ -106,6 +107,7 @@ function FormSpeaker({ firstFieldRef, dispatchClose, initialValues, eventId }) {
         //initialErrors={true}
         onSubmit={submitFrom}
         // initialTouched
+        validationSchema={ addSpeakerValidaitonSchema(t) }
       >
         {(props) => (
           <Form>

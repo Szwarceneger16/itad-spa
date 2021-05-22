@@ -31,6 +31,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { SET_LECTURE_DATA } from "src/actions/types";
 import { setLastUpdatedDataType } from "src/actions/events";
+import { addLectureValidaitonSchema } from "../yupSchemas";
 
 const labelStyle = {
   fontFamily: "sans-serif",
@@ -120,6 +121,7 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
         enableReinitialize
         initialValues={_initialValues}
         onSubmit={submitFrom}
+        validationSchema={ addLectureValidaitonSchema(t) }
       >
         {(props) => (
           <Form>

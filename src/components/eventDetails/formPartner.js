@@ -22,6 +22,7 @@ import { setMessage } from "src/actions/message";
 import eventPartnerService from "src/services/eventPartner.service";
 import { SET_EVENTPARTNER_DATA } from "src/actions/types";
 import { setLastUpdatedDataType } from "src/actions/events";
+import { addPartnerValidaitonSchema } from "../yupSchemas";
 
 const labelStyle = {
   fontFamily: "sans-serif",
@@ -112,6 +113,7 @@ function FormPartner({ firstFieldRef, dispatchClose, initialValues, eventId }) {
         //initialErrors={true}
         onSubmit={submitFrom}
         // initialTouched
+        validationSchema={ addPartnerValidaitonSchema(t) }
       >
         {(props) => (
           <Form>
