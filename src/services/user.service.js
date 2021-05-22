@@ -38,13 +38,7 @@ class UserService {
       {
         headers: { defaultHeaders, ...authHeader() },
       }
-      ).then(response => { 
-        console.log(response)
-      })
-      .catch(error => {
-          console.log(error.response)
-      }
-    );
+      );
   }
 }
 
