@@ -47,6 +47,12 @@
         "delete":{
             "succesmessage": "Poprawne usunięcie wydarzenia",
             "errorMessage": "Niepoprawne usunięcie wydarzenia"
+        },
+        "errors":{
+           "minName": "Minimum {{number}} znaków", 
+           "minDescription": "Minimum {{number}} znaków",
+           "minStartDate": "Minimalna data to dzisiaj", 
+           "required": "To pole jest wymagane"
         }
     },
     "formLecturer": {
@@ -175,6 +181,14 @@
         "main":{
             "bindSpeaker": "Zmień Prelegenta",
             "reBindSpeaker": "Wybierz Prelegenta"
+        },
+        "add":{
+            "succesmessage": "Poprawne dodanie prelegenta do wykładu",
+            "errorMessage": "Niepoprawne dodanie prelegenta do wykładu"
+            },
+        "delete":{
+            "succesmessage": "Poprawne usunięcie prelegenta z wykładu",
+            "errorMessage": "Niepoprawne usunięcie prelegenta z wykładu"
         }
     },
     "eventPartner":{
@@ -229,6 +243,11 @@
         "heading": "Pytanie",
         "button":{
             "submit": "Potwierdź"
+        },
+        "addComment": "Zadaj pytanie",
+        "table":{
+            "who": "Autor",
+            "content": "Pytanie"
         }
     }
 }

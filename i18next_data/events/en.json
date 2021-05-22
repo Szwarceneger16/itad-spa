@@ -47,6 +47,12 @@
         "delete":{
             "succesmessage": "Correct deletion of the event",
             "errorMessage": "Incorrect deletion of an event"
+        },
+        "errors":{
+           "minName": "Min {{number}} characters", 
+           "minDescription": "Min {{number}} characters",
+           "minStartDate": "Minimum date is today", 
+           "required": "This field are required"
         }
     },
     "formLecturer": {
@@ -175,6 +181,14 @@
         "main":{
             "bindSpeaker": "Change Speaker",
             "reBindSpeaker": "Choose Speaker"
+        },
+        "add":{
+            "succesmessage": "Correct add a Speaker to a Lecture",
+            "errorMessage": "Incorrect add a Speaker to a Lecture"
+            },
+        "delete":{
+            "succesmessage": "Correct delete a speaker from a lecture",
+            "errorMessage": "Incorrect delete a speaker from a lecture"
         }
     },
     "eventPartner":{
@@ -229,6 +243,11 @@
         "heading": "Question",
         "button":{
             "submit": "Submit"
+        },
+        "addComment": "Ask a question",
+        "table":{
+            "who": "Author",
+            "content": "Question"
         }
     }
 }
