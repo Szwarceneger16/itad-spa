@@ -50,13 +50,13 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
       lectureService
         .addLecture(eventId, values.name, values.description, values.startDate)
         .then((response) => {
-          dispatch(setMessage(t("events:formLecture.lecture.add.succesmessage"), "succes"));
+          dispatch(setMessage(t("events:lecture.add.succesmessage"), "succes"));
           dispatchClose();
           dispatch(setLastUpdatedDataType(SET_LECTURE_DATA));
           actions.resetForm();
         })
         .catch((error) => {
-          dispatch(setMessage(t("events:formLecture.lecture.add.errorMessage"), "error"));
+          dispatch(setMessage(t("events:lecture.add.errorMessage"), "error"));
         })
         .finally(() => {
           actions.setSubmitting(false);
@@ -72,7 +72,7 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
         )
         .then((response) => {
           dispatch(
-            setMessage(t("events:formLecture.lecture.modify.succesmessage"), "succes")
+            setMessage(t("events:lecture.modify.succesmessage"), "succes")
           );
           dispatchClose();
           dispatch(setLastUpdatedDataType(SET_LECTURE_DATA));
@@ -80,7 +80,7 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
           actions.resetForm();
         })
         .catch((error) => {
-          dispatch(setMessage(t("events:formLecture.lecture.modify.errorMessage"), "error"));
+          dispatch(setMessage(t("events:lecture.modify.errorMessage"), "error"));
         })
         .finally(() => {
           actions.setSubmitting(false);
@@ -92,14 +92,14 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
     lectureService
       .deleteLecture(lectureId, eventId)
       .then((response) => {
-        dispatch(setMessage(t("events:formLecture.lecture.delete.succesmessage"), "succes"));
+        dispatch(setMessage(t("events:lecture.delete.succesmessage"), "succes"));
         dispatchClose();
         dispatch(setLastUpdatedDataType(SET_LECTURE_DATA));
 
         resetFormHandler();
       })
       .catch((error) => {
-        dispatch(setMessage(t("events:formLecture.lecture.delete.errorMessage"), "error"));
+        dispatch(setMessage(t("events:lecture.delete.errorMessage"), "error"));
       });
   };
 

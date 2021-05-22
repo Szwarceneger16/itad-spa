@@ -1,11 +1,11 @@
 {
     "scanner":{
         "message":{
-            "ticketError": "Błąd biletu",
+            "ticketError": "Błąd z biletem",
             "scanNextMessage": "Skanuj następną wiadomość",
             "waitForVerification": "Czekaj na weryfikacje",
-            "ticketPayed": "Bilet Opłacony",
-            "ticketNotPayed": "Bilet Nieopłacony",
+            "ticketPayed": "Bilet jest płacony",
+            "ticketNotPayed": "Bilet nie jest opłacony",
             "scannerError": "Błąd skanera"        
         },
         "choose": {
@@ -22,8 +22,8 @@
     },
     "qr":{
         "viewer":{
-            "title": "Kod QR",
-            "heading": "Skan kodu QR"
+            "title": "Twój kod QR",
+            "heading": "Sprawdź obecność za pomocą skanera QR"
         }
     }
 }

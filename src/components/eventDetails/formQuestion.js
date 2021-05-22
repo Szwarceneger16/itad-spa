@@ -37,7 +37,7 @@ export default ({ firstFieldRef, dispatchClose, data }) => {
               dispatchClose();
             })
             .catch(() =>
-              dispatch(setMessage(t("comment.add.errorMessage"), "error"))
+              dispatch(setMessage(t("events:comment.add.errorMessage"), "error"))
             );
         }}
         validationSchema={ addQuestionValidaitonSchema(t) }

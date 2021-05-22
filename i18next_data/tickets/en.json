@@ -4,8 +4,8 @@
             "ticketError": "Ticket Error",
             "scanNextMessage": "Scan Next Message",
             "waitForVerification": "Wait For Verification",
-            "ticketPayed": "Ticket Payed",
-            "ticketNotPayed": "Ticket Not Payed",
+            "ticketPayed": "The ticket is prepaid",
+            "ticketNotPayed": "The ticket is not paid",
             "scannerError": "Scanner Error"        
         },
         "choose": {
@@ -22,8 +22,8 @@
     },
     "qr":{
         "viewer":{
-            "title": "QR Code",
-            "heading": "Scan QR Code"
+            "title": "Your Code QR",
+            "heading": "Check attendance with scanner QR"
         }
     }
 }

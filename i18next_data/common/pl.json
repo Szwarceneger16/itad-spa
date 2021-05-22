@@ -32,9 +32,9 @@
         "about": " O nas",
         "register": "Zarejestruj",
         "events": "Wydarzenia",
-        "ScanQR": "Skan QR",
-        "MyQR": "Moje QR",
-        "MyTickets": "Moje Bilety"
+        "scanQR": "QR Kod Skaner",
+        "myQR": "Moje QR",
+        "myTickets": "Moje Bilety"
     },
     "button": {
         "cancel": "Anuluj"

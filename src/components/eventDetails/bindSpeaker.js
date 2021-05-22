@@ -52,12 +52,12 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
       lectureService
         .bindSpeaker(values.lectureId, values.speakersAddId)
         .then((response) => {
-          dispatch(setMessage(t("events:lecture.add.succesmessage"), "succes"));
+          dispatch(setMessage(t("events:speakerBind.add.succesmessage"), "succes"));
           dispatchClose();
           actions.resetForm();
         })
         .catch((error) => {
-          dispatch(setMessage(t("events:lecture.add.errorMessage"), "error"));
+          dispatch(setMessage(t("events:speakerBind.add.errorMessage"), "error"));
         })
         .finally(() => {
           actions.setSubmitting(false);
@@ -71,13 +71,13 @@ function FormLecture({ firstFieldRef, dispatchClose, initialValues, eventId }) {
         .unbindSpeaker(values.lectureId, values.speakersRemoveId)
         .then((response) => {
           dispatch(
-            setMessage(t("events:lecture.delete.succesmessage"), "succes")
+            setMessage(t("events:speakerBind.delete.succesmessage"), "succes")
           );
           dispatchClose();
           actions.resetForm();
         })
         .catch((error) => {
-          dispatch(setMessage(t("events:lecture.delete.errorMessage"), "error"));
+          dispatch(setMessage(t("events:speakerBind.delete.errorMessage"), "error"));
         });
     }
     //actions.setSubmitting(false);
