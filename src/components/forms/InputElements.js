@@ -98,6 +98,7 @@ export function InputText({
   labels,
   innerRef = undefined,
   placeholder = undefined,
+  inputStyle = {},
 }) {
   return (
     <Field innerRef={innerRef} name={fieldName}>
@@ -116,6 +117,7 @@ export function InputText({
               width="100%"
               id={fieldName}
               placeholder={placeholder}
+              {...inputStyle}
             />
 
             <FormErrorMessage d="block">

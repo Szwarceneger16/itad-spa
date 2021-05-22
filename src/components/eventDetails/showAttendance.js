@@ -8,18 +8,18 @@ import { GetSpeakersData } from "src/selectors";
 
 const cellWidths = [["25%"], ["25%"], ["40%"], ["10%"]];
 export default function ({ openAttendance, attandanceData, eventId }) {
-  const { t, i18n } = useTranslation(["common", "eventDetails"]);
+  const { t, i18n } = useTranslation(["common", "events"]);
 
   return (
     <>
       <Heading {...styles.text}>
-        {t("events:eventDetails.main.showLecturer")}
+        {t("events:eventDetails.showAttendance.showLecturer")}
       </Heading>
 
       <Divider size="40px"></Divider>
       {/* <Skeleton isLoaded={!!speakersData}> */}
-      <Button>Pobierz lsite obencosci PDF</Button>
-      <Button>Pobierz lsite obencosci CSV</Button>
+      <Button>{t("events:eventDetails.showAttendance.attendanceListPDF")}</Button>
+      <Button>{t("events:eventDetails.showAttendance.attendanceListCSV")}</Button>
 
       {/* <AttandanceModal
         eventId={eventId}

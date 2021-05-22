@@ -10,7 +10,7 @@ import { GetSpeakersData } from "src/selectors";
 
 const cellWidths = [["25%"], ["25%"], ["40%"], ["10%"]];
 export default function ({ isOwner, eventId }) {
-  const { t, i18n } = useTranslation(["common", "eventDetails"]);
+  const { t, i18n } = useTranslation(["common", "events"]);
   const [initialFormValues, setInitialFormvalues] = useState(undefined);
   const speakersData = GetSpeakersData();
 
@@ -19,10 +19,10 @@ export default function ({ isOwner, eventId }) {
   };
 
   const headers = [
-    t("eventDetails:lecturer.tableheading.firstname"),
-    t("eventDetails:lecturer.tableheading.secondName"),
-    t("eventDetails:lecturer.tableheading.description"),
-    // t("eventDetails:lecturer.tableheading.photo"),
+    t("events:showSpeaker.tableheading.firstname"),
+    t("events:showSpeaker.tableheading.secondName"),
+    t("events:showSpeaker.tableheading.description"),
+    // t("events:showSpeaker.tableheading.photo"),
   ];
   const loadingData = [
     [
@@ -35,7 +35,7 @@ export default function ({ isOwner, eventId }) {
   return (
     <>
       <Heading {...styles.text}>
-        {t("events:eventDetails.main.showLecturer")}
+        {t("events:showSpeaker.main.showSpeakers")}
       </Heading>
       {isOwner && (
         <InputPopover
@@ -46,8 +46,8 @@ export default function ({ isOwner, eventId }) {
           }}
           label={
             initialFormValues
-              ? t("eventDetails:main.editLecturer")
-              : t("eventDetails:main.addLecturer")
+              ? t("events:showSpeaker.main.editSpeaker")
+              : t("events:showSpeaker.main.addSpeaker")
           }
           component={FormSpeaker}
           componentProps={{

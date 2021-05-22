@@ -35,14 +35,18 @@ export function QRScanner(params) {
   const [selectedLectureId, setSelectedLectureId] = useState(0);
 
   useEffect(() => {
-    eventService.getEventCurrentUser().then((data) => setEventData(data.data));
+    eventService
+      .getEventCurrentUser()
+      .then((data) => setEventData(data.data))
+      .catch(() => {});
   }, []);
 
   useEffect(() => {
     if (selectedEventId > 0) {
       lectureService
         .getLecturesByEventID(selectedEventId)
-        .then((data) => setLecturesData(data.data));
+        .then((data) => setLecturesData(data.data))
+        .catch(() => {});
     }
   }, [selectedEventId]);
 
@@ -109,7 +113,7 @@ export function QRScanner(params) {
   return (
     <VStack divider={<StackDivider borderColor="gray.200" />} {...style.Vstack}>
       <FormControl id="eventId" isRequired>
-        <FormLabel>Wybierz event</FormLabel>
+        <FormLabel>{t("tickets:scanner.choose.event")}</FormLabel>
         <Select
           {...style.select}
           placeholder="....."
@@ -134,7 +138,7 @@ export function QRScanner(params) {
       </FormControl>
       {selectedEventId > 0 && (
         <FormControl id="eventId" isRequired>
-          <FormLabel>Wybierz wykład</FormLabel>
+          <FormLabel>{t("tickets:scanner.choose.lecture")}</FormLabel>
           <Select
             {...style.select}
             placeholder="....."

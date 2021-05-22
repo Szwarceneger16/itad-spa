@@ -96,7 +96,7 @@ const history = useHistory();
                   labelStyle={labelStyle}
                   innerRef={firstFieldRef}
                   fieldName='firstName' 
-                  labels={{inputTitle: t('userDashboard:input.firstName')}}   
+                  labels={{inputTitle: t('auth:edit.drawer.firstName')}}   
                 />
                 )}
                 {toggle ? (
@@ -115,7 +115,7 @@ const history = useHistory();
                   labelStyle={labelStyle}
                   innerRef={firstFieldRef}
                   fieldName='surname' 
-                  labels={{inputTitle: t('userDashboard:input.surname')}}   
+                  labels={{inputTitle: t('auth:edit.drawer.surname')}}   
                 />
                 )}
                 {toggle ? (
@@ -147,7 +147,7 @@ const history = useHistory();
                   <InputEmail
                     labelStyle={labelStyle}
                     fieldName="email"
-                    labels={{ inputTitle: t('userDashboard:input.email')}}
+                    labels={{ inputTitle: t('auth:edit.drawer.email')}}
                   />
                 )}      
                 {toggle ? (

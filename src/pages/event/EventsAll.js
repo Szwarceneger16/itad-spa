@@ -41,7 +41,7 @@ const otherEventTableCellWidths = [
 ];
 
 export function Events() {
-  const { t, i18n } = useTranslation(["common", "eventsList"]);
+  const { t, i18n } = useTranslation(["common", "events"]);
   let eventsData = useEventsData();
   let history = useHistory();
   const userID = GetUserId();
@@ -76,7 +76,6 @@ export function Events() {
     {
       cellNumber: 3,
       callback: (dataRowNumber) => {
-        debugger;
         history.push("/event/modify/" + onwerEventsData[dataRowNumber].eventId);
       },
     },
@@ -113,7 +112,7 @@ export function Events() {
   return (
     <VStack {...styles.vStack}>
       <Heading fontSize="3xl" textAlign="center">
-        {t("eventsList:main.heading")}
+        {t("events:event.eventsList.heading")}
       </Heading>
       <Flex {...styles.flexContainerForTable}>
         <Box {...styles.flexItem}>
@@ -133,7 +132,7 @@ export function Events() {
                 history.push("/event/modify");
               }}
             >
-              {t("event:main.button.addEvent")}
+              {t("events:event.main.button.addEvent")}
             </Button>
           </Box>
         )}
@@ -165,7 +164,9 @@ export function Events() {
           </Box>
         )}
         <Box {...styles.flexItem}>
-          <Heading {...styles.text}>{t("event:main.showEvents")}</Heading>
+          <Heading {...styles.text}>
+            {t("events:event.main.showEvents")}
+          </Heading>
 
           <Divider size="40px"></Divider>
 

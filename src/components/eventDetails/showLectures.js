@@ -2,17 +2,15 @@ import {
   Heading,
   Divider,
   Skeleton,
-  Button,
-  ButtonGroup,
   Popover,
   Text,
   PopoverArrow,
   PopoverBody,
   PopoverCloseButton,
   PopoverContent,
-  PopoverFooter,
   PopoverHeader,
   PopoverTrigger,
+  Flex,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -22,16 +20,12 @@ import BindSpeakers from "src/components/eventDetails/bindSpeaker";
 import styles from "./style";
 import MyTable from "../table";
 import * as DateFns from "date-fns";
-import { useDispatch, useSelector } from "react-redux";
 import { GetLectureData } from "src/selectors";
 import { ChatIcon, InfoIcon } from "@chakra-ui/icons";
-import { Box } from "@material-ui/core";
-import { InputText } from "src/components/forms/InputElements";
-import { Form, Formik } from "formik";
-import questionService from "src/services/question.service";
-import { setMessage } from "src/actions/message";
-import { SubmitButton } from "src/components/forms/buttons";
-import FocusLock from "react-focus-lock";
+import { Box, Input } from "@material-ui/core";
+import FormQuestion from "./formQuestion";
+
+import { FaUserTie } from "react-icons/fa";
 
 const labelStyle = {
   fontFamily: "sans-serif",
@@ -41,19 +35,13 @@ const labelStyle = {
 
 const cellWidths = [["25%"], ["35%"], ["20%"], ["5%"], ["5%"]];
 export default function ({ isOwner, eventId }) {
-  const { t, i18n } = useTranslation(["common", "event"]);
+  const { t, i18n } = useTranslation(["common", "events"]);
   const [initialFormValues, setInitialFormvalues] = useState(undefined);
   const lectureData = GetLectureData();
-  const dispatch = useDispatch();
 
   const [popover1NubmerOpen, setPopover1NubmerOpen] = useState(-1);
-  const [popover2NubmerOpen, setPopover2NubmerOpen] = useState(-1);
-  const initialFocusRef2 = React.useRef(null);
   const close1 = () => {
     setPopover1NubmerOpen(-1);
-  };
-  const close2 = () => {
-    setPopover2NubmerOpen(-1);
   };
 
   const initEditPopover = (rowIndex) => {
@@ -61,10 +49,10 @@ export default function ({ isOwner, eventId }) {
   };
 
   const headers = [
-    t("eventDetails:lecture.name"),
-    t("eventDetails:lecture.description"),
-    t("eventDetails:lecture.startTime"),
-    // t("eventDetails:lecture.endTime"),
+    t("events:showLectures.lecture.name"),
+    t("events:showLectures.lecture.description"),
+    t("events:showLectures.lecture.startTime"),
+    // t("events:showLectures.lecture.endTime"),
     "",
     "",
   ];
@@ -87,17 +75,15 @@ export default function ({ isOwner, eventId }) {
     },
     {
       cellNumber: 4,
-      callback: (dataRowNumber) => {
-        // if (popover2NubmerOpen === dataRowNumber) setPopover2NubmerOpen(-1);
-        // else
-        setPopover2NubmerOpen(dataRowNumber);
-      },
+      callback: (dataRowNumber) => {},
     },
   ];
 
   return (
     <>
-      <Heading {...styles.text}>{t("eventDetails:main.showLecture")}</Heading>
+      <Heading {...styles.text}>
+        {t("events:showLectures.main.showLecture")}
+      </Heading>
       {isOwner && (
         <InputPopover
           defaultIsOpen={!!initialFormValues}
@@ -107,8 +93,8 @@ export default function ({ isOwner, eventId }) {
           }}
           label={
             initialFormValues
-              ? t("eventDetails:main.editLecture")
-              : t("eventDetails:main.addLecture")
+              ? t("events:showLectures.main.editLecture")
+              : t("events:showLectures.main.addLecture")
           }
           component={FormLecture}
           componentProps={{
@@ -126,8 +112,8 @@ export default function ({ isOwner, eventId }) {
           }}
           label={
             initialFormValues
-              ? t("eventDetails:main.bindSpeaker")
-              : t("eventDetails:main.reBindSpeaker")
+              ? t("events:speakerBind.main.bindSpeaker")
+              : t("events:speakerBind.main.reBindSpeaker")
           }
           component={BindSpeakers}
           componentProps={{
@@ -149,95 +135,28 @@ export default function ({ isOwner, eventId }) {
                   element.description,
                   DateFns.format(element.startDate, "dd-yy-yyyy"),
                   element.speakers.length !== 0 ? (
-                    <Popover
-                      returnFocusOnClose={false}
+                    <SpeakersPopover
                       isOpen={popover1NubmerOpen === index}
                       onClose={close1}
-                      placement="right"
-                      closeOnBlur={true}
-                      isLazy
-                    >
-                      <PopoverTrigger>
-                        <InfoIcon />
-                      </PopoverTrigger>
-                      <PopoverContent>
-                        <PopoverArrow />
-                        <PopoverCloseButton onClick={close1} />
-                        <PopoverBody>
-                          <Heading as="h2">PrelegenciTrans</Heading>
-                          {element.speakers.map((speaker, index) => (
-                            <Box key={index}>
-                              <Text>
-                                {speaker.name + " " + speaker.surname}
-                              </Text>
-                            </Box>
-                          ))}
-                        </PopoverBody>
-                      </PopoverContent>
-                    </Popover>
+                      data={element}
+                    />
                   ) : null,
-                  <Popover
-                    returnFocusOnClose={true}
-                    isOpen={popover2NubmerOpen === index}
-                    onClose={close2}
-                    placement="right"
-                    closeOnBlur={true}
-                  >
-                    <PopoverTrigger>
-                      <ChatIcon />
-                    </PopoverTrigger>
-                    <PopoverContent>
-                      <Formik
-                        initialValues={{
-                          question: "aaaaa",
-                        }}
-                        onSubmit={(values, action) => {
-                          questionService
-                            .addQuestion(element.lectureId, values.question)
-                            .then(() => {
-                              dispatch(
-                                setMessage(
-                                  t("pozytywne.dodanie.komentarza"),
-                                  "succes"
-                                )
-                              );
-                              close2();
-                            })
-                            .catch(() =>
-                              dispatch(
-                                setMessage(
-                                  t("negatywne.dodanie.komentarza"),
-                                  "error"
-                                )
-                              )
-                            );
-                        }}
-                      >
-                        {(props) => (
-                          <Form>
-                            <PopoverArrow />
-                            <PopoverCloseButton onClick={close2} />
-                            <PopoverBody>
-                              <Box>
-                                <InputText
-                                  labelStyle={labelStyle}
-                                  fieldName="question"
-                                  labels={{
-                                    inputTitle: t(
-                                      "eventDetails:input.name.wymyslCos"
-                                    ),
-                                  }}
-                                />
-                                <Button onClick={props.handleSubmit}>
-                                  Submit
-                                </Button>
-                              </Box>
-                            </PopoverBody>
-                          </Form>
-                        )}
-                      </Formik>
-                    </PopoverContent>
-                  </Popover>,
+                  <InputPopover
+                    defaultIsOpen={false}
+                    OnClose={() => {
+                      // close2();
+                    }}
+                    label={t("events:comment.question.heading")}
+                    component={FormQuestion}
+                    customButton={
+                      <Box>
+                        <ChatIcon />
+                      </Box>
+                    }
+                    componentProps={{
+                      data: element,
+                    }}
+                  />,
                 ])
               : loadingData
           }
@@ -246,9 +165,37 @@ export default function ({ isOwner, eventId }) {
         />
       </Skeleton>
     </>
-    // </Box>
   );
 }
-function dispatch(arg0) {
-  throw new Error("Function not implemented.");
-}
+
+const SpeakersPopover = ({ isOpen, onClose, data }) => {
+  const { t, i18n } = useTranslation(["common", "events"]);
+  return (
+    <Popover
+      returnFocusOnClose={false}
+      isOpen={isOpen}
+      onClose={onClose}
+      placement="right"
+      closeOnBlur={true}
+      isLazy
+    >
+      <PopoverTrigger>
+        <Box>
+          <FaUserTie />
+        </Box>
+      </PopoverTrigger>
+      <PopoverContent>
+        <PopoverArrow />
+        <PopoverHeader>{t("events:comment.speakers.heading")}</PopoverHeader>
+        <PopoverCloseButton onClick={onClose} />
+        <PopoverBody>
+          {data.speakers.map((speaker, index) => (
+            <Box key={index}>
+              <Text>{speaker.name + " " + speaker.surname}</Text>
+            </Box>
+          ))}
+        </PopoverBody>
+      </PopoverContent>
+    </Popover>
+  );
+};

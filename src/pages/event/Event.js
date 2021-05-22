@@ -27,7 +27,7 @@ import { useEventPartnerData } from "src/hooks/useEventPartnerData";
 import { useAttendanceData } from "src/hooks/useAttendanceData";
 
 export function EventDetails() {
-  const { t, i18n } = useTranslation(["common", "event"]);
+  const { t, i18n } = useTranslation(["common", "events"]);
   // const [isModified, setIsModified] = useState();
   // const changeIsModified = () => setIsModified(!isModified);
   const params = useParams();
@@ -44,7 +44,8 @@ export function EventDetails() {
   const isLogged = GetLogginStatus();
   const isOwner =
     !!eventData && !!isLogged && userId === eventData.owner.userId;
-  const currentUserRegistered = eventData?.currentUserRegistered;
+
+  const currentUserRegistered = eventData && eventData.currentUserRegistered;
   // -----------------------------------
 
   if (Number.isNaN(eventId)) {
@@ -59,19 +60,19 @@ export function EventDetails() {
     <VStack spacing={8} mx="auto" w="100%" py={12} px={0} p={0} m={0}>
       <Skeleton isLoaded={!!eventData}>
         <Heading fontSize="3xl" textAlign="center">
-          {t("event:eventDetails.heading") + ` ${eventId} `}
+          {t("events:eventDetails.heading") + ` ${eventId} `}
         </Heading>
         <Flex {...styles.flexContainer}>
           <Box {...styles.flexItem}>
             <Heading {...styles.text}>
-              {t("event:eventDetails.eventName")}
+              {t("events:eventDetails.eventName")}
             </Heading>
             <Text {...styles.text}>{eventData && eventData.name}</Text>
             <Divider size="40px"></Divider>
             <Box textAlign="center">
               {isLogged && !currentUserRegistered && !isOwner && (
                 <Button variant="outline" m="4" onClick={registerHandler}>
-                  {t("event:eventDetails.registerButton.title")}
+                  {t("events:eventDetails.registerButton")}
                 </Button>
               )}
             </Box>
@@ -82,18 +83,18 @@ export function EventDetails() {
               labels={
                 isLogged
                   ? [
-                      t("event:eventDetails.accordion.details"),
-                      t("event:eventDetails.accordion.statistic"),
-                      t("event:eventDetails.accordion.attendance"),
-                      t("event:eventDetails.accordion.partners"),
-                      t("event:eventDetails.accordion.lecture"),
-                      t("event:eventDetails.accordion.lecturers"),
+                      t("events:eventDetails.accordion.details"),
+                      t("events:eventDetails.accordion.statistic"),
+                      t("events:eventDetails.accordion.attendance"),
+                      t("events:eventDetails.accordion.partners"),
+                      t("events:eventDetails.accordion.lecture"),
+                      t("events:eventDetails.accordion.speakers"),
                     ]
                   : [
-                      t("event:eventDetails.accordion.details"),
-                      t("event:eventDetails.accordion.partners"),
-                      t("event:eventDetails.accordion.lecture"),
-                      t("event:eventDetails.accordion.lecturers"),
+                      t("events:eventDetails.accordion.details"),
+                      t("events:eventDetails.accordion.partners"),
+                      t("events:eventDetails.accordion.lecture"),
+                      t("events:eventDetails.accordion.speakers"),
                     ]
               }
             >
@@ -107,7 +108,7 @@ export function EventDetails() {
                 </Box>
                 <Divider size="40px"></Divider>
                 <Heading {...styles.text}>
-                  {t("event:eventDetails.Description")}
+                  {t("events:eventDetails.Description")}
                 </Heading>
                 <Text {...styles.text}>
                   {eventData && eventData.description}

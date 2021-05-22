@@ -1,4 +1,3 @@
-import worker from "./workerStart.js";
 import createAxiosResponseInterceptor from "./services/axiosInstance";
 import React, {
   Component,
@@ -13,15 +12,12 @@ import TopNav from "./components/navbar/TopNavBar.js";
 import AppSwitch from "./components/router/appSwitch";
 import "./App.css";
 import routesConf from "./routes/route.js";
-import i18next from "./components/i18nextConfig.js";
-import { userTokenContext } from "./components/contexts.js";
+import i18next from "./i18nextConfig.js";
 import MenuDotNetCircle from "./components/spinBar";
 import Footer from "./components/footer";
-import { connect } from "react-redux";
 import spinBarRoutes from "./routes/spinBarRoutes";
 import Toast from "./components/toast";
 import { GetUserRoles, GetLogginStatus } from "./selectors";
-import { useEventData } from "src/hooks/useEventData.js";
 
 const routes = routesConf.filter((el) => {
   if (el.component === undefined) return false;
@@ -54,7 +50,7 @@ function App() {
       <Suspense fallback={<h1>Page is loading</h1>}>
         <TopNav route={filteredRoutes} isLoggedIn={isLoggedIn} />
         {isLargerThan768 && (
-          <MenuDotNetCircle right="-25px" onClicksFunctions={crownRoutes} />
+          <MenuDotNetCircle right="-25px" data={crownRoutes} />
         )}
 
         <Suspense fallback={<h1>Profile loading</h1>}>
