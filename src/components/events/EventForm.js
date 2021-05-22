@@ -115,7 +115,7 @@ function FormEvent({ firstFieldRef, onCancel, eventId }) {
       <Formik
         enableReinitialize
         initialValues={_initialValues}
-        //validationSchema={eventModifyValidaitonSchema(t)}
+        validationSchema={eventModifyValidaitonSchema(t)}
         //initialErrors={true}
 
         onSubmit={submitFrom}

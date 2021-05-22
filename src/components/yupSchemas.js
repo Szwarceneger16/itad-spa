@@ -34,10 +34,29 @@ const eventStartDate = (t) =>
     .required(t("events:event.errors.required"));
 const eventEndtDate = (t) =>
   Yup.date().required(t("events:event.errors.required"));
-const avaibleTickets = (t) =>
+const availableTickets = (t) =>
   Yup.number().min(1).required(t("events:event.errors.required"));
 const ticketPrice = (t) =>
   Yup.number().min(1).required(t("events:event.errors.required"));
+const name = (t) =>
+  Yup.string()
+    .required(t("events:event.errors.required"));
+const description = (t) =>
+  Yup.string()
+    .required(t("events:event.errors.required"));
+const startDate = (t) =>
+  Yup.date()
+    .min(new Date(), t("events:event.errors.minStartDate"))
+    .required(t("events:event.errors.required"));
+const availableSeats = (t) =>
+   Yup.number()
+    .required(t("events:event.errors.required"));
+const question = (t) =>
+   Yup.string()
+    .required(t("events:event.errors.required"));
+const surname = (t) =>
+  Yup.string()
+    .required(t("events:event.errors.required"));
 
 export const registerFormValidationSchema = (t) =>
   Yup.object({
@@ -54,10 +73,36 @@ export const loginFormValidationSchema = (t) =>
 
 export const eventModifyValidaitonSchema = (t) =>
   Yup.object({
-    eventName: eventName(t),
-    eventDescription: eventDescription(t),
+    name: name(t),
+    description: description(t),
     eventStartDate: eventStartDate(t),
     eventEndtDate: eventEndtDate(t),
-    avaibleTickets: avaibleTickets(t),
+    availableTickets: availableTickets(t),
     ticketPrice: ticketPrice(t),
+  });
+
+export const addLectureValidaitonSchema = (t) =>
+  Yup.object({
+    name: name(t),
+    description: description(t),
+    startDate: startDate(t),
+    availableSeats: availableSeats(t),
+  });
+
+export const addPartnerValidaitonSchema = (t) =>
+  Yup.object({
+    name: name(t),
+    description: description(t),
+  });
+
+export const addQuestionValidaitonSchema = (t) =>
+  Yup.object({
+    question: question(t),
+  });
+
+export const addSpeakerValidaitonSchema = (t) =>
+  Yup.object({
+    name: name(t),
+    surname: surname(t),
+    description: description(t),
   });

@@ -9,6 +9,7 @@ import { InputText } from "src/components/forms/InputElements";
 import { Form, Formik } from "formik";
 import questionService from "src/services/question.service";
 import { setMessage } from "src/actions/message";
+import { addQuestionValidaitonSchema } from "../yupSchemas";
 
 const labelStyle = {
   fontFamily: "sans-serif",
@@ -39,6 +40,7 @@ export default ({ firstFieldRef, dispatchClose, data }) => {
               dispatch(setMessage(t("comment.add.errorMessage"), "error"))
             );
         }}
+        validationSchema={ addQuestionValidaitonSchema(t) }
       >
         {(props) => (
           <Form>
