@@ -57,6 +57,9 @@ const question = (t) =>
 const surname = (t) =>
   Yup.string()
     .required(t("events:event.errors.required"));
+const firstName = (t) =>
+  Yup.string()
+    .required(t("common:forms.errors.required"));
 
 export const registerFormValidationSchema = (t) =>
   Yup.object({
@@ -105,4 +108,13 @@ export const addSpeakerValidaitonSchema = (t) =>
     name: name(t),
     surname: surname(t),
     description: description(t),
+  });
+
+  
+export const editUserFormValidationSchema = (t) =>
+  Yup.object({
+    firstName: firstName(t),
+    surname: surname(t),
+    password: password(t),
+    email: email(t),
   });

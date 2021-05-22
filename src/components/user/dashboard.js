@@ -6,7 +6,7 @@ export default function DrawerExample() {
 
     return (
       <div>
-      <EditUser/>
+        <EditUser/>
       </div>
     )
   }

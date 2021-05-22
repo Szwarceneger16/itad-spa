@@ -36,6 +36,7 @@ export function UserAvatar() {
           placement="right"
           onClose={onClose}
           finalFocusRef={btnRef}
+          transitionDuration={{ enter: 500, exit: 1000 }}
         >
           <DrawerOverlay>
             <DrawerContent>

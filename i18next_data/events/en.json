@@ -249,5 +249,9 @@
             "who": "Author",
             "content": "Question"
         }
+    },
+    "home": {
+        "allEvents": "All Events"
     }
+    
 }

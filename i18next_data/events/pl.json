@@ -249,5 +249,8 @@
             "who": "Autor",
             "content": "Pytanie"
         }
+    },
+    "home": {
+        "allEvents": "Wszystkie Wydarzenia"
     }
 }

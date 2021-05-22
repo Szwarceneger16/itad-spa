@@ -61,5 +61,13 @@
     },
     "register": {
         "title": "Register"
+    },
+    "aboutUs":{
+        "heading":{
+            "simple": "SIMPLE",
+            "event": "EVENT",
+            "creation": "CREATION"
+        },
+        "body": "The application was created for people who want to create their own events. You will manage them, add lectures, speakers, after the event you will get statistics related to it. Every user will have the option to sign up for your event. With QR code and mobile version you can easily check the attendance on your event. Users will be able to ask questions to the speakers."
     }
 }

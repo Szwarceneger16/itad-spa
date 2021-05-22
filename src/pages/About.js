@@ -12,7 +12,7 @@ import {
 import { Button } from "@chakra-ui/button";
 import { Spinner } from "@chakra-ui/spinner";
 import React, { Suspense, useState, useTransition } from "react";
-
+import { useTranslation } from "react-i18next";
 import { userTokenContext } from "./../components/contexts.js";
 
 function fetchData(id) {
@@ -79,7 +79,7 @@ const labelStyle = {
 export function About() {
   //let setter = useContext(userTokenContext);
   const [message, setMessage] = useState(res);
-
+  const { t, i18n } = useTranslation(["common"]); 
   //console.log('About',message)
   return (
     <div>
@@ -103,7 +103,7 @@ export function About() {
                 fontSize={{ sm: "41px", md: "41px", lg: "45px" }}
                 textAlign="right" 
                 fontFamily="sans-serif"
-                >PROSTE <br/>TWORZENIE <Text color="tomato">WYDARZEŃ</Text></Text>
+                >{t("common:aboutUs.heading.simple")}<br/>{t("common:aboutUs.heading.event")}<Text color="tomato">{t("common:aboutUs.heading.creation")}</Text></Text>
                 </Box>
               </Box>
             </Box>
@@ -120,50 +120,7 @@ export function About() {
                   fontSize={{ sm: "15px", md: "17px", lg: "18px" }} 
                   textAlign="left" 
                   fontFamily="sans-serif"
-                  >Aplikacja została stworzona z myślą o ludziach chcących stworzyć swoje własne wydarzenia. 
-                  Dzięki niej będziesz mógł nimi zarządzać, dodawać prelekcję, prelegentów po zakończonym wydarzeniu dostaniesz statystyki z nim związane.
-                  Każdy z użytkowników będzie mógł zpisać się na twoje wydarzenie. Dzięki wygenerowanemu kodu QR oraz wersji mobilnej
-                  w łatwy sposób sprawdzisz obecności na swoim wydarzeniu. Uczestnicy będą mogli zadawać pytania prowadzącym wykłady.</Text>
-                </Box>
-              </Box>
-            </Box>
-        </Flex>
-
-        <Flex wrap='wrap' minH='60vh' align="center" justify="center" >
-        <Box w={'350px'} h={{ sm: "250px", md: "300px", lg: "330px" }} borderWidth="1px" borderRadius="25px" overflow="hidden" bg="white">
-              <Box p="6">
-                <Box
-                  mt="1"
-                  fontWeight="semibold"
-                  as="h4"
-                  lineHeight="tight"
-                  
-                >
-                <Text 
-                fontSize={{ sm: "41px", md: "41px", lg: "45px" }}
-                textAlign="right" 
-                fontFamily="sans-serif"
-                >
-                  SIMPLE<br/>EVENT<Text color="tomato">CREATION</Text></Text>
-                </Box>
-              </Box>
-            </Box>
-            <Box w={'500px'} h={{ sm: "250px", md: "300px", lg: "330px" }} borderWidth="1px" borderRadius="25px" overflow="hidden" bg="white">
-              <Box p="6">
-                <Box
-                  mt="2"
-                  
-                  as="h4"
-                  lineHeight="tight"
-                  bg="white"
-                >
-                  <Text
-                  fontSize={{ sm: "15px", md: "17px", lg: "18px" }} 
-                  textAlign="left" 
-                  fontFamily="sans-serif"
-                  > The application was created for people who want to create their own events. You will manage them, add lectures, speakers, 
-                  after the event you will get statistics related to it. Every user will have the option to sign up for your event. With 
-                  QR code and mobile version you can easily check the attendance on your event. Users will be able to ask questions to the speakers.</Text>
+                  >{t("common:aboutUs.body")}</Text>
                 </Box>
               </Box>
             </Box>

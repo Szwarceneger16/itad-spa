@@ -46,5 +46,11 @@
     },
     "errorEmail":{
         "heading": "Information"
+    },
+    "userDashboard":{
+        "modify":{
+            "succesmessage": "Correct modification of your data",
+            "errorMessage": "Incorrect modification of your data"
+        }
     }
 }

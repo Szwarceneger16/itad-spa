@@ -61,5 +61,13 @@
     },
     "register": {
         "title": "Rejestracja"
+    },
+    "aboutUs":{
+        "heading":{
+            "simple": "PROSTE",
+            "event": "TWORZENIE",
+            "creation": "WYDARZEŃ"
+        },
+        "body": "Aplikacja została stworzona z myślą o ludziach chcących stworzyć swoje własne wydarzenia. Dzięki niej będziesz mógł nimi zarządzać, dodawać prelekcję, prelegentów po zakończonym wydarzeniu dostaniesz statystyki z nim związane. Każdy z użytkowników będzie mógł zpisać się na twoje wydarzenie. Dzięki wygenerowanemu kodu QR oraz wersji mobilnej w łatwy sposób sprawdzisz obecności na swoim wydarzeniu. Uczestnicy będą mogli zadawać pytania prowadzącym wykłady."
     }
 }

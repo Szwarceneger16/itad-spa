@@ -36,38 +36,38 @@ function handleClick(id){
 }
 
 const eventDisplay = eventsData ? (
-  eventsData.map((event) => (
+  eventsData.map((event, index) => (
       
-      <Box w={'sm'} borderWidth="1px" borderRadius="lg" overflow="hidden">
-      <Image src={jpg[ Math.floor(Math.random() * jpg.length)]} alt={"Wydarzenie"} />
+      <Box key={index} w={'sm'} h = {'sm'} borderWidth="1px" borderRadius="lg" overflow="hidden">
+        <Image src={jpg[ Math.floor(Math.random() * jpg.length)]} alt={"Wydarzenie"} />
 
-      <Box p="6">
-        <Box d="flex" alignItems="baseline">
-          <Badge borderRadius="full" px="2" colorScheme="teal">
-           { event.startDate &&
-                        DateFns.format(event.startDate, "MM-dd-yyyy")}
-          </Badge>
-        </Box>
-        <Box
-          mt="1"
-          fontWeight="semibold"
-          as="h3"
-          lineHeight="tight"
-          isTruncated
-        >
-          {event.name}
-        </Box>
-        <Box
-          mt="1"
-          fontWeight="semibold"
-          as="h4"
-          lineHeight="tight"
-          isTruncated
-        >
-          {event.description}
+        <Box p="6">
+          <Box d="flex" alignItems="baseline">
+            <Badge borderRadius="full" px="2" colorScheme="teal">
+            { event.startDate &&
+                          DateFns.format(event.startDate, "MM-dd-yyyy")}
+            </Badge>
+          </Box>
+          <Box
+            mt="1"
+            fontWeight="semibold"
+            as="h3"
+            lineHeight="tight"
+            isTruncated
+          >
+            {event.name}
+          </Box>
+          <Box
+            mt="1"
+            fontWeight="semibold"
+            as="h4"
+            lineHeight="tight"
+            isTruncated
+          >
+            {event.description}
+          </Box>
         </Box>
       </Box>
-    </Box>
     ))
   ) : (
     <Spinner />
@@ -75,8 +75,8 @@ const eventDisplay = eventsData ? (
 
     return (
       <>
-      <Heading fontSize="3xl" textAlign="center">
-        {t("events:main.home.allEvents")}
+      <Heading fontSize="50px" textAlign="center" minH='12vh'>
+        {t("events:home.allEvents")}
       </Heading>
       <Flex wrap='wrap' minH='100vh' align="center" justify="center" >
         {eventDisplay}
@@ -88,8 +88,8 @@ const eventDisplay = eventsData ? (
 function Article({ imageUrl, imageAlt, title, description, date,...props}) {
 
   return (
-    <Box w={props.width || 'sm'} borderWidth="1px" borderRadius="lg" overflow="hidden">
-      <Image src={imageUrl} alt={imageAlt} />
+    <Box w={'sm'} h = {'sm'} borderWidth="1px" borderRadius="lg" overflow="hidden">
+      <Image src={imageUrl} alt={imageAlt} w={'10px'} h={'10px'}/>
 
       <Box p="6">
         <Box d="flex" alignItems="baseline">

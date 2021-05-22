@@ -7,7 +7,7 @@ import { Formik,Field, Form } from 'formik';
 import { InputDate, InputText, InputPassword, InputEmail} from '../forms/InputElements';
 import { CloseIconButton, DeleteIconButton, SubmitButton } from "../forms/buttons";
 import { useTranslation } from 'react-i18next';
-import { editUserFormValidationSchema } from "../auth/yupSchemas";
+import { editUserFormValidationSchema } from "src/components/yupSchemas";
 import ReactDOM from "react-dom";
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 export default function EditUser(firstFieldRef, dispatchClose) {
-const { t, i18n } = useTranslation(['common','userDashboard']);
+const { t, i18n } = useTranslation(['common','auth']);
 const [toggle, setToggle] = React.useState(true);
 const userId = GetUserId();
 
@@ -51,12 +51,12 @@ const history = useHistory();
         userService.modifyUser(values.email, values.firstName,values.password, values.surname)
         .then((response) => {
           dispatch(
-            setMessage(t("userDashboard:modify.succesmessage"), "succes")
+            setMessage(t("auth:userDashboard.modify.succesmessage"), "succes")
           );
           //dispatchClose();
         })
         .catch((error) => {
-          dispatch(setMessage(t("userDashboard:modify.errorMessage"), "error"));
+          dispatch(setMessage(t("auth:userDashboard.modify.errorMessage"), "error"));
         })
         .finally(() => {
           actions.setSubmitting(false);
@@ -80,49 +80,19 @@ const history = useHistory();
             >  
             {(props) =>(
               <Form>
-                {toggle ? (
-                  <p onDoubleClick={toggleInput}>
-                    <TextField
-                      id="firstName"
-                      label={t('userDashboard:input.firstName')}
-                      defaultValue = {userData.firstName}
-                      InputProps={{
-                        readOnly: true,
-                      }}
-                    />
-                  </p>
-                ) : (
-                  <InputText 
+                <InputText 
                   labelStyle={labelStyle}
                   innerRef={firstFieldRef}
                   fieldName='firstName' 
                   labels={{inputTitle: t('auth:edit.drawer.firstName')}}   
                 />
-                )}
-                {toggle ? (
-                  <p onDoubleClick={toggleInput}>
-                    <TextField
-                      id="surname"
-                      label={t('userDashboard:input.surname')}
-                      defaultValue = {userData.surname}
-                      InputProps={{
-                        readOnly: true,
-                      }}
-                    />
-                  </p>
-                ) : (
-                <InputText 
+                 <InputText 
                   labelStyle={labelStyle}
                   innerRef={firstFieldRef}
                   fieldName='surname' 
                   labels={{inputTitle: t('auth:edit.drawer.surname')}}   
                 />
-                )}
-                {toggle ? (
-                  <p onDoubleClick={toggleInput}>
-                  </p>
-                ) : (
-                <InputPassword
+                 <InputPassword
                   labelStyle={labelStyle}
                   fieldName="password"
                   labels={{
@@ -130,32 +100,12 @@ const history = useHistory();
                     buttonHide: t("common:buttons.passwordVisibilityToggle.hide"),
                     buttonShow: t("common:buttons.passwordVisibilityToggle.show"),}}   
                 />
-                )}
-                
-                {toggle ? (
-                  <p onDoubleClick={toggleInput}>
-                    <TextField
-                      id="email"
-                      label={t('userDashboard:input.email')}
-                      defaultValue = {userData.email}
-                      InputProps={{
-                        readOnly: true,
-                      }}
-                    />
-                  </p>
-                ) : (
-                  <InputEmail
+                <InputEmail
                     labelStyle={labelStyle}
                     fieldName="email"
                     labels={{ inputTitle: t('auth:edit.drawer.email')}}
                   />
-                )}      
-                {toggle ? (
-                  <p onDoubleClick={toggleInput}>
-                  </p>
-                ) : (
-                  <SubmitButton isSubmitting={props.isSubmitting} />
-                )}        
+                  <SubmitButton isSubmitting={props.isSubmitting} />                 
               </Form>
             )}
         </Formik>  
