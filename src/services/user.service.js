@@ -1,7 +1,6 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 import { API_URL } from "./config";
-
 const defaultHeaders = {
   "Content-Type": "application/json",
 };
@@ -30,6 +29,16 @@ class UserService {
     return axios.get(
       API_URL + "lecture/getLectureFromEvent?eventId=" + eventId
     );
+  }
+
+  modifyUser(email, name, password, surname) {
+    return axios.put(
+      API_URL + "user",
+      { email, name, password, surname },
+      {
+        headers: { defaultHeaders, ...authHeader() },
+      }
+      );
   }
 }
 
