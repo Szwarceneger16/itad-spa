@@ -27,14 +27,13 @@ function LoginForm() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const submitFrom = (values, actions) => {
+  const submitFrom = async (values, actions) => {
     try {
-      dispatch(login(values.login, values.password, values.rememberMe));
+      await dispatch(login(values.login, values.password, values.rememberMe));
       dispatch(setMessage(t("auth:alert.login.succes"), "succes"));
       actions.setSubmitting(false);
       history.push("/");
     } catch (error) {
-      debugger;
       dispatch(setMessage(t("auth:alert.login.error"), "error"));
       actions.setSubmitting(false);
     }

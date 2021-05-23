@@ -40,7 +40,7 @@ function MenuPanel({
   const [actualCrownsState, setActualCrownState] = useState(
     () => generator.next(0).value
   );
-  debugger;
+
   const boxWidth = circleRadius * 1.5,
     boxHeight = circleRadius * 1.3;
 
@@ -106,7 +106,6 @@ function MenuCrown({
   onClick,
   ...props
 }) {
-  debugger;
   return (
     <Box
       ref={reff}
