@@ -23,7 +23,7 @@ const FooterContainer = ({ children, ...props }) => {
         p={0}
         h={"6vh"}
         bg={["green.500", "green.500", "orange.400", "orange.400"]}
-        color={["white", "white", "green.700", "green.700"]}
+        color={["green.700", "green.700", "green.700", "green.700"]}
         {...props}
         >
             {children}
