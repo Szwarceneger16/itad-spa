@@ -78,8 +78,8 @@ export const eventModifyValidaitonSchema = (t) =>
   Yup.object({
     name: name(t),
     description: description(t),
-    eventStartDate: eventStartDate(t),
-    eventEndtDate: eventEndtDate(t),
+    startDate: eventStartDate(t),
+    //endtDate: eventEndtDate(t),
     availableTickets: availableTickets(t),
     ticketPrice: ticketPrice(t),
   });
