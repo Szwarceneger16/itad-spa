@@ -237,7 +237,10 @@
         },
         "speakers":{
            "heading": "Prelegenci" 
-        }
+        },
+        "question":{
+            "heading": "Pytanie"
+            }
     },
     "question":{
         "heading": "Pytanie",
@@ -247,7 +250,7 @@
         "addComment": "Zadaj pytanie",
         "table":{
             "who": "Autor",
-            "content": "Pytanie"
+            "content": "Treść"
         }
     },
     "home": {

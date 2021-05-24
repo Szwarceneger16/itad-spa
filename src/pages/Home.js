@@ -75,7 +75,7 @@ const eventDisplay = eventsData ? (
 
     return (
       <>
-      <Heading fontSize="50px" textAlign="center" minH='12vh'>
+      <Heading fontSize="50px" textAlign="center" minH='12vh' style={{ marginTop: `30px` }}>
         {t("events:home.allEvents")}
       </Heading>
       <Flex wrap='wrap' minH='100vh' align="center" justify="center" >

@@ -236,8 +236,11 @@
             "errorMessage": "Incorrect adding of a comment"
         },
         "speakers":{
-           "heading": "Speakers" 
-        }
+           "heading": "Speakers"
+        },
+        "question":{
+            "heading": "Question"
+            }
     },
     "question":{
         "heading": "Question",
@@ -247,7 +250,7 @@
         "addComment": "Ask a question",
         "table":{
             "who": "Author",
-            "content": "Question"
+            "content": "Contents"
         }
     },
     "home": {

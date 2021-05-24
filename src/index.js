@@ -9,6 +9,8 @@ import { pl, enUS, enGB } from "date-fns/locale";
 import { Provider } from "react-redux";
 import store from "./store.js";
 import { BrowserRouter as Router } from "react-router-dom";
+import theme from "./theme"
+import { ColorModeScript } from "@chakra-ui/react"
 
 // const theme = extendTheme({
 //   fonts: {
