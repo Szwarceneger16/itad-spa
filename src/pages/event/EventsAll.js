@@ -111,7 +111,7 @@ export function Events() {
 
   return (
     <VStack {...styles.vStack}>
-      <Heading fontSize="3xl" textAlign="center">
+      <Heading fontSize="3xl" textAlign="center" style={{ marginTop: `30px` }}>
         {t("events:event.eventsList.heading")}
       </Heading>
       <Flex {...styles.flexContainerForTable}>

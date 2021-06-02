@@ -38,7 +38,7 @@ export function MyTickets() {
 
   return (
     <VStack {...styles.vStack}>
-      <Heading fontSize="3xl" textAlign="center">
+      <Heading fontSize="3xl" textAlign="center" style={{ marginTop: `30px` }}>
         {t("tickets:main.heading")}
       </Heading>
       <Flex {...styles.ticketFlexConatiner}>{ticketsDisplay}</Flex>

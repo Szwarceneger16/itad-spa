@@ -9,7 +9,7 @@ export function ScanQR() {
 
   return (
     <Stack spacing={[2, 2, 6]} mx="auto" w="100%" py={[0]} px={[1, 2, 6]}>
-      <Heading fontSize="3xl" textAlign="center">
+      <Heading fontSize="3xl" textAlign="center" style={{ marginTop: `30px` }}>
         {t("tickets:qr.viewer.heading")}
       </Heading>
       <Box rounded="lg" bg="white" boxShadow="lg" py={[2]} px={[2, 4, 6]}>

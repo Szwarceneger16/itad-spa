@@ -86,7 +86,8 @@ export function About() {
       <Heading 
       fontSize="57px" 
       textAlign="center" 
-      color="tomato">
+      color="tomato"
+      style={{ marginTop: `30px` }}>
           CONNECT
       </Heading>
       <Flex wrap='wrap' minH='60vh' align="center" justify="center" >

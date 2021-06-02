@@ -27,7 +27,7 @@ export function EventAddEdit() {
 
   return (
     <VStack {...styles.vStack}>
-      <Heading fontSize="3xl" textAlign="center">
+      <Heading fontSize="3xl" textAlign="center" style={{ marginTop: `30px` }}>
         {t("events:EventModify.main.heading")}
       </Heading>
       <Flex {...styles.flexContainer}>

@@ -9,7 +9,7 @@ export function MyQR() {
 
   return (
     <Stack spacing={8} mx="auto" w="full" maxW="md" py={12} px={6}>
-      <Heading fontSize="3xl" textAlign="center">
+      <Heading fontSize="3xl" textAlign="center" style={{ marginTop: `30px` }}>
         {t("tickets:qr.viewer.title")}
       </Heading>
       <Box rounded="lg" bg="white" boxShadow="lg" p={{ base: 4, md: 8 }}>

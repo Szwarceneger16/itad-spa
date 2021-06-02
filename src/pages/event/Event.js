@@ -59,7 +59,7 @@ export function EventDetails() {
   return (
     <VStack spacing={8} mx="auto" w="100%" py={12} px={0} p={0} m={0}>
       <Skeleton isLoaded={!!eventData}>
-        <Heading fontSize="3xl" textAlign="center">
+        <Heading fontSize="3xl" textAlign="center" style={{ marginTop: `30px` }}>
           {t("events:eventDetails.heading") + ` ${eventId} `}
         </Heading>
         <Flex {...styles.flexContainer}>
