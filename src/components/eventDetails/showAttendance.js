@@ -3,13 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import AttandanceModal from "./attandanceModal";
 import styles from "./style";
-
+import { Redirect, useHistory, useParams,Link} from "react-router-dom";
 import { GetSpeakersData } from "src/selectors";
 
 const cellWidths = [["25%"], ["25%"], ["40%"], ["10%"]];
 export default function ({ openAttendance, attandanceData, eventId }) {
   const { t, i18n } = useTranslation(["common", "events"]);
-
   return (
     <>
       <Heading {...styles.text}>
@@ -18,9 +17,16 @@ export default function ({ openAttendance, attandanceData, eventId }) {
 
       <Divider size="40px"></Divider>
       {/* <Skeleton isLoaded={!!speakersData}> */}
-      <Button>{t("events:eventDetails.showAttendance.attendanceListPDF")}</Button>
-      <Button>{t("events:eventDetails.showAttendance.attendanceListCSV")}</Button>
-
+      
+      {/*<Button >{t("events:eventDetails.showAttendance.attendanceListPDF")}</Button>*/}
+    
+      <Button onClick={(e) => {
+        e.preventDefault();
+        window.location.href='http://localhost:3100/api/event/presence?eventId='+ ` ${eventId} `;
+        }}>
+          {t("events:eventDetails.showAttendance.attendanceListCSV")}
+      </Button>
+     
       {/* <AttandanceModal
         eventId={eventId}
         defaultIsOpen={openAttendance}

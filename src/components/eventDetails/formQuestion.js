@@ -22,7 +22,7 @@ export default ({ firstFieldRef, dispatchClose, data }) => {
   const dispatch = useDispatch();
 
   return (
-    <Box minWidth="400px">
+    <Box minWidth="300px">
       <Formik
         initialValues={{
           question: "",
@@ -47,7 +47,7 @@ export default ({ firstFieldRef, dispatchClose, data }) => {
             <PopoverBody>
               <Box>
                 <MyTable
-                  columnsWidth={[["40%"], ["60%"]]}
+                  columnsWidth={[["40%"], ["50%"]]}
                   labels={[
                     t("events:question.table.who"),
                     t("events:question.table.content"),
@@ -67,7 +67,7 @@ export default ({ firstFieldRef, dispatchClose, data }) => {
                     inputTitle: t("events:question.addComment"),
                   }}
                 />
-                <Button mx={2} onClick={props.handleSubmit}>
+                <Button mx={1} onClick={props.handleSubmit}>
                   {t("events:question.button.submit")}
                 </Button>
               </Flex>

@@ -2,11 +2,14 @@
     "scanner":{
         "message":{
             "ticketError": "Ticket Error",
-            "scanNextMessage": "Scan Next Message",
+            "scanNext": "You can scan next",
             "waitForVerification": "Wait For Verification",
             "ticketPayed": "The ticket is prepaid",
             "ticketNotPayed": "The ticket is not paid",
-            "scannerError": "Scanner Error"        
+            "scannerError": "Scanner Error",  
+            "notRezgonizedError": "Not recognized",
+            "payed": "Payed",
+            "notPayed": "Not Payed"
         },
         "choose": {
             "event": "Choose event",

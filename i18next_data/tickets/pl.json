@@ -2,11 +2,14 @@
     "scanner":{
         "message":{
             "ticketError": "Błąd z biletem",
-            "scanNextMessage": "Skanuj następną wiadomość",
+            "scanNext": "Możesz skanować dalej",
             "waitForVerification": "Czekaj na weryfikacje",
             "ticketPayed": "Bilet jest płacony",
             "ticketNotPayed": "Bilet nie jest opłacony",
-            "scannerError": "Błąd skanera"        
+            "scannerError": "Błąd skanera",  
+            "notRezgonizedError": "Nie rozpoznano",
+            "payed": "Zapłacono",
+            "notPayed": "Niezapłacono"       
         },
         "choose": {
             "event": "Wybierz wydarzenie",
